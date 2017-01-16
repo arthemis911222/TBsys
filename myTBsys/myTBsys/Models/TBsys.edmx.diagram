@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="42d94bf5233c40f7a004a2f73aea2752" Name="Diagram1">
+        <EntityTypeShape EntityType="TBsysModel.T_SH_Academy" Width="1.5" PointX="0.75" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TBsysModel.T_SH_Class" Width="1.5" PointX="7.5" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TBsysModel.T_SH_Department" Width="1.5" PointX="3" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TBsysModel.T_SH_Major" Width="1.5" PointX="5.25" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TBsysModel.T_SH_Student" Width="1.5" PointX="9.75" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TBsysModel.T_SH_Teacher" Width="1.5" PointX="7.5" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TBsysModel.T_TB_Books" Width="1.5" PointX="9.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TBsysModel.T_TB_Choose" Width="1.5" PointX="12" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TBsysModel.T_TB_Fenfa" Width="1.5" PointX="12" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TBsysModel.T_TB_StuYuding" Width="1.5" PointX="15" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TBsysModel.T_TB_TeachingTask" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TBsysModel.T_TB_TeaYuding" Width="1.5" PointX="15" PointY="4.375" IsExpanded="true" />
+        <AssociationConnector Association="TBsysModel.FK_T_SH_Department_ToAcademy" ManuallyRouted="false" />
+        <AssociationConnector Association="TBsysModel.FK_T_TB_TeachingTask_ToAcademy" ManuallyRouted="false" />
+        <AssociationConnector Association="TBsysModel.FK_T_SH_Class_ToMajor" ManuallyRouted="false" />
+        <AssociationConnector Association="TBsysModel.FK_T_SH_Student_ToClass" ManuallyRouted="false" />
+        <AssociationConnector Association="TBsysModel.FK_T_TB_TeachingTask_ToClass" ManuallyRouted="false" />
+        <AssociationConnector Association="TBsysModel.FK_T_SH_Major_ToDepartment" ManuallyRouted="false" />
+        <AssociationConnector Association="TBsysModel.FK_T_TB_TeachingTask_ToDepartment" ManuallyRouted="false" />
+        <AssociationConnector Association="TBsysModel.FK_T_TB_Fenfa_ToStu" ManuallyRouted="false" />
+        <AssociationConnector Association="TBsysModel.FK_T_TB_Yuding_ToStu" ManuallyRouted="false" />
+        <AssociationConnector Association="TBsysModel.FK_T_TB_TeachingTask_ToTeacher" ManuallyRouted="false" />
+        <AssociationConnector Association="TBsysModel.FK_T_TB_TeaYuding_ToTeacher" ManuallyRouted="false" />
+        <AssociationConnector Association="TBsysModel.FK_T_TB_Choose_ToBook" ManuallyRouted="false" />
+        <AssociationConnector Association="TBsysModel.FK_T_TB_Fenfa_ToBook" ManuallyRouted="false" />
+        <AssociationConnector Association="TBsysModel.FK_T_TB_TeaYuding_ToBook" ManuallyRouted="false" />
+        <AssociationConnector Association="TBsysModel.FK_T_TB_Yuding_ToBook" ManuallyRouted="false" />
+        <AssociationConnector Association="TBsysModel.FK_T_TB_Choose_ToTeachingTask" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="TBsysModel.T_SH_Workers" Width="1.5" PointX="5.375" PointY="1.625" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
