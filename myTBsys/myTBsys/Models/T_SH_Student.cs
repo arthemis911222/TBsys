@@ -21,7 +21,7 @@ namespace myTBsys.Models
             this.T_TB_StuYuding = new HashSet<T_TB_StuYuding>();
         }
     
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string Name { get; set; }
         public string Password { get; set; }
         public Nullable<System.DateTime> SchoolTime { get; set; }

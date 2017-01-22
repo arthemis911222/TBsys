@@ -15,7 +15,7 @@ namespace myTBsys.Models
     public partial class T_TB_TeaYuding
     {
         public int Id { get; set; }
-        public Nullable<int> TeaId { get; set; }
+        public string TeaId { get; set; }
         public Nullable<int> BookId { get; set; }
     
         public virtual T_SH_Teacher T_SH_Teacher { get; set; }

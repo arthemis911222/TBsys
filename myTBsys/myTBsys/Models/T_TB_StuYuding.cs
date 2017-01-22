@@ -15,7 +15,7 @@ namespace myTBsys.Models
     public partial class T_TB_StuYuding
     {
         public int Id { get; set; }
-        public int StuId { get; set; }
+        public string StuId { get; set; }
         public int BookId { get; set; }
     
         public virtual T_SH_Student T_SH_Student { get; set; }

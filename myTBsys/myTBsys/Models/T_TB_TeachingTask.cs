@@ -21,8 +21,8 @@ namespace myTBsys.Models
         }
     
         public int Id { get; set; }
-        public Nullable<int> CourseId { get; set; }
-        public Nullable<int> CourseName { get; set; }
+        public string CourseId { get; set; }
+        public string CourseName { get; set; }
         public string WeekTime { get; set; }
         public Nullable<double> Score { get; set; }
         public string CourseNature { get; set; }
@@ -32,7 +32,7 @@ namespace myTBsys.Models
         public string ExpTime { get; set; }
         public string MachineTime { get; set; }
         public string SEweek { get; set; }
-        public Nullable<int> TeacherId { get; set; }
+        public string TeacherId { get; set; }
         public string IsMix { get; set; }
         public Nullable<int> DepartmentId { get; set; }
         public Nullable<int> AcademyId { get; set; }

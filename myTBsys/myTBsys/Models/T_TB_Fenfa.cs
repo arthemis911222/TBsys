@@ -20,7 +20,7 @@ namespace myTBsys.Models
         public Nullable<double> ShouldPay { get; set; }
         public Nullable<double> RealPay { get; set; }
         public Nullable<System.DateTime> Time { get; set; }
-        public int StuId { get; set; }
+        public string StuId { get; set; }
     
         public virtual T_SH_Student T_SH_Student { get; set; }
         public virtual T_TB_Books T_TB_Books { get; set; }
