@@ -169,6 +169,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Areas\TBsys\Controllers\DeanController.cs" />
     <Compile Include="Areas\TBsys\Controllers\LoginController.cs" />
     <Compile Include="Areas\TBsys\Controllers\StudentController.cs" />
     <Compile Include="Areas\TBsys\Controllers\TeacherController.cs" />
@@ -196,6 +197,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>TBsys.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\T_QT_Other.cs">
+      <DependentUpon>TBsys.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\T_SH_Academy.cs">
       <DependentUpon>TBsys.tt</DependentUpon>
@@ -225,6 +229,9 @@
       <DependentUpon>TBsys.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\T_TB_Fenfa.cs">
+      <DependentUpon>TBsys.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\T_TB_StoreTable.cs">
       <DependentUpon>TBsys.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\T_TB_StuYuding.cs">
@@ -438,6 +445,12 @@
     <Content Include="sbadmin\vendor\font-awesome\scss\_spinning.scss" />
     <Content Include="sbadmin\vendor\font-awesome\scss\_stacked.scss" />
     <Content Include="sbadmin\vendor\font-awesome\scss\_variables.scss" />
+    <Content Include="Areas\TBsys\Views\Teacher\Index.cshtml" />
+    <Content Include="Areas\TBsys\Views\Teacher\Choose.cshtml" />
+    <Content Include="Areas\TBsys\Views\Teacher\GetLIst.cshtml" />
+    <Content Include="Areas\TBsys\Views\Student\GetChoose.cshtml" />
+    <Content Include="Areas\TBsys\Views\Dean\DeanIndex.cshtml" />
+    <Content Include="Areas\TBsys\Views\Dean\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -488,7 +501,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\TBsys\Models\" />
-    <Folder Include="Areas\TBsys\Views\Teacher\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

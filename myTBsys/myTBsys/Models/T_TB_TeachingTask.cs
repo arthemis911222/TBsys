@@ -18,6 +18,9 @@ namespace myTBsys.Models
         public T_TB_TeachingTask()
         {
             this.T_TB_Choose = new HashSet<T_TB_Choose>();
+            this.T_TB_StoreTable = new HashSet<T_TB_StoreTable>();
+            this.T_TB_StuYuding = new HashSet<T_TB_StuYuding>();
+            this.T_TB_TeaYuding = new HashSet<T_TB_TeaYuding>();
         }
     
         public int Id { get; set; }
@@ -39,6 +42,8 @@ namespace myTBsys.Models
         public int ClassId { get; set; }
         public Nullable<int> StuNum { get; set; }
         public string Description { get; set; }
+        public int State { get; set; }
+        public string Semeter { get; set; }
     
         public virtual T_SH_Academy T_SH_Academy { get; set; }
         public virtual T_SH_Class T_SH_Class { get; set; }
@@ -46,5 +51,11 @@ namespace myTBsys.Models
         public virtual T_SH_Teacher T_SH_Teacher { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<T_TB_Choose> T_TB_Choose { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<T_TB_StoreTable> T_TB_StoreTable { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<T_TB_StuYuding> T_TB_StuYuding { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<T_TB_TeaYuding> T_TB_TeaYuding { get; set; }
     }
 }

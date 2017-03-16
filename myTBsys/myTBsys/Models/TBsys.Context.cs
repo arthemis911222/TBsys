@@ -25,6 +25,7 @@ namespace myTBsys.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<T_QT_Other> T_QT_Other { get; set; }
         public virtual DbSet<T_SH_Academy> T_SH_Academy { get; set; }
         public virtual DbSet<T_SH_Class> T_SH_Class { get; set; }
         public virtual DbSet<T_SH_Department> T_SH_Department { get; set; }
@@ -35,6 +36,7 @@ namespace myTBsys.Models
         public virtual DbSet<T_TB_Books> T_TB_Books { get; set; }
         public virtual DbSet<T_TB_Choose> T_TB_Choose { get; set; }
         public virtual DbSet<T_TB_Fenfa> T_TB_Fenfa { get; set; }
+        public virtual DbSet<T_TB_StoreTable> T_TB_StoreTable { get; set; }
         public virtual DbSet<T_TB_StuYuding> T_TB_StuYuding { get; set; }
         public virtual DbSet<T_TB_TeachingTask> T_TB_TeachingTask { get; set; }
         public virtual DbSet<T_TB_TeaYuding> T_TB_TeaYuding { get; set; }

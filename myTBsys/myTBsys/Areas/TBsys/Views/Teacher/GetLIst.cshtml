@@ -1,0 +1,315 @@
+﻿@using myTBsys.Models;
+@{
+    ViewBag.Title = "教学任务教材-已填写";
+    Layout = "~/Areas/TBsys/Views/Shared/_Layout.cshtml";
+
+    List<T_TB_Choose> list = ViewBag.list;
+
+    int pageIndex = ViewBag.pageIndex;
+    int pageSize = ViewBag.pageSize;
+    int recordCount = ViewBag.recordCount;
+    int maxPage = (int)Math.Ceiling(Convert.ToDecimal(recordCount) / Convert.ToDecimal(pageSize));
+
+    string search = ViewBag.search;
+
+    int flag = ViewBag.flag;
+
+}
+
+<div class="col-lg-12">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            DataTables Advanced Tables
+        </div>
+        <!-- /.panel-heading -->
+        <div class="panel-body">
+            <div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="dataTables_length" id="dataTables-example_length">
+                            <label>
+                                Show <select name="dataTables-example_length" aria-controls="dataTables-example" class="form-control input-sm">
+                                    <option value="10">10</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                </select> entries
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div id="dataTables-example_filter" class="dataTables_filter">
+                            <form role="form" action="/TBsys/Teacher/Choose" method="post">
+                                <div class="input-group custom-search-form pull-right">
+                                    <input class="form-control" placeholder="Search..." type="text" name="searchName">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="submit">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table width="100%" class="table table-striped table-bordered table-hover dataTable no-footer dtr-inline" id="dataTables-example" role="grid" aria-describedby="dataTables-example_info" style="width: 100%;">
+                            <thead>
+                                <tr role="row">
+                                    <th class="sorting_asc" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 122px;">
+                                        <a href="~/TBsys/Teacher/Choose?orderField=Id desc">序号</a>
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 151px;">
+                                        <a href="~/TBsys/Teacher/Choose?orderField=class">班级</a>
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 151px;">
+                                        人数
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 151px;">
+                                        课程代码
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 151px;">
+                                        课程名
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 151px;">
+                                        <a href="~/TBsys/Teacher/Choose?orderField=category">课程性质</a>
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 136px;">
+                                        <a href="~/TBsys/Teacher/Choose?orderField=category">课程类别</a>
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 136px;">状态</th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 136px;">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    foreach (T_TB_Choose item in list)
+                                    {
+                                        <tr class="gradeA odd" role="row">
+                                            <td class="sorting_1">@item.TeachingTaskId</td>
+                                            <td>@item.T_TB_TeachingTask.T_SH_Class.Name</td>
+                                            <td>@item.T_TB_TeachingTask.StuNum</td>
+                                            <td>@item.T_TB_TeachingTask.CourseId</td>
+                                            <td>@item.T_TB_TeachingTask.CourseName</td>
+                                            <td>@item.T_TB_TeachingTask.CourseNature</td>
+                                            <td>@item.T_TB_TeachingTask.CourseType</td>
+                                            <td class="hidden">
+                                                <input type="hidden" value="@item.T_TB_Books.Id" />
+                                                <input type="hidden" value="@item.T_TB_Books.Name" />
+                                                <input type="hidden" value="@item.T_TB_Books.Author" />
+                                                <input type="hidden" value="@item.T_TB_Books.Price" />
+                                                <input type="hidden" value="@item.T_TB_Books.Publisher" />
+                                                <input type="hidden" value="@item.T_TB_Books.Edition" />
+                                                <input type="hidden" value="@item.State" />
+
+                                                <textarea class="hidden">@item.Reason</textarea>
+
+                                            </td>
+                                            @{
+                                                if (item.State == 1)
+                                                {
+                                                    <td class="text-success text-center"><strong>审核通过</strong></td>
+                                                    <td class="center">
+                                                        <button type="button" class="btn btn-default btn-sm" onclick="choose(this)">查看</button>
+                                                    </td>
+                                                }
+                                                else if(flag == 0)
+                                                {
+                                                    <td class="text-info text-center"><strong>正在审核...</strong></td>
+                                                    <td class="center">
+                                                        <button type="button" class="btn btn-default btn-sm" onclick="choose(this)">查看</button>
+                                                    </td>
+                                                }
+                                                else
+                                                {
+                                                    if (item.State == 0)
+                                                    {
+                                                        <td class="text-center" ><strong>未审核</strong></td>
+
+                                                    }else if (item.State == 2)
+                                                    {
+                                                        <td class="text-danger text-center"><strong>审核不通过</strong></td>
+                                                    }else if(item.State == 3)
+                                                    {
+                                                        <td class="text-danger text-center"><strong>教材无库存</strong></td>
+                                                    }
+                                                    <td class="center">
+                                                        <button type="button" class="btn btn-default btn-sm" onclick="choose(this)">编辑</button>
+                                                    </td>
+
+                                                }
+                                            }
+                                        </tr>
+
+                                    }
+                                }
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div><div class="row">
+                    <div class="col-sm-6">
+                        <div class="dataTables_info" id="dataTables-example_info" role="status" aria-live="polite">
+                            Showing @((pageIndex - 1) * pageSize + 1 ) to @(pageIndex * pageSize >= recordCount ? recordCount : pageIndex * pageSize) of @(recordCount) entries
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">
+                            <ul class="pagination">
+                                <li class="paginate_button previous" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous">
+                                    <a href="/TBsys/Teacher/Choose?searchName=@search&&pageIndex=@(pageIndex-1 <= 0 ? 1 : pageIndex-1)">Previous</a>
+                                </li>
+
+                                @{
+                                    for (int i = 1; i <= maxPage; i++)
+                                    {
+                                        if (pageIndex == i)
+                                        {
+                                            <li class="paginate_button active" aria-controls="dataTables-example" tabindex="0">
+                                                <a href="/TBsys/Teacher/Choose?searchName=@search&&pageIndex=@i">@i</a>
+                                            </li>
+                                        }
+                                        else
+                                        {
+                                            <li class="paginate_button" aria-controls="dataTables-example" tabindex="0">
+                                                <a href="/TBsys/Teacher/Choose?searchName=@search&&pageIndex=@i">@i</a>
+                                            </li>
+                                        }
+
+                                    }
+                                }
+
+                                <li class="paginate_button next" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next">
+                                    <a href="/TBsys/Teacher/Choose?searchName=@search&&pageIndex=@(pageIndex+1 > maxPage ? maxPage : pageIndex+1)">Next</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.table-responsive -->
+        </div>
+        <!-- /.panel-body -->
+    </div>
+    <!-- /.panel -->
+</div>
+
+<!-- Modal 填写教材 -->
+<div class="modal fade" id="addBook" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">填写教材</h4>
+            </div>
+            <form role="form" action="/TBsys/Teacher/SaveEdit" method="post">
+                <div class="modal-body">
+                    <input type="hidden" id="cId" name="cId" />
+                    <div class="form-group">
+                        <label id="className"></label>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-6">
+                            <label>书名：</label>
+                            <input type="text" name="bookName" id="bName">
+                        </div>
+                        <div class="col-sm-6">
+                            <label>ISBN：</label>
+                            <input type="text" name="bookId" id="bId">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-6">
+                            <label>编者：</label>
+                            <input type="text" name="bookAuthor" id="bAuthor">
+                        </div>
+                        <div class="col-sm-6">
+                            <label>单价：</label>
+                            <input type="text" name="Price" id="bPrice">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-6">
+                            <label>出版社：</label>
+                            <input type="text" name="Publisher" id="bPublisher">
+                        </div>
+                        <div class="col-sm-6">
+                            <label>版次：</label>
+                            <input type="text" name="Time" id="bTime">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <label>选用理由：</label>
+                            <textarea class="form-control" rows="3" name="Reason" id="bReason"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-6">
+                            <label>教师订书：</label>
+                            <input type="checkbox" name="bookCheck" id="bCheck" value="1">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" id="bSave">保存</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section javascrip{
+    <script type="text/javascript">
+        function choose(obj) {
+            var ppa = $(obj).parent().parent();
+            var cId = ppa.find('td').eq(0).text();
+            var cname = ppa.find('td').eq(4).text();
+
+            var pa = ppa.find('td').eq(7);
+            var bookId = pa.find('input').eq(0).val();
+            var bookname = pa.find('input').eq(1).val();
+            var bookauthor = pa.find('input').eq(2).val();
+            var price = pa.find('input').eq(3).val();
+            var publisher = pa.find('input').eq(4).val();
+            var edition = pa.find('input').eq(5).val();
+            var reason = pa.find('textarea').text();
+            var state = pa.find('input').eq(6).val();
+
+            if (state == 1)
+                $("#bSave").hide(true);
+            else
+                $("#bSave").show();
+
+
+            $('#className').text("课程名称：" + cname);
+            $('#bName').val(bookname);
+            $('#bId').val(bookId);
+            $('#bAuthor').val(bookauthor);
+            $('#bPrice').val(price);
+            $('#bPublisher').val(publisher);
+            $('#bTime').val(edition);
+            $('#bReason').text(reason);
+
+            $('#cId').val(cId);
+            $("#addBook").modal('show');
+
+            //判定教师是否选用书
+            $.post("/TBsys/Teacher/YudingCheck",
+            {
+                "cId": cId
+            },
+            function (data) {
+                if (data.code == 1)
+                    $('#bCheck').attr("checked",true);
+            });
+
+        }
+
+    </script>
+}
+

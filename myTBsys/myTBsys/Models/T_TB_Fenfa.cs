@@ -15,7 +15,7 @@ namespace myTBsys.Models
     public partial class T_TB_Fenfa
     {
         public int Id { get; set; }
-        public int BookId { get; set; }
+        public string BookId { get; set; }
         public Nullable<int> BookNum { get; set; }
         public Nullable<double> ShouldPay { get; set; }
         public Nullable<double> RealPay { get; set; }
