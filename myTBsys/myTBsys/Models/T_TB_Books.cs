@@ -21,16 +21,15 @@ namespace myTBsys.Models
             this.T_TB_Fenfa = new HashSet<T_TB_Fenfa>();
             this.T_TB_TeaYuding = new HashSet<T_TB_TeaYuding>();
             this.T_TB_StuYuding = new HashSet<T_TB_StuYuding>();
+            this.T_TB_StoreTable = new HashSet<T_TB_StoreTable>();
         }
     
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string Name { get; set; }
-        public Nullable<System.DateTime> Edition { get; set; }
         public string Author { get; set; }
         public Nullable<decimal> Price { get; set; }
         public string Publisher { get; set; }
-        public Nullable<int> Store { get; set; }
-        public int Status { get; set; }
+        public Nullable<int> Edition { get; set; }
         public string Description { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -41,5 +40,7 @@ namespace myTBsys.Models
         public virtual ICollection<T_TB_TeaYuding> T_TB_TeaYuding { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<T_TB_StuYuding> T_TB_StuYuding { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<T_TB_StoreTable> T_TB_StoreTable { get; set; }
     }
 }

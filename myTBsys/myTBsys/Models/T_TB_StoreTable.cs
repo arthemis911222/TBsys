@@ -12,15 +12,16 @@ namespace myTBsys.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class T_TB_TeaYuding
+    public partial class T_TB_StoreTable
     {
         public int Id { get; set; }
-        public string TeaId { get; set; }
         public string BookId { get; set; }
-        public int TaskId { get; set; }
+        public Nullable<int> ClassId { get; set; }
+        public Nullable<int> TaskId { get; set; }
+        public Nullable<int> YudingNum { get; set; }
         public int State { get; set; }
     
-        public virtual T_SH_Teacher T_SH_Teacher { get; set; }
+        public virtual T_SH_Class T_SH_Class { get; set; }
         public virtual T_TB_Books T_TB_Books { get; set; }
         public virtual T_TB_TeachingTask T_TB_TeachingTask { get; set; }
     }

@@ -60,6 +60,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -172,6 +173,7 @@
     <Compile Include="Areas\TBsys\Controllers\LoginController.cs" />
     <Compile Include="Areas\TBsys\Controllers\StudentController.cs" />
     <Compile Include="Areas\TBsys\Controllers\TeacherController.cs" />
+    <Compile Include="Areas\TBsys\Controllers\TeachingOfficeController.cs" />
     <Compile Include="Areas\TBsys\TBsysAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -196,6 +198,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>TBsys.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\T_QT_Other.cs">
+      <DependentUpon>TBsys.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\T_SH_Academy.cs">
       <DependentUpon>TBsys.tt</DependentUpon>
@@ -227,6 +232,9 @@
     <Compile Include="Models\T_TB_Fenfa.cs">
       <DependentUpon>TBsys.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\T_TB_StoreTable.cs">
+      <DependentUpon>TBsys.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\T_TB_StuYuding.cs">
       <DependentUpon>TBsys.tt</DependentUpon>
     </Compile>
@@ -238,6 +246,9 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="StudentIn.cs" />
+    <Compile Include="TaskIn.cs" />
+    <Compile Include="TeacherIn.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -262,8 +273,25 @@
     <Content Include="sbadmin\.gitignore" />
     <Content Include="sbadmin\data\flot-data.js" />
     <Content Include="sbadmin\data\morris-data.js" />
+    <Content Include="sbadmin\dist\css\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="sbadmin\dist\css\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="sbadmin\dist\css\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="sbadmin\dist\css\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="sbadmin\dist\css\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="sbadmin\dist\css\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="sbadmin\dist\css\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="sbadmin\dist\css\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="sbadmin\dist\css\images\ui-icons_222222_256x240.png" />
+    <Content Include="sbadmin\dist\css\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="sbadmin\dist\css\images\ui-icons_454545_256x240.png" />
+    <Content Include="sbadmin\dist\css\images\ui-icons_888888_256x240.png" />
+    <Content Include="sbadmin\dist\css\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="sbadmin\dist\css\jquery-ui.css" />
     <Content Include="sbadmin\dist\css\sb-admin-2.css" />
     <Content Include="sbadmin\dist\css\sb-admin-2.min.css" />
+    <Content Include="sbadmin\dist\js\jquery-ui-slide.min.js" />
+    <Content Include="sbadmin\dist\js\jquery-ui-timepicker-addon.js" />
+    <Content Include="sbadmin\dist\js\jquery-ui.js" />
     <Content Include="sbadmin\dist\js\sb-admin-2.js" />
     <Content Include="sbadmin\dist\js\sb-admin-2.min.js" />
     <Content Include="sbadmin\gulpfile.js" />
@@ -438,6 +466,17 @@
     <Content Include="sbadmin\vendor\font-awesome\scss\_spinning.scss" />
     <Content Include="sbadmin\vendor\font-awesome\scss\_stacked.scss" />
     <Content Include="sbadmin\vendor\font-awesome\scss\_variables.scss" />
+    <Content Include="Areas\TBsys\Views\Shared\_TeachingOffice.cshtml" />
+    <Content Include="Areas\TBsys\Views\Teacher\Index.cshtml" />
+    <Content Include="Areas\TBsys\Views\Teacher\OwnerMessage.cshtml" />
+    <Content Include="Areas\TBsys\Views\Teacher\TeachingTask.cshtml" />
+    <Content Include="Areas\TBsys\Views\Teacher\BookMessage.cshtml" />
+    <Content Include="Areas\TBsys\Views\TeachingOffice\Index.cshtml" />
+    <Content Include="Areas\TBsys\Views\TeachingOffice\TeachingTask.cshtml" />
+    <Content Include="Areas\TBsys\Views\TeachingOffice\BookMessage.cshtml" />
+    <Content Include="Areas\TBsys\Views\TeachingOffice\PersonalInfo.cshtml" />
+    <Content Include="Areas\TBsys\Views\TeachingOffice\DataIn.cshtml" />
+    <Content Include="Areas\TBsys\Views\TeachingOffice\Time.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -488,7 +527,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\TBsys\Models\" />
-    <Folder Include="Areas\TBsys\Views\Teacher\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

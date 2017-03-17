@@ -5,6 +5,19 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="TBsysModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="T_QT_Other">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Discount" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="BIStTime" Type="datetime" />
+          <Property Name="BIEnTime" Type="datetime" />
+          <Property Name="CKStTime" Type="datetime" />
+          <Property Name="CKEnTime" Type="datetime" />
+          <Property Name="CBStTime" Type="datetime" />
+          <Property Name="CBEnTime" Type="datetime" />
+        </EntityType>
         <EntityType Name="T_SH_Academy">
           <Key>
             <PropertyRef Name="Id" />
@@ -56,6 +69,8 @@
           <Property Name="Password" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="TelPhone" Type="varchar" MaxLength="20" />
           <Property Name="IsHead" Type="int" Nullable="false" />
+          <Property Name="DepartmentId" Type="int" Nullable="false" />
+          <Property Name="MajorId" Type="int" />
         </EntityType>
         <EntityType Name="T_SH_Workers">
           <Key>
@@ -70,36 +85,47 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
-          <Property Name="Edition" Type="datetime" />
           <Property Name="Author" Type="nvarchar" MaxLength="50" />
           <Property Name="Price" Type="smallmoney" />
           <Property Name="Publisher" Type="nvarchar" MaxLength="50" />
-          <Property Name="Store" Type="int" />
-          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="Edition" Type="int" />
           <Property Name="Description" Type="text" />
         </EntityType>
         <EntityType Name="T_TB_Choose">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TeachingTaskId" Type="int" Nullable="false" />
-          <Property Name="BookId" Type="int" Nullable="false" />
+          <Property Name="BookId" Type="varchar" MaxLength="20" />
           <Property Name="Reason" Type="text" />
+          <Property Name="State" Type="int" Nullable="false" />
+          <Property Name="StateReason" Type="text" />
         </EntityType>
         <EntityType Name="T_TB_Fenfa">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
-          <Property Name="BookId" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BookId" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="BookNum" Type="int" />
           <Property Name="ShouldPay" Type="float" />
           <Property Name="RealPay" Type="float" />
           <Property Name="Time" Type="datetime" />
           <Property Name="StuId" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_TB_StoreTable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="BookId" Type="varchar" MaxLength="20" />
+          <Property Name="ClassId" Type="int" />
+          <Property Name="TaskId" Type="int" />
+          <Property Name="YudingNum" Type="int" />
+          <Property Name="State" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="T_TB_StuYuding">
           <Key>
@@ -107,7 +133,9 @@
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="StuId" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="BookId" Type="int" Nullable="false" />
+          <Property Name="BookId" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="TaskId" Type="int" Nullable="false" />
+          <Property Name="State" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="T_TB_TeachingTask">
           <Key>
@@ -132,14 +160,18 @@
           <Property Name="ClassId" Type="int" Nullable="false" />
           <Property Name="StuNum" Type="int" />
           <Property Name="Description" Type="text" />
+          <Property Name="State" Type="int" Nullable="false" />
+          <Property Name="Semeter" Type="nvarchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="T_TB_TeaYuding">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
-          <Property Name="TeaId" Type="varchar" MaxLength="20" />
-          <Property Name="BookId" Type="int" />
+          <Property Name="TeaId" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="BookId" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="TaskId" Type="int" Nullable="false" />
+          <Property Name="State" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_T_SH_Class_ToMajor">
           <End Role="T_SH_Major" Type="Self.T_SH_Major" Multiplicity="1" />
@@ -189,8 +221,32 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_T_SH_Teacher_ToDepartment">
+          <End Role="T_SH_Department" Type="Self.T_SH_Department" Multiplicity="1" />
+          <End Role="T_SH_Teacher" Type="Self.T_SH_Teacher" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_SH_Department">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="T_SH_Teacher">
+              <PropertyRef Name="DepartmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_SH_Teacher_ToMajor">
+          <End Role="T_SH_Major" Type="Self.T_SH_Major" Multiplicity="0..1" />
+          <End Role="T_SH_Teacher" Type="Self.T_SH_Teacher" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_SH_Major">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="T_SH_Teacher">
+              <PropertyRef Name="MajorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_T_TB_Choose_ToBook">
-          <End Role="T_TB_Books" Type="Self.T_TB_Books" Multiplicity="1" />
+          <End Role="T_TB_Books" Type="Self.T_TB_Books" Multiplicity="0..1" />
           <End Role="T_TB_Choose" Type="Self.T_TB_Choose" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="T_TB_Books">
@@ -286,7 +342,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_T_TB_TeaYuding_ToBook">
-          <End Role="T_TB_Books" Type="Self.T_TB_Books" Multiplicity="0..1" />
+          <End Role="T_TB_Books" Type="Self.T_TB_Books" Multiplicity="1" />
           <End Role="T_TB_TeaYuding" Type="Self.T_TB_TeaYuding" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="T_TB_Books">
@@ -297,8 +353,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_T_TB_TeaYuding_ToTask">
+          <End Role="T_TB_TeachingTask" Type="Self.T_TB_TeachingTask" Multiplicity="1" />
+          <End Role="T_TB_TeaYuding" Type="Self.T_TB_TeaYuding" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_TB_TeachingTask">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="T_TB_TeaYuding">
+              <PropertyRef Name="TaskId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_T_TB_TeaYuding_ToTeacher">
-          <End Role="T_SH_Teacher" Type="Self.T_SH_Teacher" Multiplicity="0..1" />
+          <End Role="T_SH_Teacher" Type="Self.T_SH_Teacher" Multiplicity="1" />
           <End Role="T_TB_TeaYuding" Type="Self.T_TB_TeaYuding" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="T_SH_Teacher">
@@ -333,7 +401,56 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_T_TB_Yuding_ToTask">
+          <End Role="T_TB_TeachingTask" Type="Self.T_TB_TeachingTask" Multiplicity="1" />
+          <End Role="T_TB_StuYuding" Type="Self.T_TB_StuYuding" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_TB_TeachingTask">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="T_TB_StuYuding">
+              <PropertyRef Name="TaskId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_ToBook">
+          <End Role="T_TB_Books" Type="Self.T_TB_Books" Multiplicity="0..1" />
+          <End Role="T_TB_StoreTable" Type="Self.T_TB_StoreTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_TB_Books">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="T_TB_StoreTable">
+              <PropertyRef Name="BookId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_ToClass">
+          <End Role="T_SH_Class" Type="Self.T_SH_Class" Multiplicity="0..1" />
+          <End Role="T_TB_StoreTable" Type="Self.T_TB_StoreTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_SH_Class">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="T_TB_StoreTable">
+              <PropertyRef Name="ClassId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_ToTeachingTask">
+          <End Role="T_TB_TeachingTask" Type="Self.T_TB_TeachingTask" Multiplicity="0..1" />
+          <End Role="T_TB_StoreTable" Type="Self.T_TB_StoreTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_TB_TeachingTask">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="T_TB_StoreTable">
+              <PropertyRef Name="TaskId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="TBsysModelStoreContainer">
+          <EntitySet Name="T_QT_Other" EntityType="Self.T_QT_Other" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="T_SH_Academy" EntityType="Self.T_SH_Academy" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="T_SH_Class" EntityType="Self.T_SH_Class" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="T_SH_Department" EntityType="Self.T_SH_Department" Schema="dbo" store:Type="Tables" />
@@ -344,6 +461,7 @@
           <EntitySet Name="T_TB_Books" EntityType="Self.T_TB_Books" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="T_TB_Choose" EntityType="Self.T_TB_Choose" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="T_TB_Fenfa" EntityType="Self.T_TB_Fenfa" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_TB_StoreTable" EntityType="Self.T_TB_StoreTable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="T_TB_StuYuding" EntityType="Self.T_TB_StuYuding" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="T_TB_TeachingTask" EntityType="Self.T_TB_TeachingTask" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="T_TB_TeaYuding" EntityType="Self.T_TB_TeaYuding" Schema="dbo" store:Type="Tables" />
@@ -362,6 +480,14 @@
           <AssociationSet Name="FK_T_SH_Student_ToClass" Association="Self.FK_T_SH_Student_ToClass">
             <End Role="T_SH_Class" EntitySet="T_SH_Class" />
             <End Role="T_SH_Student" EntitySet="T_SH_Student" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_SH_Teacher_ToDepartment" Association="Self.FK_T_SH_Teacher_ToDepartment">
+            <End Role="T_SH_Department" EntitySet="T_SH_Department" />
+            <End Role="T_SH_Teacher" EntitySet="T_SH_Teacher" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_SH_Teacher_ToMajor" Association="Self.FK_T_SH_Teacher_ToMajor">
+            <End Role="T_SH_Major" EntitySet="T_SH_Major" />
+            <End Role="T_SH_Teacher" EntitySet="T_SH_Teacher" />
           </AssociationSet>
           <AssociationSet Name="FK_T_TB_Choose_ToBook" Association="Self.FK_T_TB_Choose_ToBook">
             <End Role="T_TB_Books" EntitySet="T_TB_Books" />
@@ -399,6 +525,10 @@
             <End Role="T_TB_Books" EntitySet="T_TB_Books" />
             <End Role="T_TB_TeaYuding" EntitySet="T_TB_TeaYuding" />
           </AssociationSet>
+          <AssociationSet Name="FK_T_TB_TeaYuding_ToTask" Association="Self.FK_T_TB_TeaYuding_ToTask">
+            <End Role="T_TB_TeachingTask" EntitySet="T_TB_TeachingTask" />
+            <End Role="T_TB_TeaYuding" EntitySet="T_TB_TeaYuding" />
+          </AssociationSet>
           <AssociationSet Name="FK_T_TB_TeaYuding_ToTeacher" Association="Self.FK_T_TB_TeaYuding_ToTeacher">
             <End Role="T_SH_Teacher" EntitySet="T_SH_Teacher" />
             <End Role="T_TB_TeaYuding" EntitySet="T_TB_TeaYuding" />
@@ -411,12 +541,29 @@
             <End Role="T_SH_Student" EntitySet="T_SH_Student" />
             <End Role="T_TB_StuYuding" EntitySet="T_TB_StuYuding" />
           </AssociationSet>
+          <AssociationSet Name="FK_T_TB_Yuding_ToTask" Association="Self.FK_T_TB_Yuding_ToTask">
+            <End Role="T_TB_TeachingTask" EntitySet="T_TB_TeachingTask" />
+            <End Role="T_TB_StuYuding" EntitySet="T_TB_StuYuding" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_ToBook" Association="Self.FK_Table_ToBook">
+            <End Role="T_TB_Books" EntitySet="T_TB_Books" />
+            <End Role="T_TB_StoreTable" EntitySet="T_TB_StoreTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_ToClass" Association="Self.FK_Table_ToClass">
+            <End Role="T_SH_Class" EntitySet="T_SH_Class" />
+            <End Role="T_TB_StoreTable" EntitySet="T_TB_StoreTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_ToTeachingTask" Association="Self.FK_Table_ToTeachingTask">
+            <End Role="T_TB_TeachingTask" EntitySet="T_TB_TeachingTask" />
+            <End Role="T_TB_StoreTable" EntitySet="T_TB_StoreTable" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TBsysModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="TBsysEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="T_QT_Other" EntityType="TBsysModel.T_QT_Other" />
           <EntitySet Name="T_SH_Academy" EntityType="TBsysModel.T_SH_Academy" />
           <EntitySet Name="T_SH_Class" EntityType="TBsysModel.T_SH_Class" />
           <EntitySet Name="T_SH_Department" EntityType="TBsysModel.T_SH_Department" />
@@ -427,6 +574,7 @@
           <EntitySet Name="T_TB_Books" EntityType="TBsysModel.T_TB_Books" />
           <EntitySet Name="T_TB_Choose" EntityType="TBsysModel.T_TB_Choose" />
           <EntitySet Name="T_TB_Fenfa" EntityType="TBsysModel.T_TB_Fenfa" />
+          <EntitySet Name="T_TB_StoreTable" EntityType="TBsysModel.T_TB_StoreTable" />
           <EntitySet Name="T_TB_StuYuding" EntityType="TBsysModel.T_TB_StuYuding" />
           <EntitySet Name="T_TB_TeachingTask" EntityType="TBsysModel.T_TB_TeachingTask" />
           <EntitySet Name="T_TB_TeaYuding" EntityType="TBsysModel.T_TB_TeaYuding" />
@@ -450,13 +598,25 @@
             <End Role="T_SH_Class" EntitySet="T_SH_Class" />
             <End Role="T_TB_TeachingTask" EntitySet="T_TB_TeachingTask" />
           </AssociationSet>
+          <AssociationSet Name="FK_Table_ToClass" Association="TBsysModel.FK_Table_ToClass">
+            <End Role="T_SH_Class" EntitySet="T_SH_Class" />
+            <End Role="T_TB_StoreTable" EntitySet="T_TB_StoreTable" />
+          </AssociationSet>
           <AssociationSet Name="FK_T_SH_Major_ToDepartment" Association="TBsysModel.FK_T_SH_Major_ToDepartment">
             <End Role="T_SH_Department" EntitySet="T_SH_Department" />
             <End Role="T_SH_Major" EntitySet="T_SH_Major" />
           </AssociationSet>
+          <AssociationSet Name="FK_T_SH_Teacher_ToDepartment" Association="TBsysModel.FK_T_SH_Teacher_ToDepartment">
+            <End Role="T_SH_Department" EntitySet="T_SH_Department" />
+            <End Role="T_SH_Teacher" EntitySet="T_SH_Teacher" />
+          </AssociationSet>
           <AssociationSet Name="FK_T_TB_TeachingTask_ToDepartment" Association="TBsysModel.FK_T_TB_TeachingTask_ToDepartment">
             <End Role="T_SH_Department" EntitySet="T_SH_Department" />
             <End Role="T_TB_TeachingTask" EntitySet="T_TB_TeachingTask" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_SH_Teacher_ToMajor" Association="TBsysModel.FK_T_SH_Teacher_ToMajor">
+            <End Role="T_SH_Major" EntitySet="T_SH_Major" />
+            <End Role="T_SH_Teacher" EntitySet="T_SH_Teacher" />
           </AssociationSet>
           <AssociationSet Name="FK_T_TB_Fenfa_ToStu" Association="TBsysModel.FK_T_TB_Fenfa_ToStu">
             <End Role="T_SH_Student" EntitySet="T_SH_Student" />
@@ -490,11 +650,40 @@
             <End Role="T_TB_Books" EntitySet="T_TB_Books" />
             <End Role="T_TB_StuYuding" EntitySet="T_TB_StuYuding" />
           </AssociationSet>
+          <AssociationSet Name="FK_Table_ToBook" Association="TBsysModel.FK_Table_ToBook">
+            <End Role="T_TB_Books" EntitySet="T_TB_Books" />
+            <End Role="T_TB_StoreTable" EntitySet="T_TB_StoreTable" />
+          </AssociationSet>
           <AssociationSet Name="FK_T_TB_Choose_ToTeachingTask" Association="TBsysModel.FK_T_TB_Choose_ToTeachingTask">
             <End Role="T_TB_TeachingTask" EntitySet="T_TB_TeachingTask" />
             <End Role="T_TB_Choose" EntitySet="T_TB_Choose" />
           </AssociationSet>
+          <AssociationSet Name="FK_Table_ToTeachingTask" Association="TBsysModel.FK_Table_ToTeachingTask">
+            <End Role="T_TB_TeachingTask" EntitySet="T_TB_TeachingTask" />
+            <End Role="T_TB_StoreTable" EntitySet="T_TB_StoreTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_TB_Yuding_ToTask" Association="TBsysModel.FK_T_TB_Yuding_ToTask">
+            <End Role="T_TB_TeachingTask" EntitySet="T_TB_TeachingTask" />
+            <End Role="T_TB_StuYuding" EntitySet="T_TB_StuYuding" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_TB_TeaYuding_ToTask" Association="TBsysModel.FK_T_TB_TeaYuding_ToTask">
+            <End Role="T_TB_TeachingTask" EntitySet="T_TB_TeachingTask" />
+            <End Role="T_TB_TeaYuding" EntitySet="T_TB_TeaYuding" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="T_QT_Other">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Discount" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="BIStTime" Type="DateTime" Precision="3" />
+          <Property Name="BIEnTime" Type="DateTime" Precision="3" />
+          <Property Name="CKStTime" Type="DateTime" Precision="3" />
+          <Property Name="CKEnTime" Type="DateTime" Precision="3" />
+          <Property Name="CBStTime" Type="DateTime" Precision="3" />
+          <Property Name="CBEnTime" Type="DateTime" Precision="3" />
+        </EntityType>
         <EntityType Name="T_SH_Academy">
           <Key>
             <PropertyRef Name="Id" />
@@ -514,6 +703,7 @@
           <NavigationProperty Name="T_SH_Major" Relationship="TBsysModel.FK_T_SH_Class_ToMajor" FromRole="T_SH_Class" ToRole="T_SH_Major" />
           <NavigationProperty Name="T_SH_Student" Relationship="TBsysModel.FK_T_SH_Student_ToClass" FromRole="T_SH_Class" ToRole="T_SH_Student" />
           <NavigationProperty Name="T_TB_TeachingTask" Relationship="TBsysModel.FK_T_TB_TeachingTask_ToClass" FromRole="T_SH_Class" ToRole="T_TB_TeachingTask" />
+          <NavigationProperty Name="T_TB_StoreTable" Relationship="TBsysModel.FK_Table_ToClass" FromRole="T_SH_Class" ToRole="T_TB_StoreTable" />
         </EntityType>
         <EntityType Name="T_SH_Department">
           <Key>
@@ -524,6 +714,7 @@
           <Property Name="AcademyId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="T_SH_Academy" Relationship="TBsysModel.FK_T_SH_Department_ToAcademy" FromRole="T_SH_Department" ToRole="T_SH_Academy" />
           <NavigationProperty Name="T_SH_Major" Relationship="TBsysModel.FK_T_SH_Major_ToDepartment" FromRole="T_SH_Department" ToRole="T_SH_Major" />
+          <NavigationProperty Name="T_SH_Teacher" Relationship="TBsysModel.FK_T_SH_Teacher_ToDepartment" FromRole="T_SH_Department" ToRole="T_SH_Teacher" />
           <NavigationProperty Name="T_TB_TeachingTask" Relationship="TBsysModel.FK_T_TB_TeachingTask_ToDepartment" FromRole="T_SH_Department" ToRole="T_TB_TeachingTask" />
         </EntityType>
         <EntityType Name="T_SH_Major">
@@ -535,6 +726,7 @@
           <Property Name="DepartmentId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="T_SH_Class" Relationship="TBsysModel.FK_T_SH_Class_ToMajor" FromRole="T_SH_Major" ToRole="T_SH_Class" />
           <NavigationProperty Name="T_SH_Department" Relationship="TBsysModel.FK_T_SH_Major_ToDepartment" FromRole="T_SH_Major" ToRole="T_SH_Department" />
+          <NavigationProperty Name="T_SH_Teacher" Relationship="TBsysModel.FK_T_SH_Teacher_ToMajor" FromRole="T_SH_Major" ToRole="T_SH_Teacher" />
         </EntityType>
         <EntityType Name="T_SH_Student">
           <Key>
@@ -559,6 +751,10 @@
           <Property Name="Password" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="TelPhone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="IsHead" Type="Int32" Nullable="false" />
+          <Property Name="DepartmentId" Type="Int32" Nullable="false" />
+          <Property Name="MajorId" Type="Int32" />
+          <NavigationProperty Name="T_SH_Department" Relationship="TBsysModel.FK_T_SH_Teacher_ToDepartment" FromRole="T_SH_Teacher" ToRole="T_SH_Department" />
+          <NavigationProperty Name="T_SH_Major" Relationship="TBsysModel.FK_T_SH_Teacher_ToMajor" FromRole="T_SH_Teacher" ToRole="T_SH_Major" />
           <NavigationProperty Name="T_TB_TeachingTask" Relationship="TBsysModel.FK_T_TB_TeachingTask_ToTeacher" FromRole="T_SH_Teacher" ToRole="T_TB_TeachingTask" />
           <NavigationProperty Name="T_TB_TeaYuding" Relationship="TBsysModel.FK_T_TB_TeaYuding_ToTeacher" FromRole="T_SH_Teacher" ToRole="T_TB_TeaYuding" />
         </EntityType>
@@ -575,28 +771,29 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Edition" Type="DateTime" Precision="3" />
           <Property Name="Author" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Price" Type="Decimal" Precision="10" Scale="4" />
           <Property Name="Publisher" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Store" Type="Int32" />
-          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="Edition" Type="Int32" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="T_TB_Choose" Relationship="TBsysModel.FK_T_TB_Choose_ToBook" FromRole="T_TB_Books" ToRole="T_TB_Choose" />
           <NavigationProperty Name="T_TB_Fenfa" Relationship="TBsysModel.FK_T_TB_Fenfa_ToBook" FromRole="T_TB_Books" ToRole="T_TB_Fenfa" />
           <NavigationProperty Name="T_TB_TeaYuding" Relationship="TBsysModel.FK_T_TB_TeaYuding_ToBook" FromRole="T_TB_Books" ToRole="T_TB_TeaYuding" />
           <NavigationProperty Name="T_TB_StuYuding" Relationship="TBsysModel.FK_T_TB_Yuding_ToBook" FromRole="T_TB_Books" ToRole="T_TB_StuYuding" />
+          <NavigationProperty Name="T_TB_StoreTable" Relationship="TBsysModel.FK_Table_ToBook" FromRole="T_TB_Books" ToRole="T_TB_StoreTable" />
         </EntityType>
         <EntityType Name="T_TB_Choose">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TeachingTaskId" Type="Int32" Nullable="false" />
-          <Property Name="BookId" Type="Int32" Nullable="false" />
+          <Property Name="BookId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="Reason" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="State" Type="Int32" Nullable="false" />
+          <Property Name="StateReason" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="T_TB_Books" Relationship="TBsysModel.FK_T_TB_Choose_ToBook" FromRole="T_TB_Choose" ToRole="T_TB_Books" />
           <NavigationProperty Name="T_TB_TeachingTask" Relationship="TBsysModel.FK_T_TB_Choose_ToTeachingTask" FromRole="T_TB_Choose" ToRole="T_TB_TeachingTask" />
         </EntityType>
@@ -604,8 +801,8 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="BookId" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BookId" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="BookNum" Type="Int32" />
           <Property Name="ShouldPay" Type="Double" />
           <Property Name="RealPay" Type="Double" />
@@ -614,15 +811,32 @@
           <NavigationProperty Name="T_SH_Student" Relationship="TBsysModel.FK_T_TB_Fenfa_ToStu" FromRole="T_TB_Fenfa" ToRole="T_SH_Student" />
           <NavigationProperty Name="T_TB_Books" Relationship="TBsysModel.FK_T_TB_Fenfa_ToBook" FromRole="T_TB_Fenfa" ToRole="T_TB_Books" />
         </EntityType>
+        <EntityType Name="T_TB_StoreTable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="BookId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ClassId" Type="Int32" />
+          <Property Name="TaskId" Type="Int32" />
+          <Property Name="YudingNum" Type="Int32" />
+          <Property Name="State" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="T_SH_Class" Relationship="TBsysModel.FK_Table_ToClass" FromRole="T_TB_StoreTable" ToRole="T_SH_Class" />
+          <NavigationProperty Name="T_TB_Books" Relationship="TBsysModel.FK_Table_ToBook" FromRole="T_TB_StoreTable" ToRole="T_TB_Books" />
+          <NavigationProperty Name="T_TB_TeachingTask" Relationship="TBsysModel.FK_Table_ToTeachingTask" FromRole="T_TB_StoreTable" ToRole="T_TB_TeachingTask" />
+        </EntityType>
         <EntityType Name="T_TB_StuYuding">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="StuId" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="BookId" Type="Int32" Nullable="false" />
+          <Property Name="BookId" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="TaskId" Type="Int32" Nullable="false" />
+          <Property Name="State" Type="Int32" Nullable="false" />
           <NavigationProperty Name="T_SH_Student" Relationship="TBsysModel.FK_T_TB_Yuding_ToStu" FromRole="T_TB_StuYuding" ToRole="T_SH_Student" />
           <NavigationProperty Name="T_TB_Books" Relationship="TBsysModel.FK_T_TB_Yuding_ToBook" FromRole="T_TB_StuYuding" ToRole="T_TB_Books" />
+          <NavigationProperty Name="T_TB_TeachingTask" Relationship="TBsysModel.FK_T_TB_Yuding_ToTask" FromRole="T_TB_StuYuding" ToRole="T_TB_TeachingTask" />
         </EntityType>
         <EntityType Name="T_TB_TeachingTask">
           <Key>
@@ -647,21 +861,29 @@
           <Property Name="ClassId" Type="Int32" Nullable="false" />
           <Property Name="StuNum" Type="Int32" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="State" Type="Int32" Nullable="false" />
+          <Property Name="Semeter" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="T_SH_Academy" Relationship="TBsysModel.FK_T_TB_TeachingTask_ToAcademy" FromRole="T_TB_TeachingTask" ToRole="T_SH_Academy" />
           <NavigationProperty Name="T_SH_Class" Relationship="TBsysModel.FK_T_TB_TeachingTask_ToClass" FromRole="T_TB_TeachingTask" ToRole="T_SH_Class" />
           <NavigationProperty Name="T_SH_Department" Relationship="TBsysModel.FK_T_TB_TeachingTask_ToDepartment" FromRole="T_TB_TeachingTask" ToRole="T_SH_Department" />
           <NavigationProperty Name="T_SH_Teacher" Relationship="TBsysModel.FK_T_TB_TeachingTask_ToTeacher" FromRole="T_TB_TeachingTask" ToRole="T_SH_Teacher" />
           <NavigationProperty Name="T_TB_Choose" Relationship="TBsysModel.FK_T_TB_Choose_ToTeachingTask" FromRole="T_TB_TeachingTask" ToRole="T_TB_Choose" />
+          <NavigationProperty Name="T_TB_StoreTable" Relationship="TBsysModel.FK_Table_ToTeachingTask" FromRole="T_TB_TeachingTask" ToRole="T_TB_StoreTable" />
+          <NavigationProperty Name="T_TB_StuYuding" Relationship="TBsysModel.FK_T_TB_Yuding_ToTask" FromRole="T_TB_TeachingTask" ToRole="T_TB_StuYuding" />
+          <NavigationProperty Name="T_TB_TeaYuding" Relationship="TBsysModel.FK_T_TB_TeaYuding_ToTask" FromRole="T_TB_TeachingTask" ToRole="T_TB_TeaYuding" />
         </EntityType>
         <EntityType Name="T_TB_TeaYuding">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="TeaId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="BookId" Type="Int32" />
+          <Property Name="TeaId" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="BookId" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="TaskId" Type="Int32" Nullable="false" />
+          <Property Name="State" Type="Int32" Nullable="false" />
           <NavigationProperty Name="T_SH_Teacher" Relationship="TBsysModel.FK_T_TB_TeaYuding_ToTeacher" FromRole="T_TB_TeaYuding" ToRole="T_SH_Teacher" />
           <NavigationProperty Name="T_TB_Books" Relationship="TBsysModel.FK_T_TB_TeaYuding_ToBook" FromRole="T_TB_TeaYuding" ToRole="T_TB_Books" />
+          <NavigationProperty Name="T_TB_TeachingTask" Relationship="TBsysModel.FK_T_TB_TeaYuding_ToTask" FromRole="T_TB_TeaYuding" ToRole="T_TB_TeachingTask" />
         </EntityType>
         <Association Name="FK_T_SH_Department_ToAcademy">
           <End Type="TBsysModel.T_SH_Academy" Role="T_SH_Academy" Multiplicity="1" />
@@ -723,6 +945,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Table_ToClass">
+          <End Type="TBsysModel.T_SH_Class" Role="T_SH_Class" Multiplicity="0..1" />
+          <End Type="TBsysModel.T_TB_StoreTable" Role="T_TB_StoreTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_SH_Class">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="T_TB_StoreTable">
+              <PropertyRef Name="ClassId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_T_SH_Major_ToDepartment">
           <End Type="TBsysModel.T_SH_Department" Role="T_SH_Department" Multiplicity="1" />
           <End Type="TBsysModel.T_SH_Major" Role="T_SH_Major" Multiplicity="*" />
@@ -731,6 +965,18 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="T_SH_Major">
+              <PropertyRef Name="DepartmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_SH_Teacher_ToDepartment">
+          <End Type="TBsysModel.T_SH_Department" Role="T_SH_Department" Multiplicity="1" />
+          <End Type="TBsysModel.T_SH_Teacher" Role="T_SH_Teacher" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_SH_Department">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="T_SH_Teacher">
               <PropertyRef Name="DepartmentId" />
             </Dependent>
           </ReferentialConstraint>
@@ -744,6 +990,18 @@
             </Principal>
             <Dependent Role="T_TB_TeachingTask">
               <PropertyRef Name="DepartmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_SH_Teacher_ToMajor">
+          <End Type="TBsysModel.T_SH_Major" Role="T_SH_Major" Multiplicity="0..1" />
+          <End Type="TBsysModel.T_SH_Teacher" Role="T_SH_Teacher" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_SH_Major">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="T_SH_Teacher">
+              <PropertyRef Name="MajorId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -784,7 +1042,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_T_TB_TeaYuding_ToTeacher">
-          <End Type="TBsysModel.T_SH_Teacher" Role="T_SH_Teacher" Multiplicity="0..1" />
+          <End Type="TBsysModel.T_SH_Teacher" Role="T_SH_Teacher" Multiplicity="1" />
           <End Type="TBsysModel.T_TB_TeaYuding" Role="T_TB_TeaYuding" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="T_SH_Teacher">
@@ -796,7 +1054,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_T_TB_Choose_ToBook">
-          <End Type="TBsysModel.T_TB_Books" Role="T_TB_Books" Multiplicity="1" />
+          <End Type="TBsysModel.T_TB_Books" Role="T_TB_Books" Multiplicity="0..1" />
           <End Type="TBsysModel.T_TB_Choose" Role="T_TB_Choose" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="T_TB_Books">
@@ -820,7 +1078,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_T_TB_TeaYuding_ToBook">
-          <End Type="TBsysModel.T_TB_Books" Role="T_TB_Books" Multiplicity="0..1" />
+          <End Type="TBsysModel.T_TB_Books" Role="T_TB_Books" Multiplicity="1" />
           <End Type="TBsysModel.T_TB_TeaYuding" Role="T_TB_TeaYuding" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="T_TB_Books">
@@ -843,6 +1101,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Table_ToBook">
+          <End Type="TBsysModel.T_TB_Books" Role="T_TB_Books" Multiplicity="0..1" />
+          <End Type="TBsysModel.T_TB_StoreTable" Role="T_TB_StoreTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_TB_Books">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="T_TB_StoreTable">
+              <PropertyRef Name="BookId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_T_TB_Choose_ToTeachingTask">
           <End Type="TBsysModel.T_TB_TeachingTask" Role="T_TB_TeachingTask" Multiplicity="1" />
           <End Type="TBsysModel.T_TB_Choose" Role="T_TB_Choose" Multiplicity="*" />
@@ -855,12 +1125,62 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Table_ToTeachingTask">
+          <End Type="TBsysModel.T_TB_TeachingTask" Role="T_TB_TeachingTask" Multiplicity="0..1" />
+          <End Type="TBsysModel.T_TB_StoreTable" Role="T_TB_StoreTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_TB_TeachingTask">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="T_TB_StoreTable">
+              <PropertyRef Name="TaskId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_TB_Yuding_ToTask">
+          <End Type="TBsysModel.T_TB_TeachingTask" Role="T_TB_TeachingTask" Multiplicity="1" />
+          <End Type="TBsysModel.T_TB_StuYuding" Role="T_TB_StuYuding" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_TB_TeachingTask">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="T_TB_StuYuding">
+              <PropertyRef Name="TaskId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_TB_TeaYuding_ToTask">
+          <End Type="TBsysModel.T_TB_TeachingTask" Role="T_TB_TeachingTask" Multiplicity="1" />
+          <End Type="TBsysModel.T_TB_TeaYuding" Role="T_TB_TeaYuding" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_TB_TeachingTask">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="T_TB_TeaYuding">
+              <PropertyRef Name="TaskId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="TBsysModelStoreContainer" CdmEntityContainer="TBsysEntities">
+          <EntitySetMapping Name="T_QT_Other">
+            <EntityTypeMapping TypeName="TBsysModel.T_QT_Other">
+              <MappingFragment StoreEntitySet="T_QT_Other">
+                <ScalarProperty Name="CBEnTime" ColumnName="CBEnTime" />
+                <ScalarProperty Name="CBStTime" ColumnName="CBStTime" />
+                <ScalarProperty Name="CKEnTime" ColumnName="CKEnTime" />
+                <ScalarProperty Name="CKStTime" ColumnName="CKStTime" />
+                <ScalarProperty Name="BIEnTime" ColumnName="BIEnTime" />
+                <ScalarProperty Name="BIStTime" ColumnName="BIStTime" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="T_SH_Academy">
             <EntityTypeMapping TypeName="TBsysModel.T_SH_Academy">
               <MappingFragment StoreEntitySet="T_SH_Academy">
@@ -911,6 +1231,8 @@
           <EntitySetMapping Name="T_SH_Teacher">
             <EntityTypeMapping TypeName="TBsysModel.T_SH_Teacher">
               <MappingFragment StoreEntitySet="T_SH_Teacher">
+                <ScalarProperty Name="MajorId" ColumnName="MajorId" />
+                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
                 <ScalarProperty Name="IsHead" ColumnName="IsHead" />
                 <ScalarProperty Name="TelPhone" ColumnName="TelPhone" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
@@ -933,12 +1255,10 @@
             <EntityTypeMapping TypeName="TBsysModel.T_TB_Books">
               <MappingFragment StoreEntitySet="T_TB_Books">
                 <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Store" ColumnName="Store" />
+                <ScalarProperty Name="Edition" ColumnName="Edition" />
                 <ScalarProperty Name="Publisher" ColumnName="Publisher" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="Author" ColumnName="Author" />
-                <ScalarProperty Name="Edition" ColumnName="Edition" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
@@ -947,6 +1267,8 @@
           <EntitySetMapping Name="T_TB_Choose">
             <EntityTypeMapping TypeName="TBsysModel.T_TB_Choose">
               <MappingFragment StoreEntitySet="T_TB_Choose">
+                <ScalarProperty Name="StateReason" ColumnName="StateReason" />
+                <ScalarProperty Name="State" ColumnName="State" />
                 <ScalarProperty Name="Reason" ColumnName="Reason" />
                 <ScalarProperty Name="BookId" ColumnName="BookId" />
                 <ScalarProperty Name="TeachingTaskId" ColumnName="TeachingTaskId" />
@@ -967,9 +1289,23 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="T_TB_StoreTable">
+            <EntityTypeMapping TypeName="TBsysModel.T_TB_StoreTable">
+              <MappingFragment StoreEntitySet="T_TB_StoreTable">
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="YudingNum" ColumnName="YudingNum" />
+                <ScalarProperty Name="TaskId" ColumnName="TaskId" />
+                <ScalarProperty Name="ClassId" ColumnName="ClassId" />
+                <ScalarProperty Name="BookId" ColumnName="BookId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="T_TB_StuYuding">
             <EntityTypeMapping TypeName="TBsysModel.T_TB_StuYuding">
               <MappingFragment StoreEntitySet="T_TB_StuYuding">
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="TaskId" ColumnName="TaskId" />
                 <ScalarProperty Name="BookId" ColumnName="BookId" />
                 <ScalarProperty Name="StuId" ColumnName="StuId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -979,6 +1315,8 @@
           <EntitySetMapping Name="T_TB_TeachingTask">
             <EntityTypeMapping TypeName="TBsysModel.T_TB_TeachingTask">
               <MappingFragment StoreEntitySet="T_TB_TeachingTask">
+                <ScalarProperty Name="Semeter" ColumnName="Semeter" />
+                <ScalarProperty Name="State" ColumnName="State" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="StuNum" ColumnName="StuNum" />
                 <ScalarProperty Name="ClassId" ColumnName="ClassId" />
@@ -1004,6 +1342,8 @@
           <EntitySetMapping Name="T_TB_TeaYuding">
             <EntityTypeMapping TypeName="TBsysModel.T_TB_TeaYuding">
               <MappingFragment StoreEntitySet="T_TB_TeaYuding">
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="TaskId" ColumnName="TaskId" />
                 <ScalarProperty Name="BookId" ColumnName="BookId" />
                 <ScalarProperty Name="TeaId" ColumnName="TeaId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />

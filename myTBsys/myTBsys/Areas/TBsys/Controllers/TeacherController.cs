@@ -13,5 +13,17 @@ namespace myTBsys.Areas.TBsys.Controllers
         {
             return View();
         }
+        public ActionResult OwnerMessage()
+        {
+            return View();
+        }
+        public ActionResult TeachingTask()
+        {
+            return View();
+        }
+        public ActionResult BookMessage()
+        {
+            return View();
+        }
     }
 }

@@ -18,6 +18,7 @@ namespace myTBsys.Models
         public T_SH_Major()
         {
             this.T_SH_Class = new HashSet<T_SH_Class>();
+            this.T_SH_Teacher = new HashSet<T_SH_Teacher>();
         }
     
         public int Id { get; set; }
@@ -27,5 +28,7 @@ namespace myTBsys.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<T_SH_Class> T_SH_Class { get; set; }
         public virtual T_SH_Department T_SH_Department { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<T_SH_Teacher> T_SH_Teacher { get; set; }
     }
 }

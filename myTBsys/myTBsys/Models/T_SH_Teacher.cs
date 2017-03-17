@@ -26,7 +26,11 @@ namespace myTBsys.Models
         public string Password { get; set; }
         public string TelPhone { get; set; }
         public int IsHead { get; set; }
+        public int DepartmentId { get; set; }
+        public Nullable<int> MajorId { get; set; }
     
+        public virtual T_SH_Department T_SH_Department { get; set; }
+        public virtual T_SH_Major T_SH_Major { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<T_TB_TeachingTask> T_TB_TeachingTask { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

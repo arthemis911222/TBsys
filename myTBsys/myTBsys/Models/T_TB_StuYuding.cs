@@ -16,9 +16,12 @@ namespace myTBsys.Models
     {
         public int Id { get; set; }
         public string StuId { get; set; }
-        public int BookId { get; set; }
+        public string BookId { get; set; }
+        public int TaskId { get; set; }
+        public int State { get; set; }
     
         public virtual T_SH_Student T_SH_Student { get; set; }
         public virtual T_TB_Books T_TB_Books { get; set; }
+        public virtual T_TB_TeachingTask T_TB_TeachingTask { get; set; }
     }
 }

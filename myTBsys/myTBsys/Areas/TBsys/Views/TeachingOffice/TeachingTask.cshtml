@@ -1,0 +1,116 @@
+﻿@using myTBsys.Models;
+@{
+    ViewBag.Title = "后台——教学任务";
+    Layout = "~/Areas/TBsys/Views/Shared/_TeachingOffice.cshtml";
+    List<T_TB_TeachingTask> lst = ViewBag.lst;
+    List<T_SH_Class> lst1 = ViewBag.lst1;
+
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+               教学任务
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="dataTables_length" id="dataTables-example_length"><label>Show <select name="dataTables-example_length" aria-controls="dataTables-example" class="form-control input-sm"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div>
+                        </div>
+
+
+                        <div class="col-sm-6">
+                            <form action="/admin/category/index">
+                                <div id="dataTables-example_filter" class="dataTables_filter">
+                                    <label>
+                                        Search:
+                                        <input type="search" name="searchstring" class="form-control input-sm"
+                                               placeholder="" aria-controls="dataTables-example">
+                                    </label>
+                                    <button type="submit" class="btn btn-default">查询</button>
+                                </div>
+                            </form>
+                        </div>
+
+
+
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table width="100%" class="table table-striped table-bordered table-hover dataTable no-footer dtr-inline" id="dataTables-example" role="grid" aria-describedby="dataTables-example_info" style="width: 100%;">
+                                <thead>
+                                    <tr role="row">
+                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 81px;">序号</th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 72px;">班级</th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 72px;">人数</th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 72px;">开课学期</th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 72px;">课程名称</th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 72px;">周学时</th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 72px;">学分</th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 72px;">课程性质</th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 72px;">总学时</th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 72px;">理论学时</th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 72px;">实验学时</th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 72px;">起止周</th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 72px;">任课教师</th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 72px;">是否已有教材</th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 72px;">所属系</th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 72px;">开设学院</th>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        foreach (T_TB_TeachingTask item in lst)
+                                        {
+                                            <tr class="gradeA odd" role="row">
+                                                <td>@item.Id</td>
+                                                @{ 
+                                                    foreach (T_SH_Class item1 in lst1)
+                                                    {
+                                                        if (item.ClassId == item1.Id)
+                                                        {
+                                                            <td>@item1.Name</td>
+                                                        }
+                                                    }
+                                                }
+                                                <td>@item.StuNum</td>
+                                                <td>6</td>
+                                                <td>@item.CourseName</td>
+                                                <td>@item.WeekTime</td>
+                                                <td>@item.Score</td>
+                                                <td>@item.CourseType</td>
+                                                <td>@item.TotalTime</td>
+                                                <td>@item.LectureTime</td>
+                                                <td>@item.MachineTime</td>
+                                                <td>@item.SEweek</td>
+                                                <td>@item.T_SH_Teacher.Name</td>
+                                                <td>否</td>
+                                                <td>@item.T_SH_Department.Name</td>
+                                                <td>@item.T_SH_Academy.Name</td>
+                                                @*<td>
+                                                    <a href="/admin/category/delete/@item.Id" class="btn btn-default  btn-sm">删除</a>
+                                                    <a href="/admin/category/edit/@item.Id" class="btn btn-default  btn-sm">编辑</a>
+                                                </td>*@
+                                            </tr>
+                                        }
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div><div class="row"><div class="col-sm-6"><div class="dataTables_info" id="dataTables-example_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div></div><div class="col-sm-6"><div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate"><ul class="pagination"><li class="paginate_button previous disabled" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous"><a href="#">Previous</a></li><li class="paginate_button active" aria-controls="dataTables-example" tabindex="0"><a href="#">1</a></li><li class="paginate_button " aria-controls="dataTables-example" tabindex="0"><a href="#">2</a></li><li class="paginate_button " aria-controls="dataTables-example" tabindex="0"><a href="#">3</a></li><li class="paginate_button " aria-controls="dataTables-example" tabindex="0"><a href="#">4</a></li><li class="paginate_button " aria-controls="dataTables-example" tabindex="0"><a href="#">5</a></li><li class="paginate_button " aria-controls="dataTables-example" tabindex="0"><a href="#">6</a></li><li class="paginate_button next" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next"><a href="#">Next</a></li></ul></div></div></div>
+                </div>
+                <!-- /.table-responsive -->
+
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+

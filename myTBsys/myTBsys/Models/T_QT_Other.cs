@@ -12,16 +12,15 @@ namespace myTBsys.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class T_TB_TeaYuding
+    public partial class T_QT_Other
     {
         public int Id { get; set; }
-        public string TeaId { get; set; }
-        public string BookId { get; set; }
-        public int TaskId { get; set; }
-        public int State { get; set; }
-    
-        public virtual T_SH_Teacher T_SH_Teacher { get; set; }
-        public virtual T_TB_Books T_TB_Books { get; set; }
-        public virtual T_TB_TeachingTask T_TB_TeachingTask { get; set; }
+        public Nullable<decimal> Discount { get; set; }
+        public Nullable<System.DateTime> BIStTime { get; set; }
+        public Nullable<System.DateTime> BIEnTime { get; set; }
+        public Nullable<System.DateTime> CKStTime { get; set; }
+        public Nullable<System.DateTime> CKEnTime { get; set; }
+        public Nullable<System.DateTime> CBStTime { get; set; }
+        public Nullable<System.DateTime> CBEnTime { get; set; }
     }
 }
