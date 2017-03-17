@@ -19,7 +19,7 @@
 <div class="col-lg-12">
     <div class="panel panel-default">
         <div class="panel-heading">
-            DataTables Advanced Tables
+            &nbsp;
         </div>
         <!-- /.panel-heading -->
         <div class="panel-body">
@@ -37,20 +37,6 @@
                             </label>
                         </div>
                     </div>
-                    <div class="col-sm-6">
-                        <div id="dataTables-example_filter" class="dataTables_filter">
-                            <form role="form" action="/TBsys/Teacher/Choose" method="post">
-                                <div class="input-group custom-search-form pull-right">
-                                    <input class="form-control" placeholder="Search..." type="text" name="searchName">
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-default" type="submit">
-                                            <i class="fa fa-search"></i>
-                                        </button>
-                                    </span>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-12">
@@ -58,10 +44,10 @@
                             <thead>
                                 <tr role="row">
                                     <th class="sorting_asc" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 122px;">
-                                        <a href="~/TBsys/Teacher/Choose?orderField=Id desc">序号</a>
+                                        <a href="~/TBsys/Teacher/GetLIst?orderField=Id desc">序号</a>
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 151px;">
-                                        <a href="~/TBsys/Teacher/Choose?orderField=class">班级</a>
+                                        <a href="~/TBsys/Teacher/GetLIst?orderField=class">班级</a>
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 151px;">
                                         人数
@@ -73,12 +59,14 @@
                                         课程名
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 151px;">
-                                        <a href="~/TBsys/Teacher/Choose?orderField=category">课程性质</a>
+                                        课程性质
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 136px;">
-                                        <a href="~/TBsys/Teacher/Choose?orderField=category">课程类别</a>
+                                        课程类别
                                     </th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 136px;">状态</th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 136px;">
+                                        <a href="~/TBsys/Teacher/GetLIst?orderField=State desc">状态</a>
+                                    </th>
                                     <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 136px;">操作</th>
                                 </tr>
                             </thead>
@@ -107,7 +95,7 @@
 
                                             </td>
                                             @{
-                                                if (item.State == 1)
+                                                if (item.State == 4)
                                                 {
                                                     <td class="text-success text-center"><strong>审核通过</strong></td>
                                                     <td class="center">
@@ -123,14 +111,14 @@
                                                 }
                                                 else
                                                 {
-                                                    if (item.State == 0)
+                                                    if (item.State == 2)
                                                     {
                                                         <td class="text-center" ><strong>未审核</strong></td>
 
-                                                    }else if (item.State == 2)
+                                                    }else if (item.State == 0)
                                                     {
                                                         <td class="text-danger text-center"><strong>审核不通过</strong></td>
-                                                    }else if(item.State == 3)
+                                                    }else if(item.State == 1)
                                                     {
                                                         <td class="text-danger text-center"><strong>教材无库存</strong></td>
                                                     }

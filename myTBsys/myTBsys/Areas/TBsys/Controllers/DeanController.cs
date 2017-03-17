@@ -24,7 +24,7 @@ namespace myTBsys.Areas.TBsys.Controllers
             return View();
         }
 
-        public ActionResult DeanIndex(string orderField = "State desc", int pageIndex = 1)
+        public ActionResult DeanIndex(string searchName,string orderField = "State desc", int pageIndex = 1)
         {
             if (Session["type"] == null || (int)Session["type"] != 3)
             {
@@ -41,7 +41,16 @@ namespace myTBsys.Areas.TBsys.Controllers
             }
 
             T_SH_Teacher teacher = (T_SH_Teacher)Session["person"];
-            var query = db.T_TB_Choose.Where(m => m.T_TB_TeachingTask.DepartmentId == teacher.DepartmentId);
+            IEnumerable<T_TB_Choose> query = db.T_TB_Choose.Where(m => m.T_TB_TeachingTask.DepartmentId == teacher.DepartmentId);
+
+            if (string.IsNullOrEmpty(searchName))
+            {
+                
+            }
+            else
+            {
+                query = query.Where(m => m.T_TB_TeachingTask.CourseName.Contains(searchName));
+            }
 
             #region 排序逻辑
             // orderField
@@ -72,14 +81,28 @@ namespace myTBsys.Areas.TBsys.Controllers
             return View();
         }
 
-        public ActionResult CheckChoose(int choose,int id,string reason = "none")
+        public ActionResult CheckChoose(int choose,int id)
         {
             T_TB_Choose temp = db.T_TB_Choose.Find(id);
+            temp.State = choose;
+            temp.StateReason = "";
+            db.SaveChanges();
+
+            return RedirectToAction("DeanIndex");
+        }
+
+        public JsonResult CheckChoose2(int choose, int id, string reason)
+        {
+            T_TB_Choose temp = db.T_TB_Choose.Find(id);
+
+            if(temp == null)
+                return Json(new { code = 0 }, JsonRequestBehavior.AllowGet);
+
             temp.State = choose;
             temp.StateReason = reason;
             db.SaveChanges();
 
-            return RedirectToAction("DeanIndex");
+            return Json(new{ code = 1 },JsonRequestBehavior.AllowGet);
         }
 
         public bool TimeChecked()

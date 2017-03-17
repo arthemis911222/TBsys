@@ -121,7 +121,7 @@ namespace myTBsys.Areas.TBsys.Controllers
             return RedirectToAction("GetLIst");
         }
 
-        public ActionResult GetLIst(string orderField = "Id desc", int pageIndex = 1)
+        public ActionResult GetLIst(string orderField = "State desc", int pageIndex = 1)
         {
 
             if (Session["person"] == null || ((int)Session["type"] != 2 && (int)Session["type"] != 3))
@@ -151,6 +151,9 @@ namespace myTBsys.Areas.TBsys.Controllers
                     break;
                 case "Id desc":
                     query = query.OrderByDescending(m => m.Id);
+                    break;
+                case "State desc":
+                    query = query.OrderBy(m => m.State);
                     break;
                 default:
                     break;
