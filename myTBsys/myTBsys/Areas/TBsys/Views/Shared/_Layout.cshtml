@@ -1,6 +1,7 @@
 ﻿@using myTBsys.Models;
 @{
-    
+    int type = (int)Session["type"];
+    string name = (string)Session["name"];
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -10,11 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>@ViewBag.Title</title>
-
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <link href="~/Content/webupload/webuploader.css" rel="stylesheet" />
-    <script src="~/Content/webupload/webuploader.min.js"></script>
+    <title>温大教材征订系统</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="/sbadmin/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -44,135 +41,26 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">@ViewBag.Title</a>
+                <a class="navbar-brand" href="#">温州大学教材征订系统</a>
             </div>
             <!-- /.navbar-header -->
             <ul class="nav navbar-top-links navbar-right">
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-envelope fa-fw"></i> <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-messages">
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <strong>John Smith</strong>
-                                    <span class="pull-right text-muted">
-                                        <em>Yesterday</em>
-                                    </span>
-                                </div>
-                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <strong>John Smith</strong>
-                                    <span class="pull-right text-muted">
-                                        <em>Yesterday</em>
-                                    </span>
-                                </div>
-                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <strong>John Smith</strong>
-                                    <span class="pull-right text-muted">
-                                        <em>Yesterday</em>
-                                    </span>
-                                </div>
-                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a class="text-center" href="#">
-                                <strong>Read All Messages</strong>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        </li>
-                    </ul>
-                    <!-- /.dropdown-messages -->
-                </li>
-                <!-- /.dropdown -->
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-bell fa-fw"></i> <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-alerts">
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-comment fa-fw"></i> New Comment
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-twitter fa-fw"></i> 3 New Followers
-                                    <span class="pull-right text-muted small">12 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-envelope fa-fw"></i> Message Sent
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-tasks fa-fw"></i> New Task
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-upload fa-fw"></i> Server Rebooted
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a class="text-center" href="#">
-                                <strong>See All Alerts</strong>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        </li>
-                    </ul>
-                    <!-- /.dropdown-alerts -->
-                </li>
-                <!-- /.dropdown -->
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                        <i class="fa fa-user fa-fw"></i> 
+                        <strong>@name &nbsp;</strong>
+                         <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
                         <li>
-                            <a href="/TBsys/TBsyslogin/login"><i class="fa fa-user fa-fw"></i> 个人信息</a>
+                            <a href="#"><i class="fa fa-user fa-fw"></i> 个人信息</a>
                         </li>
                         <li>
-                            <a href="/TBsys/TBsyslogin/UpdatePwd"><i class="fa fa-gear fa-fw"></i> 修改密码</a>
+                            <a class="udPWD" href="JavaScript:;"><i class="fa fa-gear fa-fw"></i> 修改密码</a>
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a href="/TBsys/TBsyslogin/Quit"><i class="fa fa-sign-out fa-fw"></i> 退出</a>
+                            <a href="/TBsys/Login/Index"><i class="fa fa-sign-out fa-fw"></i> 退出</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -183,46 +71,45 @@
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
-                        <li class="sidebar-search">
-                            <div class="input-group custom-search-form">
-                                <input type="text" class="form-control" placeholder="Search...">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-default" type="button">
-                                        <i class="fa fa-search"></i>
-                                    </button>
-                                </span>
-                            </div>
-                            <!-- /input-group -->
-                        </li>
+
                         <li>
-                            <a href="/TBsys/login/login"><i class="fa fa-dashboard fa-fw"></i> 首页</a>
+                            <a id="indexMenu" href="#"><i class="fa fa-dashboard fa-fw"></i> 首页</a>
                         </li>
-                        <li>
-                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> 教师<span class="fa arrow"></span></a>
+                        <li id="teacherMenu" class="hide">
+                            <a href="#"><i class="fa fa-graduation-cap fa-fw"></i> 教师<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="/TBsys/category/index">分类列表</a>
+                                    <a href="/TBsys/Teacher/Choose">未填写列表</a>
                                 </li>
                                 <li>
-                                    <a href="/TBsys/category/add">分类增加</a>
+                                    <a href="/TBsys/Teacher/GetList">已填写列表</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
-                        <li>
-                            <a href="#"><i class="fa fa-shopping-cart fa-fw"></i> 学生<span class="fa arrow"></span></a>
+                        <li id="deanMenu" class="hide">
+                            <a href="#"><i class="fa fa-graduation-cap fa-fw"></i> 系主任<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="/TBsys/product/index">产品列表</a>
-                                </li>
-                                <li>
-                                    <a href="/TBsys/product/add">产品增加</a>
+                                    <a href="/TBsys/Dean/DeanIndex" id="deaCK">审核教材列表</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
-                        <li id="userCrtl">
-                            <a href="#"><i class="fa fa-users fa-fw"></i> 教材科<span class="fa arrow"></span></a>
+                        <li id="stuMenu" class="hide">
+                            <a href="#"><i class="fa fa-graduation-cap fa-fw"></i> 学生<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="/TBsys/Student/Choose" id="stuCB">可选教材</a>
+                                </li>
+                                <li>
+                                    <a href="/TBsys/Student/GetChoose">已选教材</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li id="jckMenu" class="hide">
+                            <a href="#"><i class="fa fa-graduation-cap fa-fw"></i> 教材科<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
                                     <a href="/TBsys/jiaock/Search">教材订购查询</a>
@@ -233,8 +120,8 @@
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
-                        <li id="adminCrtl">
-                            <a href="#"><i class="fa fa-user fa-fw"></i> 教务处<span class="fa arrow"></span></a>
+                        <li id="jwcMenu" class="hide">
+                            <a href="#"><i class="fa fa-graduation-cap fa-fw"></i> 教务处<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
                                     <a href="/TBsys/jiaowc/index">教材清单查看</a>
@@ -245,11 +132,23 @@
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
-                        <li>
-                            <a href="#"><i class="fa fa-tasks fa-fw"></i> 学院教学科<span class="fa arrow"></span></a>
+                        <li id="jxkMenu" class="hide">
+                            <a href="#"><i class="fa fa-graduation-cap fa-fw"></i> 学院教学科<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
                                     <a href="/TBsys/orderform/index">订单列表</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-user fa-fw"></i> 个人信息<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li id="upInfo" class="hide">
+                                    <a href="#">修改信息</a>
+                                </li>
+                                <li>
+                                    <a class="udPWD" href="JavaScript:;">修改密码</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -288,6 +187,45 @@
     <!-- Custom Theme JavaScript -->
     <script src="/sbadmin/dist/js/sb-admin-2.js"></script>
 
+    <!-- Small modal -->
+
+    <div id="upModal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h5 class="modal-title" id="myModalLabel"><strong>修改密码</strong></h5>
+            </div>
+            <form id="upForm" role="form">
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <label>旧的密码：</label>
+                            <input type="password" name="oldPwd" id="oldPwd">
+                        </div>
+                        <br />
+                        <br />
+                        <div class="col-sm-12">
+                            <label>新的密码：</label>
+                            <input type="password" name="newPwd" id="newPwd">
+                        </div>
+                        <br />
+                        <br />
+                        <div class="col-sm-12">
+                            <label>再次输入：</label>
+                            <input type="password" name="newPwd2" id="newPwd2">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="updatePwd()">保存</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </form>
+        </div>
+      </div>
+    </div>
+
     <script>
         
     </script>
@@ -296,3 +234,89 @@
     @RenderSection("javascrip", false)
 </body>
 </html>
+
+<script>
+    var temp = @type;
+    if (temp == 1) {
+        $("#stuMenu").removeClass("hide");
+    }else if (temp == 2) {
+        $("#teacherMenu").removeClass("hide");
+    }else if (temp == 3) {
+        $("#teacherMenu").removeClass("hide");
+        $("#deanMenu").removeClass("hide");
+    }else if (temp == 4) {
+        $("#jckMenu").removeClass("hide");
+    }else if (temp == 5) {
+        $("#jwcMenu").removeClass("hide");
+    }else if (temp == 6) {
+        $("#jxkMenu").removeClass("hide");
+        $("#upInfo").removeClass("hide");
+    }
+
+    $("#indexMenu").click(function(){
+
+        if (temp == 1) {
+            location.href = "/TBsys/Student/Index";
+        }else if (temp == 2) {
+            location.href = "/TBsys/Teacher/Index";
+        }else if (temp == 3) {
+            location.href = "/TBsys/Dean/Index";
+        }else if (temp == 4) {
+            location.href = "/TBsys/Student/Index";
+        }else if (temp == 5) {
+            location.href = "/TBsys/Student/Index";
+        }else if (temp == 6) {
+            location.href = "/TBsys/Student/Index";
+        }
+    })
+
+    $(".udPWD").click(function(){
+        document.getElementById("upForm").reset(); 
+        $("#upModal").modal('show');
+    })
+
+    function updatePwd(){
+        var address;
+
+        var oldPwd = $("#oldPwd").val();
+        var newPwd = $("#newPwd").val();
+        var newPwd2 = $("#newPwd2").val();
+
+        if(temp == 1)
+        {
+            address = '/TBsys/Student/UpdatePwd';
+        }else if (temp == 2 || temp == 3) {
+            address = '/TBsys/Teacher/UpdatePwd';
+        }else if (temp == 4) {
+            address = '/TBsys/Student/UpdatePwd';
+        }else if (temp == 5) {
+            address = '/TBsys/Student/UpdatePwd';
+        }else if (temp == 6) {
+            address = '/TBsys/Student/UpdatePwd';
+        }
+
+        $.post(address,
+            {
+                "oldPwd":oldPwd,
+                "newPwd":newPwd,
+                "newPwd2":newPwd2
+            },
+            function(data){
+                if(data.code  == 0)
+                {
+                    alert("密码修改成功！");
+                    $("#upModal").modal('hide');
+                }else if(data.code == 1)
+                {
+                    alert("旧密码输入错误！");
+                }else if(data.code == 2)
+                {
+                    alert("请输入相同密码！");
+                }else if(data.code == 3)
+                {
+                    alert("新密码不能为空！");
+                }
+            })
+    }
+
+</script>

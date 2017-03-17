@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewBag.Title = "系主任主页";
+    Layout = "~/Areas/TBsys/Views/Shared/_Layout.cshtml";
+
+    int flag = ViewBag.flag;
+}
+
+@{
+    if (flag == 1)
+    {
+        <div id="erroInfo" class="alert alert-danger hidden">
+            <a href="#" class="close" data-dismiss="alert">&times;</a>
+            <strong>有教学任务需要重新审核！</strong>
+        </div>
+    }
+}
+

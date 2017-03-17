@@ -1,0 +1,150 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>温州大学教材征订系统</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no">
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <style>
+        .head {
+            box-shadow: 1px 1px 10px 2px #808080;
+        }
+
+        .body {
+            margin: 10px auto;
+            width: 85%;
+        }
+
+        .logo {
+            vertical-align: middle;
+            height: 50px;
+        }
+
+            .logo img {
+                vertical-align: text-bottom;
+            }
+
+            .logo span {
+                font-size: x-large;
+                color: darkblue;
+                font-family: SimHei;
+                line-height: 70px;
+            }
+
+        .denglu {
+            clear: both;
+            margin-top: 20px;
+            vertical-align: top;
+            border: 4px solid #e4e4e4;
+            border-radius: 5px;
+        }
+
+        .denglu-left {
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        .denglu-right {
+            display: inline-block;
+            width: 100%;
+        }
+
+        .footer {
+            margin-top: 100px;
+            border-top: 1px solid #e4e4e4;
+            text-align: center;
+        }
+
+            .footer p {
+                margin-top: 30px;
+            }
+    </style>
+</head>
+<body>
+    <div class="head">
+        <div class="nav navbar-inverse navbar-static-top" style="height:20px;"></div>
+    </div>
+    <div class="body">
+        <div class="logo">
+            <img class="pull-left" src="~/img/logo_school.png" width="200" />
+            <span class="pull-left col-md-6 col-sm-12 col-xs-12">教材征订管理系统</span>
+        </div>
+        <div class="denglu">
+            <div class="denglu-left">
+                <img class="visible-lg-inline-block visible-md-inline-block" src="~/img/bg_pic1.jpg" style="vertical-align:text-top;" height="100%" />
+            </div>
+            <div class="denglu-right panel " style="vertical-align:text-top; max-width:350px">
+                <div class="panel-heading panel-default">
+                    用户登录
+                </div>
+                <div class="panel-body">
+                    <form role="form" class="form-horizontal">
+                        <div class="form-group">
+                            <!--<label for="name">用户名：</label>-->
+                            <input type="text" id="name" class="form-control" placeholder="请输入用户名" />
+                        </div>
+                        <div class="form-group">
+                            <!--<label for="pwd">密码：</label>-->
+                            <input type="password" id="password" class="form-control" placeholder="请输入密码" />
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="yanzheng" class="form-control col-sm-3" placeholder="验证码" style="width:80px;" />
+                            <img src="img/yanzheng.png" class="col-sm-4" />
+                            <a style="font-size:10px;line-height:40px;">看不清，换一张</a>
+                        </div>
+                        <div class="form-group">
+                            <input type="radio" name="ident" checked="checked" value="学生"/>学生
+                            <input type="radio" name="ident" value="老师"/>老师
+                            <input type="radio" name="ident" value="部门"/>部门
+                        </div>
+                        <div class="form-group">
+                            <input type="checkbox" />记住密码
+                            <a class="pull-right">忘记密码？</a>
+                        </div>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-primary btn-block" onclick="send(this)">登录</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <p style="font-size:small; color:#373636">Copyright © 2013 www.wzu.edu.cn Inc. All Rights Reserved.</p>
+    </div>
+
+    <script type="text/javascript">
+        function send(obj) {
+
+            var name = $("#name").val();
+            var password = $("#password").val();
+            var checkres = $("input:radio[name='ident']:checked").val();
+
+            $(obj).addClass("disabled");
+
+            $.post("/TBsys/Login/LoginCheck",
+            {
+                "Name": name,
+                "password": password,
+                "checkres": checkres
+            },
+            function (data, status) {
+                if (data.code == 11) {
+                    location.href = "/TBsys/Student/index";
+                } else if (data.code == 12) {
+                    location.href = "/TBsys/Teacher/index";
+                } else if (data.code == 13) {
+                    location.href = "/TBsys/adminlogin/Login";
+                }else {
+                    window.alert(data.message);
+                    $(obj).removeClass("disabled");
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>

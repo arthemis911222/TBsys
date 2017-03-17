@@ -1,0 +1,146 @@
+﻿@using myTBsys.Models;
+@{
+    ViewBag.Title = "后台——个人信息";
+    Layout = "~/Areas/TBsys/Views/Shared/_TeachingOffice.cshtml";
+    List<T_SH_Teacher> lst = ViewBag.lst;
+    String userID = "008";
+}
+
+<div class="col-lg-12">
+    <h1 class="page-header">个人资料</h1>
+</div>
+<div class="panel-body">
+    <div class="row">
+        <div class="col-lg-6">
+            <form role="form">
+                <div class="form-group">
+                    @*<img style="padding-left:40px" src="~/Content/images/touxiang.jpg" />*@
+                    <ul style="list-style:none">
+                        @{
+                            foreach (T_SH_Teacher item in lst)
+                            {
+                                if (@item.Id == userID)
+                                {
+                                    <li style="padding-top:20px">姓名：@item.Name</li>
+                                    <li style="padding-top:20px">电话：@item.TelPhone</li>
+                                    <li style="padding-top:20px">所属系：@item.T_SH_Department.Name</li>
+                                }
+                            }
+                        }
+
+                    </ul>
+                </div>
+                <div class="buttonform" style="padding-left:40px">
+                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal2">修改资料</button>
+                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">
+                        修改密码
+                    </button>
+                </div>
+            </form>
+          
+            <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                            <h4 class="modal-title" id="myModalLabel">修改资料</h4>
+                        </div>
+                        <form action="/TBsys/TeachingOffice/editSave" method="post">
+                            <div class="modal-body">
+                                @{
+                                    foreach (T_SH_Teacher item in lst)
+                                    {
+                                        if (@item.Id == userID)
+                                        {
+
+                                            <label>姓名：</label>
+                                            <input type="hidden" name="Id" value="@item.Id" />
+                                            <input class="form-control" name="Name" value="@item.Name">
+                                            <label>电话</label>
+                                            <input class="form-control" name="TelPhone" value="@item.TelPhone">
+                                           
+                                        }
+                                    }
+                                }
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary"> Save</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                            <h4 class="modal-title" id="myModalLabel">修改密码</h4>
+                        </div>
+                        <form action="/TBsys/TeachingOffice/editPwd" method="post">
+                            <div class="modal-body">
+                                @{
+                                    foreach (T_SH_Teacher item in lst)
+                                    {
+                                        if (@item.Id == userID)
+                                        {
+                                            <input type="hidden" name="Id" value="@item.Id" />
+                                                        <label>请输入原密码：</label>
+                                                        <input type="Password" id="input3">
+                                                        <br />
+                                                        <input type="hidden" id="input4" name="Oldpwd" value="@item.Password" />
+                                                        <label>请输入新密码：</label>
+                                                        <input type="Password" id="input1" name="newpwd">
+                                                        <br />
+                                                        <label>请再次输入新密码：</label>
+                                                        <input type="Password" id="input2">
+                                        }
+                                    }
+                                }
+
+
+
+                                @{
+                                    <script>
+                                                    function check() {
+                                                        with (document.all) {
+                                                            if (input1.value != input2.value) {
+                                                                alert("两次输入不一致！")
+                                                                input1.value = "";
+                                                                input2.value = "";
+                                                            }
+                                                            else if (input3.value != input4.value) {
+                                                                alert("原密码输入错误！")
+                                                                input3.value = "";
+                                                            }
+                                                            else document.forms[0].submit();
+                                                        }
+                                                    }
+                                    </script>
+                                }
+
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary" value="test"
+                                        onclick="check()">
+                                    Finish
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
+
+
