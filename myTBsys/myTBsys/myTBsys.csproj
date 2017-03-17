@@ -170,6 +170,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Areas\TBsys\Controllers\DeanController.cs" />
     <Compile Include="Areas\TBsys\Controllers\LoginController.cs" />
     <Compile Include="Areas\TBsys\Controllers\StudentController.cs" />
     <Compile Include="Areas\TBsys\Controllers\TeacherController.cs" />
@@ -466,17 +467,6 @@
     <Content Include="sbadmin\vendor\font-awesome\scss\_spinning.scss" />
     <Content Include="sbadmin\vendor\font-awesome\scss\_stacked.scss" />
     <Content Include="sbadmin\vendor\font-awesome\scss\_variables.scss" />
-    <Content Include="Areas\TBsys\Views\Shared\_TeachingOffice.cshtml" />
-    <Content Include="Areas\TBsys\Views\Teacher\Index.cshtml" />
-    <Content Include="Areas\TBsys\Views\Teacher\OwnerMessage.cshtml" />
-    <Content Include="Areas\TBsys\Views\Teacher\TeachingTask.cshtml" />
-    <Content Include="Areas\TBsys\Views\Teacher\BookMessage.cshtml" />
-    <Content Include="Areas\TBsys\Views\TeachingOffice\Index.cshtml" />
-    <Content Include="Areas\TBsys\Views\TeachingOffice\TeachingTask.cshtml" />
-    <Content Include="Areas\TBsys\Views\TeachingOffice\BookMessage.cshtml" />
-    <Content Include="Areas\TBsys\Views\TeachingOffice\PersonalInfo.cshtml" />
-    <Content Include="Areas\TBsys\Views\TeachingOffice\DataIn.cshtml" />
-    <Content Include="Areas\TBsys\Views\TeachingOffice\Time.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
