@@ -173,7 +173,7 @@
     <script src="/sbadmin/dist/js/sb-admin-2.js"></script>
 
     <!-- 修改密码Modal -->
-    <div id="upModal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+    <div id="pwdModal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
       <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -253,7 +253,7 @@
 
     $(".udPWD").click(function(){
         document.getElementById("upForm").reset(); 
-        $("#upModal").modal('show');
+        $("#pwdModal").modal('show');
     })
 
     function updatePwd(){

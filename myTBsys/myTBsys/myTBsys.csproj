@@ -177,6 +177,7 @@
     <Compile Include="Areas\TBsys\Controllers\StudentController.cs" />
     <Compile Include="Areas\TBsys\Controllers\TeacherController.cs" />
     <Compile Include="Areas\TBsys\Controllers\TeachingOfficeController.cs" />
+    <Compile Include="Areas\TBsys\Controllers\ValidateController.cs" />
     <Compile Include="Areas\TBsys\TBsysAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -247,6 +248,7 @@
     <Compile Include="Models\T_TB_TeaYuding.cs">
       <DependentUpon>TBsys.tt</DependentUpon>
     </Compile>
+    <Compile Include="Other\ValidateCode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="StudentIn.cs" />
@@ -529,6 +531,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\TBsys\Models\" />
+    <Folder Include="Areas\TBsys\Views\Validate\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

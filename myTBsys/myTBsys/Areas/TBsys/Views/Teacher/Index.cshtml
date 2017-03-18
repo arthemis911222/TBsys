@@ -1,21 +1,25 @@
 ﻿
 @{
-    ViewBag.Title = "温大教材征订管理系统";
+    ViewBag.Title = "老师主页";
     Layout = "~/Areas/TBsys/Views/Shared/_Layout.cshtml";
 
     int flag = ViewBag.flag;
+    string name = (string)Session["name"];
 }
-
-
-
-<h2>Index</h2>
 
 @{
     if (flag == 1)
     {
-        <div id="erroInfo" class="alert alert-danger hidden">
+        <div id="erroInfo" class="alert alert-danger">
             <a href="#" class="close" data-dismiss="alert">&times;</a>
             <strong>有教学任务需要修改教材！</strong>
+        </div>
+    }
+    else
+    {
+        <div id="erroInfo" class="alert alert-info">
+            <a href="#" class="close" data-dismiss="alert">&times;</a>
+            <strong>欢迎您，@(name)老师！</strong>
         </div>
     }
 }

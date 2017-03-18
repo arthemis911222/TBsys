@@ -4,14 +4,22 @@
     Layout = "~/Areas/TBsys/Views/Shared/_Layout.cshtml";
 
     int flag = ViewBag.flag;
+    string name = (string)Session["name"];
 }
 
 @{
     if (flag == 1)
     {
-        <div id="erroInfo" class="alert alert-danger hidden">
+        <div id="erroInfo" class="alert alert-danger">
             <a href="#" class="close" data-dismiss="alert">&times;</a>
             <strong>有课程需要重新预定教材！</strong>
+        </div>
+    }
+    else
+    {
+        <div id="erroInfo" class="alert alert-info">
+            <a href="#" class="close" data-dismiss="alert">&times;</a>
+            <strong>欢迎您，@name！</strong>
         </div>
     }
 }
