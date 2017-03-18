@@ -53,9 +53,6 @@
                     </a>
                     <ul class="dropdown-menu dropdown-user">
                         <li>
-                            <a href="#"><i class="fa fa-user fa-fw"></i> 个人信息</a>
-                        </li>
-                        <li>
                             <a class="udPWD" href="JavaScript:;"><i class="fa fa-gear fa-fw"></i> 修改密码</a>
                         </li>
                         <li class="divider"></li>
@@ -132,21 +129,9 @@
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
-                        <li id="jxkMenu" class="hide">
-                            <a href="#"><i class="fa fa-graduation-cap fa-fw"></i> 学院教学科<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="/TBsys/orderform/index">订单列表</a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
                         <li>
                             <a href="#"><i class="fa fa-user fa-fw"></i> 个人信息<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                <li id="upInfo" class="hide">
-                                    <a href="#">修改信息</a>
-                                </li>
                                 <li>
                                     <a class="udPWD" href="JavaScript:;">修改密码</a>
                                 </li>
@@ -187,8 +172,7 @@
     <!-- Custom Theme JavaScript -->
     <script src="/sbadmin/dist/js/sb-admin-2.js"></script>
 
-    <!-- Small modal -->
-
+    <!-- 修改密码Modal -->
     <div id="upModal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
       <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
@@ -248,9 +232,6 @@
         $("#jckMenu").removeClass("hide");
     }else if (temp == 5) {
         $("#jwcMenu").removeClass("hide");
-    }else if (temp == 6) {
-        $("#jxkMenu").removeClass("hide");
-        $("#upInfo").removeClass("hide");
     }
 
     $("#indexMenu").click(function(){
@@ -262,11 +243,11 @@
         }else if (temp == 3) {
             location.href = "/TBsys/Dean/Index";
         }else if (temp == 4) {
-            location.href = "/TBsys/Student/Index";
+            location.href = "/TBsys/jiaock/Index";
         }else if (temp == 5) {
-            location.href = "/TBsys/Student/Index";
+            location.href = "/TBsys/jiaowc/Index";
         }else if (temp == 6) {
-            location.href = "/TBsys/Student/Index";
+            location.href = "/TBsys/TeachingOffice/Index";
         }
     })
 
@@ -290,8 +271,6 @@
         }else if (temp == 4) {
             address = '/TBsys/Student/UpdatePwd';
         }else if (temp == 5) {
-            address = '/TBsys/Student/UpdatePwd';
-        }else if (temp == 6) {
             address = '/TBsys/Student/UpdatePwd';
         }
 

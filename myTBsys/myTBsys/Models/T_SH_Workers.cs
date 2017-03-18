@@ -14,7 +14,7 @@ namespace myTBsys.Models
     
     public partial class T_SH_Workers
     {
-        public int WorkId { get; set; }
+        public string Id { get; set; }
         public string Password { get; set; }
         public int Identity { get; set; }
         public string Des { get; set; }

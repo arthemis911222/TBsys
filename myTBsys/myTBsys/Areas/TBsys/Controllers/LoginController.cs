@@ -13,6 +13,10 @@ namespace myTBsys.Areas.TBsys.Controllers
         // GET: TBsys/Login
         public ActionResult Index()
         {
+            Session["person"] = null;
+            Session["type"] = null;
+            Session["name"] = null;
+            Session["Id"] = null;
             return View();
         }
 
@@ -49,7 +53,7 @@ namespace myTBsys.Areas.TBsys.Controllers
                 else if (teachers.First().Password == password)
                 {
                     Session["person"] = teachers.First();
-                    if(teachers.First().IsHead == 0)
+                    if (teachers.First().IsHead == 0)
                     {
                         Session["type"] = 2;
                     }
@@ -67,7 +71,7 @@ namespace myTBsys.Areas.TBsys.Controllers
                 }
             }else
             {
-                IEnumerable<T_SH_Workers> workers = db.T_SH_Workers.Where(m => m.WorkId.Equals(Name));
+                IEnumerable<T_SH_Workers> workers = db.T_SH_Workers.Where(m => m.Id.Equals(Name));
 
                 if (workers.Count() == 0)
                 {
@@ -76,18 +80,25 @@ namespace myTBsys.Areas.TBsys.Controllers
                 else if (workers.First().Password == password)
                 {
                     Session["person"] = workers.First();
-                    if(workers.First().Identity == 1)
+                    Session["name"] = workers.First().Des;
+                    if (workers.First().Identity == 1)
                     {
                         Session["type"] = 4;
+                        return Json(new { code = 13, message = "登录成功" }, JsonRequestBehavior.AllowGet);
+
                     }
                     else if(workers.First().Identity == 2)
                     {
                         Session["type"] = 5;
-                    }else
+                        return Json(new { code = 14, message = "登录成功" }, JsonRequestBehavior.AllowGet);
+
+                    }
+                    else
                     {
                         Session["type"] = 6;
+                        return Json(new { code = 15, message = "登录成功" }, JsonRequestBehavior.AllowGet);
+
                     }
-                    return Json(new { code = 13, message = "登录成功" }, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {
