@@ -14,15 +14,29 @@ namespace myTBsys.Areas.TBsys.Controllers
         TBsysEntities db = new TBsysEntities();
         public ActionResult Index()                                      //登录后首页
         {
+            if (Session["person"] == null || (int)Session["type"] != 6)
+            {
+                return Redirect("/TBsys/Login/Index");
+            }
+
             return View();
         }
         public ActionResult DataIn()                                      //数据导入
         {
-            
+            if (Session["person"] == null || (int)Session["type"] != 6)
+            {
+                return Redirect("/TBsys/Login/Index");
+            }
+
             return View();
         }
         public ActionResult Time()                                      //时间设置
         {
+            if (Session["person"] == null || (int)Session["type"] != 6)
+            {
+                return Redirect("/TBsys/Login/Index");
+            }
+
             var query = db.T_QT_Other;
             List<T_QT_Other> lst = query.ToList();
             ViewBag.lst = lst;
@@ -31,6 +45,11 @@ namespace myTBsys.Areas.TBsys.Controllers
 
         public ActionResult PersonalInfo()                               //个人信息
         {
+            if (Session["person"] == null || (int)Session["type"] != 6)
+            {
+                return Redirect("/TBsys/Login/Index");
+            }
+
             var query = db.T_SH_Teacher;
             List<T_SH_Teacher> lst = query.ToList();
             ViewBag.lst = lst;
@@ -38,6 +57,11 @@ namespace myTBsys.Areas.TBsys.Controllers
         }
         public ActionResult TeachingTask()                                 //教学任务信息
         {
+            if (Session["person"] == null || (int)Session["type"] != 6)
+            {
+                return Redirect("/TBsys/Login/Index");
+            }
+
             var query = db.T_TB_TeachingTask.Include(m => m.T_SH_Teacher);
             var query1 = db.T_SH_Class;
             ViewBag.lst = query.ToList();
@@ -46,6 +70,11 @@ namespace myTBsys.Areas.TBsys.Controllers
         }
         public ActionResult BookMessage()                                  //教材订购信息
         {
+            if (Session["person"] == null || (int)Session["type"] != 6)
+            {
+                return Redirect("/TBsys/Login/Index");
+            }
+
             var query = db.T_TB_Choose.Include(m => m.T_TB_Books);
             var query1 = db.T_TB_TeachingTask;
             var query2 = db.T_TB_TeaYuding;

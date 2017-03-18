@@ -15,6 +15,11 @@ namespace myTBsys.Areas.TBsys.Controllers
         // GET: TBsys/Jiaowc
         public ActionResult Index(string searchstring, int pageIndex = 1, int pageSize = 4)
         {
+            if (Session["person"] == null || (int)Session["type"] != 5)
+            {
+                return Redirect("/TBsys/Login/Index");
+            }
+
             IEnumerable<myTBsys.Models.T_TB_Books> query = db.T_TB_Books;
             if (String.IsNullOrEmpty(searchstring))
             {
@@ -83,7 +88,11 @@ namespace myTBsys.Areas.TBsys.Controllers
 
         public ActionResult Edit(String id)
         {
-            
+            if (Session["person"] == null || (int)Session["type"] != 5)
+            {
+                return Redirect("/TBsys/Login/Index");
+            }
+
             myTBsys.Models.T_TB_Books item = db.T_TB_Books.Find(id);
             //ViewBag.BooksId = new SelectList(db.T_Shop_ProductCategory, "Id", "Name", item.T_Shop_ProductCategory.Id);
             ViewBag.item = item;

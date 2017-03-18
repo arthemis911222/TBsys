@@ -12,6 +12,11 @@ namespace myTBsys.Areas.TBsys.Controllers
         // GET: TBsys/jiaock
         public ActionResult Index(string searchstring, int pageIndex = 1, int pageSize = 4)
         {
+            if (Session["person"] == null || (int)Session["type"] != 4)
+            {
+                return Redirect("/TBsys/Login/Index");
+            }
+
             IEnumerable<myTBsys.Models.T_TB_Fenfa> query = db.T_TB_Fenfa;
             if (String.IsNullOrEmpty(searchstring))
             {
@@ -39,6 +44,10 @@ namespace myTBsys.Areas.TBsys.Controllers
 
         public ActionResult Edit(String id)
         {
+            if (Session["person"] == null || (int)Session["type"] != 4)
+            {
+                return Redirect("/TBsys/Login/Index");
+            }
 
             myTBsys.Models.T_TB_Fenfa item = db.T_TB_Fenfa.Find(id);
             //ViewBag.BookId = new SelectList(db.T_TB_Books, "Id", "Name", item.T_TB_Books.Id);
@@ -67,6 +76,11 @@ namespace myTBsys.Areas.TBsys.Controllers
 
         public ActionResult Search(string searchstring, int pageIndex = 1, int pageSize = 4)
         {
+            if (Session["person"] == null || (int)Session["type"] != 4)
+            {
+                return Redirect("/TBsys/Login/Index");
+            }
+
             IEnumerable<myTBsys.Models.T_TB_StoreTable> query = db.T_TB_StoreTable;
             if (String.IsNullOrEmpty(searchstring))
             {
