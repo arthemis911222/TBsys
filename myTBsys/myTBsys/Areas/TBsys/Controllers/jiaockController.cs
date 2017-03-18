@@ -8,7 +8,7 @@ namespace myTBsys.Areas.TBsys.Controllers
 {
     public class jiaockController : Controller
     {
-        myTBsys.Models.textbook_dbaEntities1 db = new Models.textbook_dbaEntities1();
+        myTBsys.Models.TBsysEntities db = new Models.TBsysEntities();
         // GET: TBsys/jiaock
         public ActionResult Index(string searchstring, int pageIndex = 1, int pageSize = 4)
         {

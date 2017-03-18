@@ -13,10 +13,10 @@ namespace myTBsys.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class textbook_dbaEntities1 : DbContext
+    public partial class TBsysEntities : DbContext
     {
-        public textbook_dbaEntities1()
-            : base("name=textbook_dbaEntities1")
+        public TBsysEntities()
+            : base("name=TBsysEntities")
         {
         }
     

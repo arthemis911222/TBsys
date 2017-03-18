@@ -170,6 +170,9 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Areas\TBsys\Controllers\DeanController.cs" />
+    <Compile Include="Areas\TBsys\Controllers\jiaockController.cs" />
+    <Compile Include="Areas\TBsys\Controllers\JiaowcController.cs" />
     <Compile Include="Areas\TBsys\Controllers\LoginController.cs" />
     <Compile Include="Areas\TBsys\Controllers\StudentController.cs" />
     <Compile Include="Areas\TBsys\Controllers\TeacherController.cs" />
@@ -184,59 +187,65 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\Tbsys.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Tbsys.Context.tt</DependentUpon>
+    <Compile Include="Models\TBsys.Context.cs" />
+    <Compile Include="Models\TBsys.cs" />
+    <Compile Include="Models\TBsys.Designer.cs">
+      <DependentUpon>TBsys.cs</DependentUpon>
     </Compile>
-    <Compile Include="Models\Tbsys.cs">
+    <Compile Include="Models\TBsys1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Tbsys.tt</DependentUpon>
+      <DependentUpon>TBsys.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Tbsys.Designer.cs">
+    <Compile Include="Models\TBsys1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Tbsys.edmx</DependentUpon>
+      <DependentUpon>TBsys.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\T_QT_Other.cs">
+      <DependentUpon>TBsys.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\T_SH_Academy.cs">
-      <DependentUpon>Tbsys.tt</DependentUpon>
+      <DependentUpon>TBsys.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\T_SH_Class.cs">
-      <DependentUpon>Tbsys.tt</DependentUpon>
+      <DependentUpon>TBsys.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\T_SH_Department.cs">
-      <DependentUpon>Tbsys.tt</DependentUpon>
+      <DependentUpon>TBsys.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\T_SH_Major.cs">
-      <DependentUpon>Tbsys.tt</DependentUpon>
+      <DependentUpon>TBsys.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\T_SH_Student.cs">
-      <DependentUpon>Tbsys.tt</DependentUpon>
+      <DependentUpon>TBsys.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\T_SH_Teacher.cs">
-      <DependentUpon>Tbsys.tt</DependentUpon>
+      <DependentUpon>TBsys.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\T_SH_Workers.cs">
-      <DependentUpon>Tbsys.tt</DependentUpon>
+      <DependentUpon>TBsys.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\T_TB_Books.cs">
-      <DependentUpon>Tbsys.tt</DependentUpon>
+      <DependentUpon>TBsys.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\T_TB_Choose.cs">
-      <DependentUpon>Tbsys.tt</DependentUpon>
+      <DependentUpon>TBsys.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\T_TB_Fenfa.cs">
-      <DependentUpon>Tbsys.tt</DependentUpon>
+      <DependentUpon>TBsys.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\T_TB_StoreTable.cs">
+      <DependentUpon>TBsys.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\T_TB_StuYuding.cs">
-      <DependentUpon>Tbsys.tt</DependentUpon>
+      <DependentUpon>TBsys.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\T_TB_TeachingTask.cs">
-      <DependentUpon>Tbsys.tt</DependentUpon>
+      <DependentUpon>TBsys.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\T_TB_TeaYuding.cs">
-      <DependentUpon>Tbsys.tt</DependentUpon>
+      <DependentUpon>TBsys.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -245,26 +254,107 @@
     <Compile Include="TeacherIn.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\Antlr3.Runtime.dll" />
+    <Content Include="bin\Antlr3.Runtime.pdb" />
+    <Content Include="bin\EntityFramework.dll" />
+    <Content Include="bin\EntityFramework.SqlServer.dll" />
+    <Content Include="bin\EntityFramework.SqlServer.xml" />
+    <Content Include="bin\EntityFramework.xml" />
+    <Content Include="bin\Microsoft.AspNet.Identity.Core.dll" />
+    <Content Include="bin\Microsoft.AspNet.Identity.Core.xml" />
+    <Content Include="bin\Microsoft.AspNet.Identity.EntityFramework.dll" />
+    <Content Include="bin\Microsoft.AspNet.Identity.EntityFramework.xml" />
+    <Content Include="bin\Microsoft.AspNet.Identity.Owin.dll" />
+    <Content Include="bin\Microsoft.AspNet.Identity.Owin.xml" />
+    <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll" />
+    <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml" />
+    <Content Include="bin\Microsoft.Owin.dll" />
+    <Content Include="bin\Microsoft.Owin.Host.SystemWeb.dll" />
+    <Content Include="bin\Microsoft.Owin.Host.SystemWeb.xml" />
+    <Content Include="bin\Microsoft.Owin.Security.Cookies.dll" />
+    <Content Include="bin\Microsoft.Owin.Security.Cookies.xml" />
+    <Content Include="bin\Microsoft.Owin.Security.dll" />
+    <Content Include="bin\Microsoft.Owin.Security.Facebook.dll" />
+    <Content Include="bin\Microsoft.Owin.Security.Facebook.xml" />
+    <Content Include="bin\Microsoft.Owin.Security.Google.dll" />
+    <Content Include="bin\Microsoft.Owin.Security.Google.xml" />
+    <Content Include="bin\Microsoft.Owin.Security.MicrosoftAccount.dll" />
+    <Content Include="bin\Microsoft.Owin.Security.MicrosoftAccount.xml" />
+    <Content Include="bin\Microsoft.Owin.Security.OAuth.dll" />
+    <Content Include="bin\Microsoft.Owin.Security.OAuth.xml" />
+    <Content Include="bin\Microsoft.Owin.Security.Twitter.dll" />
+    <Content Include="bin\Microsoft.Owin.Security.Twitter.xml" />
+    <Content Include="bin\Microsoft.Owin.Security.xml" />
+    <Content Include="bin\Microsoft.Owin.xml" />
+    <Content Include="bin\Microsoft.Web.Infrastructure.dll" />
+    <Content Include="bin\myTBsys.dll" />
+    <Content Include="bin\myTBsys.pdb" />
+    <Content Include="bin\Newtonsoft.Json.dll" />
+    <Content Include="bin\Newtonsoft.Json.xml" />
+    <Content Include="bin\Owin.dll" />
+    <Content Include="bin\roslyn\csc.exe" />
+    <Content Include="bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll" />
+    <Content Include="bin\roslyn\System.Collections.Immutable.dll" />
+    <Content Include="bin\roslyn\System.Reflection.Metadata.dll" />
+    <Content Include="bin\roslyn\vbc.exe" />
+    <Content Include="bin\roslyn\VBCSCompiler.exe" />
+    <Content Include="bin\System.Web.Helpers.dll" />
+    <Content Include="bin\System.Web.Helpers.xml" />
+    <Content Include="bin\System.Web.Mvc.dll" />
+    <Content Include="bin\System.Web.Mvc.xml" />
+    <Content Include="bin\System.Web.Optimization.dll" />
+    <Content Include="bin\System.Web.Optimization.xml" />
+    <Content Include="bin\System.Web.Razor.dll" />
+    <Content Include="bin\System.Web.Razor.xml" />
+    <Content Include="bin\System.Web.WebPages.Deployment.dll" />
+    <Content Include="bin\System.Web.WebPages.Deployment.xml" />
+    <Content Include="bin\System.Web.WebPages.dll" />
+    <Content Include="bin\System.Web.WebPages.Razor.dll" />
+    <Content Include="bin\System.Web.WebPages.Razor.xml" />
+    <Content Include="bin\System.Web.WebPages.xml" />
+    <Content Include="bin\WebGrease.dll" />
+    <Content Include="bin\zh-Hans\EntityFramework.resources.dll" />
+    <Content Include="bin\zh-Hans\EntityFramework.SqlServer.resources.dll" />
+    <Content Include="bin\zh-Hans\Microsoft.AspNet.Identity.Core.resources.dll" />
+    <Content Include="bin\zh-Hans\Microsoft.AspNet.Identity.EntityFramework.resources.dll" />
+    <Content Include="bin\zh-Hans\Microsoft.AspNet.Identity.Owin.resources.dll" />
+    <Content Include="bin\zh-Hans\Microsoft.Owin.Host.SystemWeb.resources.dll" />
+    <Content Include="bin\zh-Hans\Microsoft.Owin.resources.dll" />
+    <Content Include="bin\zh-Hans\Microsoft.Owin.Security.Facebook.resources.dll" />
+    <Content Include="bin\zh-Hans\Microsoft.Owin.Security.Google.resources.dll" />
+    <Content Include="bin\zh-Hans\Microsoft.Owin.Security.MicrosoftAccount.resources.dll" />
+    <Content Include="bin\zh-Hans\Microsoft.Owin.Security.resources.dll" />
+    <Content Include="bin\zh-Hans\Microsoft.Owin.Security.Twitter.resources.dll" />
+    <Content Include="bin\zh-Hans\System.Web.Helpers.resources.dll" />
+    <Content Include="bin\zh-Hans\System.Web.Mvc.resources.dll" />
+    <Content Include="bin\zh-Hans\System.Web.Optimization.resources.dll" />
+    <Content Include="bin\zh-Hans\System.Web.Razor.resources.dll" />
+    <Content Include="bin\zh-Hans\System.Web.WebPages.Deployment.resources.dll" />
+    <Content Include="bin\zh-Hans\System.Web.WebPages.Razor.resources.dll" />
+    <Content Include="bin\zh-Hans\System.Web.WebPages.resources.dll" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="img\bg_pic1.jpg" />
+    <Content Include="img\logo_school.png" />
+    <Content Include="img\yanzheng.png" />
     <Content Include="Models\TBsys.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Tbsys.edmx</DependentUpon>
-      <LastGenOutput>Tbsys.Context.cs</LastGenOutput>
+      <LastGenOutput>TBsys.Context1.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\Tbsys.tt">
+    <Content Include="Models\TBsys.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Tbsys.edmx</DependentUpon>
-      <LastGenOutput>Tbsys.cs</LastGenOutput>
+      <LastGenOutput>TBsys1.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\TBsys\Views\web.config" />
-    <Content Include="Areas\TBsys\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\TBsys\Views\Jiaowc\Index.cshtml" />
     <Content Include="sbadmin\.gitignore" />
     <Content Include="sbadmin\bower.json" />
@@ -360,15 +450,34 @@
     <Content Include="Areas\TBsys\Views\jiaock\Index.cshtml" />
     <Content Include="Areas\TBsys\Views\jiaock\Edit.cshtml" />
     <Content Include="Areas\TBsys\Views\jiaock\Search.cshtml" />
-    <EntityDeploy Include="Models\Tbsys.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Tbsys.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\Tbsys.edmx.diagram">
-      <DependentUpon>Tbsys.edmx</DependentUpon>
-    </Content>
     <Content Include="Areas\TBsys\Views\web.config" />
     <Content Include="Areas\TBsys\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\TBsys\Views\Dean\DeanIndex.cshtml" />
+    <Content Include="Areas\TBsys\Views\Dean\Index.cshtml" />
+    <Content Include="Areas\TBsys\Views\Login\Index.cshtml" />
+    <Content Include="Areas\TBsys\Views\Student\Choose.cshtml" />
+    <Content Include="Areas\TBsys\Views\Student\GetChoose.cshtml" />
+    <Content Include="Areas\TBsys\Views\Student\Index.cshtml" />
+    <Content Include="Areas\TBsys\Views\Teacher\Choose.cshtml" />
+    <Content Include="Areas\TBsys\Views\Teacher\GetLIst.cshtml" />
+    <Content Include="Areas\TBsys\Views\Teacher\Index.cshtml" />
+    <Content Include="Areas\TBsys\Views\TeachingOffice\BookMessage.cshtml" />
+    <Content Include="Areas\TBsys\Views\TeachingOffice\DataIn.cshtml" />
+    <Content Include="Areas\TBsys\Views\TeachingOffice\Index.cshtml" />
+    <Content Include="Areas\TBsys\Views\TeachingOffice\PersonalInfo.cshtml" />
+    <Content Include="Areas\TBsys\Views\TeachingOffice\TeachingTask.cshtml" />
+    <Content Include="Areas\TBsys\Views\TeachingOffice\Time.cshtml" />
+    <Content Include="bin\myTBsys.dll.config" />
+    <Content Include="bin\roslyn\Microsoft.CSharp.Core.targets" />
+    <Content Include="bin\roslyn\Microsoft.VisualBasic.Core.targets" />
+    <Content Include="bin\roslyn\VBCSCompiler.exe.config" />
+    <EntityDeploy Include="Models\TBsys.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>TBsys1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\TBsys.edmx.diagram">
+      <DependentUpon>TBsys.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

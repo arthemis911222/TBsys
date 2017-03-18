@@ -172,5 +172,159 @@ namespace myTBsys.Areas.TBsys.Controllers
             ViewBag.list = query.ToList();
             return View();
         }
+
+        public ActionResult SaveEdit(int cId, string bookName, string bookId, string bookAuthor, string Price, string Publisher, int Edition, string Reason, int bookCheck = 0)
+        {
+            //确定书籍书否存在，不存在则添加,存在则修改信息
+            T_TB_Books book = db.T_TB_Books.Find(bookId);
+            if (book == null)
+            {
+                book = new T_TB_Books();
+                book.Id = bookId;
+                book.Name = bookName;
+                book.Author = bookAuthor;
+                book.Price = Convert.ToDecimal(Price);
+                book.Publisher = Publisher;
+                book.Edition = Edition;
+
+                db.T_TB_Books.Add(book);
+            }
+            else
+            {
+                book.Name = bookName;
+                book.Author = bookAuthor;
+                book.Price = Convert.ToDecimal(Price);
+                book.Publisher = Publisher;
+                book.Edition = Edition;
+            }
+
+            //向教材选定表修改
+            T_TB_Choose choose = db.T_TB_Choose.Where(m => m.TeachingTaskId == cId).First();
+            choose.BookId = bookId;
+            choose.Reason = Reason;
+
+            //添加老师预定书修改
+            if (bookCheck == 0)
+            {
+                string teaId = (string)Session["Id"];
+                var query = db.T_TB_TeaYuding.Where(m => m.TeaId == teaId && m.TaskId == cId);
+                if (query.Count() != 0)
+                {
+                    db.T_TB_TeaYuding.Remove(query.First());
+                }
+            }
+            else if (bookCheck == 1)
+            {
+                string teaId = (string)Session["Id"];
+                var query = db.T_TB_TeaYuding.Where(m => m.TeaId == teaId && m.TaskId == cId);
+
+                if (query.Count() == 0)
+                {
+                    T_TB_TeaYuding temp = new T_TB_TeaYuding();
+                    temp.Id = db.T_TB_TeaYuding.Count() + 1;
+                    temp.TeaId = (string)Session["Id"];
+                    temp.BookId = bookId;
+                    temp.TaskId = cId;
+                    db.T_TB_TeaYuding.Add(temp);
+                }
+                else
+                {
+                    T_TB_TeaYuding temp = query.First();
+                    temp.BookId = bookId;
+                }
+            }
+
+            db.SaveChanges();
+
+            return RedirectToAction("GetLIst");
+        }
+
+        public JsonResult YudingCheck(int cId)
+        {
+            string teaId = (string)Session["Id"];
+            var query = db.T_TB_TeaYuding.Where(m => m.TeaId == teaId && m.TaskId == cId);
+
+            if (query.Count() == 0)
+            {
+                return Json(new { code = 0 }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { code = 1 }, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+
+        public bool TimeChecked()
+        {
+            //没有到选教材时间
+            T_QT_Other ot = db.T_QT_Other.First();
+            DateTime stTime = Convert.ToDateTime(ot.BIStTime);
+            DateTime enTime = Convert.ToDateTime(ot.BIEnTime);
+            DateTime nowTime = DateTime.Now;
+
+            if (nowTime < stTime || nowTime > enTime)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+
+        }
+
+        public bool BookChecked()
+        {
+            string id = (string)Session["Id"];
+
+            //1为库存不足
+            var query = db.T_TB_StoreTable.Where(m => m.T_TB_TeachingTask.TeacherId == id && m.State == 1);
+
+            if (query.Count() == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+            //foreach(T_TB_StoreTable item in query)
+            //{
+            //    T_TB_TeachingTask ntask = db.T_TB_TeachingTask.Find(item.TaskId);
+            //    //T_TB_Choose nchoose = db.T_TB_Choose.Where(m => m.TeachingTaskId == item.TaskId).First();
+            //    //db.T_TB_Choose.Remove(nchoose);
+            //    ntask.State = 0;
+
+            //    db.SaveChanges();
+            //}
+        }
+
+        public JsonResult UpdatePwd(string oldpwd, string newpwd, string newpwd2)
+        {
+            string stuId = (string)Session["Id"];
+            T_SH_Teacher person = db.T_SH_Teacher.Find(stuId);
+
+            if (!person.Password.Equals(oldpwd))
+            {
+                return Json(new { code = 1 }, JsonRequestBehavior.AllowGet);
+            }
+            else if (!newpwd.Equals(newpwd2))
+            {
+                return Json(new { code = 2 }, JsonRequestBehavior.AllowGet);
+            }
+            else if (newpwd.Equals("") || newpwd2.Equals(""))
+            {
+                return Json(new { code = 3 }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                person.Password = newpwd;
+                db.SaveChanges();
+                return Json(new { code = 0 }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
     }
 }

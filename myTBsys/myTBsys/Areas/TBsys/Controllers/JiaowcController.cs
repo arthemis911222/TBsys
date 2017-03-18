@@ -10,7 +10,7 @@ namespace myTBsys.Areas.TBsys.Controllers
     public class JiaowcController : Controller
     {
 
-        myTBsys.Models.textbook_dbaEntities1 db = new Models.textbook_dbaEntities1();
+        myTBsys.Models.TBsysEntities db = new Models.TBsysEntities();
         int id = 0;//T_TB_StoreTable表的ID
         // GET: TBsys/Jiaowc
         public ActionResult Index(string searchstring, int pageIndex = 1, int pageSize = 4)
