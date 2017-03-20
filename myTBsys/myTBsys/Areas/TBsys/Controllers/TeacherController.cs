@@ -46,7 +46,7 @@ namespace myTBsys.Areas.TBsys.Controllers
             }
 
             string id = (string)Session["Id"];
-            var query = db.T_TB_TeachingTask.Where(m => m.TeacherId == id && m.State == 0);
+            var query = db.T_TB_TeachingTask.Where(m => m.TeacherId == id && m.State == 2);
 
             #region 排序逻辑
             // orderField
@@ -103,13 +103,12 @@ namespace myTBsys.Areas.TBsys.Controllers
 
             //修改教学任务状态为已经填写
             T_TB_TeachingTask task = db.T_TB_TeachingTask.Find(cId);
-            task.State = 1;
+            task.State = 4;
 
             //添加老师预定书
             if(bookCheck == 1)
             {
                 T_TB_TeaYuding temp = new T_TB_TeaYuding();
-                temp.Id = db.T_TB_TeaYuding.Count() + 1;
                 temp.TeaId = (string)Session["Id"];
                 temp.BookId = bookId;
                 temp.TaskId = cId;
@@ -202,6 +201,7 @@ namespace myTBsys.Areas.TBsys.Controllers
             T_TB_Choose choose = db.T_TB_Choose.Where(m => m.TeachingTaskId == cId).First();
             choose.BookId = bookId;
             choose.Reason = Reason;
+            choose.State = 2;
 
             //添加老师预定书修改
             if (bookCheck == 0)
@@ -221,7 +221,6 @@ namespace myTBsys.Areas.TBsys.Controllers
                 if (query.Count() == 0)
                 {
                     T_TB_TeaYuding temp = new T_TB_TeaYuding();
-                    temp.Id = db.T_TB_TeaYuding.Count() + 1;
                     temp.TeaId = (string)Session["Id"];
                     temp.BookId = bookId;
                     temp.TaskId = cId;

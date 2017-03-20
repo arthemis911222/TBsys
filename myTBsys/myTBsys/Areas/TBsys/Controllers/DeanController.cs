@@ -61,7 +61,7 @@ namespace myTBsys.Areas.TBsys.Controllers
                     query = query.OrderByDescending(m => m.Id);
                     break;
                 case "State desc":
-                    query = query.OrderByDescending(m => m.State);
+                    query = query.OrderBy(m => m.State);
                     break;
                 default:
                     break;

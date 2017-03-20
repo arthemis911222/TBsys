@@ -143,7 +143,6 @@ namespace myTBsys.Areas.TBsys.Controllers
                     if(query.Count() == 0)
                     {
                         T_TB_StuYuding item = new T_TB_StuYuding();
-                        item.Id = db.T_TB_StuYuding.Count() + 1;
                         item.StuId = stuId;
                         item.BookId = choose.BookId;
                         item.TaskId = choose.TeachingTaskId;

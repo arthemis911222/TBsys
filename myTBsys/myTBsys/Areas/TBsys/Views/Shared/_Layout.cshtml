@@ -283,8 +283,8 @@
             function(data){
                 if(data.code  == 0)
                 {
+                    $("#pwdModal").modal('hide');
                     alert("密码修改成功！");
-                    $("#upModal").modal('hide');
                 }else if(data.code == 1)
                 {
                     alert("旧密码输入错误！");

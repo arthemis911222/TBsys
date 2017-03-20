@@ -149,7 +149,7 @@
                                 <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">
                                     <ul class="pagination">
                                         <li class="paginate_button previous" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous">
-                                            <a href="/TBsys/Dean/Choose?searchName=@search&&pageIndex=@(pageIndex-1 <= 0 ? 1 : pageIndex-1)">Previous</a>
+                                            <a href="/TBsys/Dean/DeanIndex?searchName=@search&&pageIndex=@(pageIndex-1 <= 0 ? 1 : pageIndex-1)">Previous</a>
                                         </li>
 
                                         @{
@@ -158,13 +158,13 @@
                                                 if (pageIndex == i)
                                                 {
                                                     <li class="paginate_button active" aria-controls="dataTables-example" tabindex="0">
-                                                        <a href="/TBsys/Dean/Choose?searchName=@search&&pageIndex=@i">@i</a>
+                                                        <a href="/TBsys/Dean/DeanIndex?searchName=@search&&pageIndex=@i">@i</a>
                                                     </li>
                                                 }
                                                 else
                                                 {
                                                     <li class="paginate_button" aria-controls="dataTables-example" tabindex="0">
-                                                        <a href="/TBsys/Dean/Choose?searchName=@search&&pageIndex=@i">@i</a>
+                                                        <a href="/TBsys/Dean/DeanIndex?searchName=@search&&pageIndex=@i">@i</a>
                                                     </li>
                                                 }
 
@@ -172,7 +172,7 @@
                                         }
 
                                         <li class="paginate_button next" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next">
-                                            <a href="/TBsys/Dean/Choose?searchName=@search&&pageIndex=@(pageIndex+1 > maxPage ? maxPage : pageIndex+1)">Next</a>
+                                            <a href="/TBsys/Dean/DeanIndex?searchName=@search&&pageIndex=@(pageIndex+1 > maxPage ? maxPage : pageIndex+1)">Next</a>
                                         </li>
                                     </ul>
                                 </div>

@@ -102,7 +102,7 @@
                                                         <button type="button" class="btn btn-default btn-sm" onclick="choose(this)">查看</button>
                                                     </td>
                                                 }
-                                                else if(flag == 0)
+                                                else if(flag == 0 && item.State == 2)
                                                 {
                                                     <td class="text-info text-center"><strong>正在审核...</strong></td>
                                                     <td class="center">
@@ -114,7 +114,6 @@
                                                     if (item.State == 2)
                                                     {
                                                         <td class="text-center" ><strong>未审核</strong></td>
-
                                                     }else if (item.State == 0)
                                                     {
                                                         <td class="text-danger text-center"><strong>审核不通过</strong></td>
@@ -147,7 +146,7 @@
                         <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">
                             <ul class="pagination">
                                 <li class="paginate_button previous" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous">
-                                    <a href="/TBsys/Teacher/Choose?searchName=@search&&pageIndex=@(pageIndex-1 <= 0 ? 1 : pageIndex-1)">Previous</a>
+                                    <a href="/TBsys/Teacher/GetLIst?searchName=@search&&pageIndex=@(pageIndex-1 <= 0 ? 1 : pageIndex-1)">Previous</a>
                                 </li>
 
                                 @{
@@ -156,13 +155,13 @@
                                         if (pageIndex == i)
                                         {
                                             <li class="paginate_button active" aria-controls="dataTables-example" tabindex="0">
-                                                <a href="/TBsys/Teacher/Choose?searchName=@search&&pageIndex=@i">@i</a>
+                                                <a href="/TBsys/Teacher/GetLIst?searchName=@search&&pageIndex=@i">@i</a>
                                             </li>
                                         }
                                         else
                                         {
                                             <li class="paginate_button" aria-controls="dataTables-example" tabindex="0">
-                                                <a href="/TBsys/Teacher/Choose?searchName=@search&&pageIndex=@i">@i</a>
+                                                <a href="/TBsys/Teacher/GetLIst?searchName=@search&&pageIndex=@i">@i</a>
                                             </li>
                                         }
 
@@ -170,7 +169,7 @@
                                 }
 
                                 <li class="paginate_button next" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next">
-                                    <a href="/TBsys/Teacher/Choose?searchName=@search&&pageIndex=@(pageIndex+1 > maxPage ? maxPage : pageIndex+1)">Next</a>
+                                    <a href="/TBsys/Teacher/GetLIst?searchName=@search&&pageIndex=@(pageIndex+1 > maxPage ? maxPage : pageIndex+1)">Next</a>
                                 </li>
                             </ul>
                         </div>
@@ -184,19 +183,24 @@
     <!-- /.panel -->
 </div>
 
-<!-- Modal 填写教材 -->
+<!-- Modal 编辑教材 -->
 <div class="modal fade" id="addBook" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">填写教材</h4>
+                <h4 class="modal-title" id="myModalLabel">编辑教材</h4>
             </div>
             <form role="form" action="/TBsys/Teacher/SaveEdit" method="post">
                 <div class="modal-body">
                     <input type="hidden" id="cId" name="cId" />
-                    <div class="form-group">
-                        <label id="className"></label>
+                    <div class="form-group row">
+                        <div class="col-sm-6">
+                            <label id="courseName"></label>
+                        </div>
+                        <div class="col-sm-6">
+                            <label id="className"></label>
+                        </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-6">
@@ -257,6 +261,7 @@
             var ppa = $(obj).parent().parent();
             var cId = ppa.find('td').eq(0).text();
             var cname = ppa.find('td').eq(4).text();
+            var clname = ppa.find('td').eq(1).text();
 
             var pa = ppa.find('td').eq(7);
             var bookId = pa.find('input').eq(0).val();
@@ -268,13 +273,15 @@
             var reason = pa.find('textarea').text();
             var state = pa.find('input').eq(6).val();
 
-            if (state == 4)
+            if (state == 4 || (@flag == 0 && state == 0))
                 $("#bSave").hide(true);
             else
                 $("#bSave").show();
 
 
-            $('#className').text("课程名称：" + cname);
+            $('#courseName').text("课程名称：" + cname);
+            $('#className').text("班级：" + clname);
+
             $('#bName').val(bookname);
             $('#bId').val(bookId);
             $('#bAuthor').val(bookauthor);
