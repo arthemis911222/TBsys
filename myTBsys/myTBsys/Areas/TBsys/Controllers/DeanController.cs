@@ -105,6 +105,42 @@ namespace myTBsys.Areas.TBsys.Controllers
             return Json(new{ code = 1 },JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult NoBookList(string orderField = "Index desc", int pageIndex = 1)
+        {
+            if (Session["type"] == null || (int)Session["type"] != 3)
+            {
+                return Redirect("/TBsys/Login/Index");
+            }
+
+            T_SH_Teacher teacher = (T_SH_Teacher)Session["person"];
+            var query = db.T_TB_TeachingTask.Where(m => m.DepartmentId == teacher.DepartmentId && m.State != 4);
+
+            #region 排序逻辑
+            // orderField
+
+            switch (orderField)
+            {
+                case "Index desc":
+                    query = query.OrderBy(m => m.TeacherId);
+                    break;
+                default:
+                    break;
+            }
+            #endregion
+
+            #region 分页实现
+            int recordCount = query.Count();
+            query = query.Skip((pageIndex - 1) * pageSize).Take(pageSize);
+
+            ViewBag.pageIndex = pageIndex;
+            ViewBag.pageSize = pageSize;
+            ViewBag.recordCount = recordCount;
+            #endregion
+
+            ViewBag.list = query.ToList();
+            return View();
+        }
+
         public bool TimeChecked()
         {
             //没有到选教材时间
@@ -128,7 +164,7 @@ namespace myTBsys.Areas.TBsys.Controllers
             int id = ((T_SH_Teacher)Session["Person"]).DepartmentId;
 
             //1为库存不足
-            var query = db.T_TB_StoreTable.Where(m => m.T_TB_TeachingTask.DepartmentId == id && m.State == 1);
+            var query = db.T_TB_Choose.Where(m => m.T_TB_TeachingTask.DepartmentId == id && (m.State == 0 || m.State == 1));
 
             if (query.Count() == 0)
             {

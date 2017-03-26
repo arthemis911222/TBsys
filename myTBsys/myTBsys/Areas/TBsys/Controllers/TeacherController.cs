@@ -99,6 +99,7 @@ namespace myTBsys.Areas.TBsys.Controllers
             choose.BookId = bookId;
             choose.TeachingTaskId = cId;
             choose.Reason = Reason;
+            choose.State = 2;
             db.T_TB_Choose.Add(choose);
 
             //修改教学任务状态为已经填写
@@ -201,6 +202,8 @@ namespace myTBsys.Areas.TBsys.Controllers
             T_TB_Choose choose = db.T_TB_Choose.Where(m => m.TeachingTaskId == cId).First();
             choose.BookId = bookId;
             choose.Reason = Reason;
+
+            //无库存、不通过状态编辑后,状态改变
             choose.State = 2;
 
             //添加老师预定书修改
@@ -278,7 +281,7 @@ namespace myTBsys.Areas.TBsys.Controllers
             string id = (string)Session["Id"];
 
             //1为库存不足
-            var query = db.T_TB_StoreTable.Where(m => m.T_TB_TeachingTask.TeacherId == id && m.State == 1);
+            var query = db.T_TB_Choose.Where(m => m.T_TB_TeachingTask.TeacherId == id && (m.State == 0 || m.State == 1));
 
             if (query.Count() == 0)
             {

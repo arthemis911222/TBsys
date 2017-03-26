@@ -24,20 +24,7 @@
         <!-- /.panel-heading -->
         <div class="panel-body">
             <div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="dataTables_length" id="dataTables-example_length">
-                            <label>
-                                Show <select name="dataTables-example_length" aria-controls="dataTables-example" class="form-control input-sm">
-                                    <option value="10">10</option>
-                                    <option value="25">25</option>
-                                    <option value="50">50</option>
-                                    <option value="100">100</option>
-                                </select> entries
-                            </label>
-                        </div>
-                    </div>
-                </div>
+                
                 <div class="row">
                     <div class="col-sm-12">
                         <table width="100%" class="table table-striped table-bordered table-hover dataTable no-footer dtr-inline" id="dataTables-example" role="grid" aria-describedby="dataTables-example_info" style="width: 100%;">
@@ -136,7 +123,8 @@
                             </tbody>
                         </table>
                     </div>
-                </div><div class="row">
+                </div>
+                <div class="row">
                     <div class="col-sm-6">
                         <div class="dataTables_info" id="dataTables-example_info" role="status" aria-live="polite">
                             Showing @((pageIndex - 1) * pageSize + 1 ) to @(pageIndex * pageSize >= recordCount ? recordCount : pageIndex * pageSize) of @(recordCount) entries
@@ -229,7 +217,7 @@
                         </div>
                         <div class="col-sm-6">
                             <label>版次：</label>
-                            <input type="text" name="Time" id="bTime">
+                            <input type="text" name="Edition" id="bTime">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -274,9 +262,9 @@
             var state = pa.find('input').eq(6).val();
 
             if (state == 4 || (@flag == 0 && state == 0))
-                $("#bSave").hide(true);
+                $("#bSave").attr("disabled","disabled");
             else
-                $("#bSave").show();
+                $("#bSave").removeAttr("disabled");
 
 
             $('#courseName').text("课程名称：" + cname);

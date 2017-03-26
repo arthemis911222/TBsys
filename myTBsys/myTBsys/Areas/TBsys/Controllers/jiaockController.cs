@@ -64,7 +64,6 @@ namespace myTBsys.Areas.TBsys.Controllers
             myTBsys.Models.T_TB_Fenfa item = db.T_TB_Fenfa.Find(book.Id);
             item.BookId = book.BookId;
             item.BookNum = book.BookNum;
-            item.ShouldPay = book.ShouldPay;
             item.RealPay = book.RealPay;
             item.Time = book.Time;
             item.StuId = book.StuId;
