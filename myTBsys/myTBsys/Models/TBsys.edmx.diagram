@@ -6,24 +6,25 @@
     <edmx:Diagrams>
       <Diagram DiagramId="42d94bf5233c40f7a004a2f73aea2752" Name="Diagram1">
         <EntityTypeShape EntityType="TBsysModel.T_QT_Other" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="TBsysModel.T_SH_Academy" Width="1.5" PointX="0.75" PointY="10.875" />
-        <EntityTypeShape EntityType="TBsysModel.T_SH_Class" Width="1.5" PointX="7.5" PointY="14.5" />
-        <EntityTypeShape EntityType="TBsysModel.T_SH_Department" Width="1.5" PointX="3" PointY="10.625" />
-        <EntityTypeShape EntityType="TBsysModel.T_SH_Major" Width="1.5" PointX="5.25" PointY="10.75" />
-        <EntityTypeShape EntityType="TBsysModel.T_SH_Student" Width="1.5" PointX="9.75" PointY="21.625" />
-        <EntityTypeShape EntityType="TBsysModel.T_SH_Teacher" Width="1.5" PointX="7.5" PointY="10.25" />
+        <EntityTypeShape EntityType="TBsysModel.T_SH_Academy" Width="1.5" PointX="0.75" PointY="11.125" />
+        <EntityTypeShape EntityType="TBsysModel.T_SH_Class" Width="1.5" PointX="7.5" PointY="14.625" />
+        <EntityTypeShape EntityType="TBsysModel.T_SH_Department" Width="1.5" PointX="3" PointY="10.875" />
+        <EntityTypeShape EntityType="TBsysModel.T_SH_Major" Width="1.5" PointX="5.25" PointY="10.875" />
+        <EntityTypeShape EntityType="TBsysModel.T_SH_Student" Width="1.5" PointX="9.75" PointY="21.875" />
+        <EntityTypeShape EntityType="TBsysModel.T_SH_Teacher" Width="1.5" PointX="7.5" PointY="10.5" />
         <EntityTypeShape EntityType="TBsysModel.T_SH_Workers" Width="1.5" PointX="2.75" PointY="0.75" />
-        <EntityTypeShape EntityType="TBsysModel.T_TB_Books" Width="1.5" PointX="9.75" PointY="5.875" />
-        <EntityTypeShape EntityType="TBsysModel.T_TB_Choose" Width="1.5" PointX="12" PointY="12.25" />
-        <EntityTypeShape EntityType="TBsysModel.T_TB_Fenfa" Width="1.5" PointX="12" PointY="21.625" />
-        <EntityTypeShape EntityType="TBsysModel.T_TB_StoreTable" Width="1.5" PointX="12" PointY="8.25" />
-        <EntityTypeShape EntityType="TBsysModel.T_TB_StuYuding" Width="1.5" PointX="12" PointY="16" />
-        <EntityTypeShape EntityType="TBsysModel.T_TB_TeachingTask" Width="1.5" PointX="9.75" PointY="10.25" />
-        <EntityTypeShape EntityType="TBsysModel.T_TB_TeaYuding" Width="1.5" PointX="15" PointY="12.25" />
+        <EntityTypeShape EntityType="TBsysModel.T_TB_Books" Width="1.5" PointX="9.75" PointY="6.125" />
+        <EntityTypeShape EntityType="TBsysModel.T_TB_Choose" Width="1.5" PointX="12" PointY="12.5" />
+        <EntityTypeShape EntityType="TBsysModel.T_TB_Fenfa" Width="1.5" PointX="12" PointY="20" />
+        <EntityTypeShape EntityType="TBsysModel.T_TB_StoreTable" Width="1.5" PointX="15" PointY="12.5" />
+        <EntityTypeShape EntityType="TBsysModel.T_TB_StuYuding" Width="1.5" PointX="12" PointY="16.25" />
+        <EntityTypeShape EntityType="TBsysModel.T_TB_TeachingTask" Width="1.5" PointX="9.75" PointY="10.5" />
+        <EntityTypeShape EntityType="TBsysModel.T_TB_TeaYuding" Width="1.5" PointX="12" PointY="8.5" />
         <AssociationConnector Association="TBsysModel.FK_T_SH_Department_ToAcademy" />
         <AssociationConnector Association="TBsysModel.FK_T_TB_TeachingTask_ToAcademy" />
         <AssociationConnector Association="TBsysModel.FK_T_SH_Class_ToMajor" />
         <AssociationConnector Association="TBsysModel.FK_T_SH_Student_ToClass" />
+        <AssociationConnector Association="TBsysModel.FK_T_TB_Fenfa_ToClass" />
         <AssociationConnector Association="TBsysModel.FK_T_TB_TeachingTask_ToClass" />
         <AssociationConnector Association="TBsysModel.FK_Table_ToClass" />
         <AssociationConnector Association="TBsysModel.FK_T_SH_Major_ToDepartment" />

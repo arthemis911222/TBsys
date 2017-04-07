@@ -3,12 +3,15 @@
     ViewBag.Title = "查看清单";
     Layout = "~/Areas/TBsys/Views/Shared/_Layout.cshtml";
 
+    List<T_TB_Books> lstall = ViewBag.lstall;//select用
     List<T_TB_Books> lst = ViewBag.lst;
 
     List<T_TB_TeachingTask> lst1 = ViewBag.lst1;
     List<T_TB_TeaYuding> lst2 = ViewBag.lst2;
     List<T_TB_StuYuding> lst3 = ViewBag.lst3;
     List<T_QT_Other> lst4 = ViewBag.lst4;
+    List<T_TB_StoreTable> lst5 = ViewBag.lst5;
+    List<T_TB_Choose> lst6 = ViewBag.lst6;
 
     int total;//书的数量
     int pageIndex = ViewBag.pageIndex;//获取当前页码
@@ -36,18 +39,18 @@
                         <div class="col-sm-6">
                             <div class="dataTables_length" id="dataTables-example_length">
                                 <label>
-                                    Show
-                                    <select id="selectPageSize" onchange="window.location=this.value;" name="dataTables-example_length" aria-controls="dataTables-example" class="form-control input-sm">
-                                        <option value="/TBsys/jiaowc/index?pageSize=4">4</option>
-                                        <option value="/TBsys/jiaowc/index?pageSize=8">8</option>
-                                        <option value="/TBsys/jiaowc/index?pageSize=12">12</option>
-                                        <option value="/TBsys/jiaowc/index?pageSize=16">16</option>
-                                    </select> entries
+                                    显示
+                                    <select id="selectPageSize" name="dataTables-example_length" onchange="window.location=this.value;" aria-controls="dataTables-example" class="form-control input-sm">
+                                        <option value="/TBsys/jiaowc/index?pageSize=4&searchstring=@searchstring">4</option>
+                                        <option value="/TBsys/jiaowc/index?pageSize=8&searchstring=@searchstring">8</option>
+                                        <option value="/TBsys/jiaowc/index?pageSize=12&searchstring=@searchstring">12</option>
+                                        <option value="/TBsys/jiaowc/index?pageSize=16&searchstring=@searchstring">16</option>
+                                    </select> 条记录
                                 </label>
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <form action="/TBsys/jiaowc/index">
+                            @*<form action="/TBsys/jiaowc/index">
                                 <div id="dataTables-example_filter" class="dataTables_filter">
                                     <label>
                                         教科书查询:
@@ -55,7 +58,37 @@
                                     </label>
                                     <button type="submit" class="btn btn-default">查询</button>
                                 </div>
-                            </form>
+                            </form>*@
+                            <label>
+                                查询出版社
+                                <select id="selectPublisher" name="dataTables-example_length" onchange="window.location=this.value;" aria-controls="dataTables-example" class="form-control input-sm">
+                                    <option value="/TBsys/jiaowc/index">所有</option>
+                                    @{
+                                        for (int i = 0; i < lstall.Count; i++)
+                                        {
+                                            int t = 0;
+                                            for (int j = 0; j < i; j++)
+                                            {
+                                                if (lstall[i].Publisher.Equals(lstall[j].Publisher))
+                                                {
+                                                    t = 1;
+                                                    break;
+                                                }
+                                            }
+                                            if (t == 0)
+                                            {
+                                                <option id="@lstall[i].Publisher" value="/TBsys/jiaowc/index?searchstring=@lstall[i].Publisher&pageSize=@pageSize">@lstall[i].Publisher</option>
+                                            }
+                                        }
+                                    }
+                                </select> 
+                            </label>
+
+                            <label>
+                                <a href="/TBsys/jiaowc/ExportExcel?searchstring=@searchstring" class="btn btn-default">导出表</a>
+                            </label>
+
+
                         </div>
                     </div>
                     <div class="row">
@@ -70,6 +103,9 @@
                                             <a href="#">书号</a>
                                         </th>
                                         <th>
+                                            出版社
+                                        </th>
+                                        <th>
                                             版次
                                         </th>
                                         <th>
@@ -79,7 +115,7 @@
                                             数量
                                         </th>
                                         <th>
-                                            总价
+                                            总价 （折扣 @decimal.Round(decimal.Parse(@lst4[0].Discount.ToString()), 2)）
                                         </th>
                                         <th>
                                             状态
@@ -92,33 +128,65 @@
                                     @{
                                         foreach (T_TB_Books item in lst)
                                         {
+                                            total = 0;
+                                            foreach (T_TB_StuYuding item3 in lst3)
+                                            {
+                                                if (item.Id == item3.BookId)
+                                                {
+                                                    total++;
+                                                }
+                                            }
+                                            if (total == 0)
+                                            {
+                                                //continue;
+                                            }
+                                        
                                             <tr class="gradeA odd" role="row">
                                                 <td>@item.Name</td>
                                                 <td>@item.Id</td>
+                                                <td>@item.Publisher</td>
                                                 <td>@item.Edition</td>
-                                                <td>@item.Price</td>
-                                                @{
-                                                    total = 0;
-                                                    foreach (T_TB_StuYuding item3 in lst3)
-                                                    {
-                                                        if (item.Id == item3.BookId)
-                                                        {
-                                                            total++;
-                                                        }
-                                                    }
-                                                    <td>@total</td>
-                                                }
-                                                <td>@(@total * @item.Price * lst4[0].Discount)                                                                                             
-                                                </td>
                                                 <td>
+                                                    @*@double.Parse(@item.Price.ToString())*@   
+                                                    @decimal.Round(decimal.Parse(@item.Price.ToString()),2)
+                                                </td>
+                                                <td>@total</td>
+                                                <td>
+                                                    @*@(@total * @item.Price * lst4[0].Discount)*@       
+                                                    @decimal.Round(decimal.Parse((@total * @item.Price * lst4[0].Discount).ToString()), 2) 元                                                                                  
+                                                </td>
+                                                
+                                                @{
+                                                    foreach (T_TB_StoreTable item5 in lst5)
+                                                    {
+                                                        if (item.Id == item5.BookId)
+                                                        {
+                                                            if (item5.State == 0)
+                                                            {
+                                                                <td>无库存</td>
+                                                            }
+                                                            if (item5.State == 4)
+                                                            {
+                                                                <td>成功</td>
+                                                            }
+                                                            if (item5.State == 2)
+                                                            {
+                                                                <td>初始</td>
+                                                            }
+                                                            break;
+                                                        }
 
-                                                </td>                                     
+                                                    }
+                                                }  
+                                                                                    
                                                 <td>
                                                     @*<a href="/TBsys/jiaowc/delete/@item.Id" class="btn btn-default">删除</a>*@
                                                     <a href="/TBsys/jiaowc/edit/@item.Id" class="btn btn-default">编辑</a>
+                                                    @*<button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal2" >修改状态</button>*@
                                                 </td>
                                             </tr>
-                                        }
+                                                        
+                                         }
                                     }
                                 </tbody>
                             </table>
@@ -178,8 +246,68 @@
     </div>
     <!-- /.col-lg-12 -->
 </div>
+
+
+@*<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">修改状态</h4>
+            </div>
+            <form action="/TBsys/jiaowc/EditSave" method="post">
+                <div class="modal-body">
+                    @{
+                            foreach (T_TB_Books item in lst)
+                            {
+                                if (item.Id == userID)
+                                {
+
+                                    <label>书名：</label>
+                                                <input type="hidden" name="Id" value="@item.Id" />
+                                                <input class="form-control" name="Name" value="@item.Name">
+                                                <label>电话</label>
+                                                <input class="form-control" name="Sex" value="@item.TelPhone">
+
+                                }
+                            }
+                        }
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary"> Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>*@
+
+
 <script type="text/javascript">
-    $(function () {
-        $("#selectPageSize").val("/TBsys/jiaowc/index?pageSize="+@pageSize);
-    })
+    @*$(function () {
+        $("#selectPageSize").val("/TBsys/jiaowc/index?pageSize="+@pageSize);*@
+
+        @*$().click(function(){
+            var id = $(this).data("id");
+            @lst.Where(m => m.Id == id);
+        });*@
+   // })
+
+    window.onload=function(){
+        document.getElementById("selectPageSize")[(@pageSize/4)-1].selected=true;
+        document.getElementById("@searchstring").selected=true;
+    }
+
+
 </script>
+
+
+
+
+@*<div class="buttonform" style="padding-left:40px">
+    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal2">修改资料</button>
+    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">
+        修改密码
+    </button>
+</div>*@
