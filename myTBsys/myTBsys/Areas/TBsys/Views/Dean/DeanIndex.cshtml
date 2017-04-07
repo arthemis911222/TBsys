@@ -23,34 +23,7 @@
         <!-- /.panel-heading -->
         <div class="panel-body">
             <div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="dataTables_length" id="dataTables-example_length">
-                            <label>
-                                Show <select name="dataTables-example_length" aria-controls="dataTables-example" class="form-control input-sm">
-                                    <option value="10">10</option>
-                                    <option value="25">25</option>
-                                    <option value="50">50</option>
-                                    <option value="100">100</option>
-                                </select> entries
-                            </label>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div id="dataTables-example_filter" class="dataTables_filter">
-                            <form role="form" action="/TBsys/Dean/DeanIndex" method="post">
-                                <div class="input-group custom-search-form pull-right">
-                                    <input class="form-control" placeholder="课程搜索..." type="text" name="searchName">
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-default" type="submit">
-                                            <i class="fa fa-search"></i>
-                                        </button>
-                                    </span>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+                
 
                 @{
                     if (flag == 1)
@@ -128,6 +101,11 @@
                                                                 <a class="btn btn-default btn-sm" href="/TBsys/Dean/CheckChoose?choose=4&id=@item.Id">通过</a>
                                                             </td>
                                                         }
+                                                        else if (item.State == 1)
+                                                        {
+                                                            <td class="text-danger text-center"><strong>无库存</strong></td>
+                                                            <td></td>
+                                                        }
                                                     }
 
                                                 </tr>
@@ -149,7 +127,7 @@
                                 <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">
                                     <ul class="pagination">
                                         <li class="paginate_button previous" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous">
-                                            <a href="/TBsys/Dean/Choose?searchName=@search&&pageIndex=@(pageIndex-1 <= 0 ? 1 : pageIndex-1)">Previous</a>
+                                            <a href="/TBsys/Dean/DeanIndex?searchName=@search&&pageIndex=@(pageIndex-1 <= 0 ? 1 : pageIndex-1)">Previous</a>
                                         </li>
 
                                         @{
@@ -158,13 +136,13 @@
                                                 if (pageIndex == i)
                                                 {
                                                     <li class="paginate_button active" aria-controls="dataTables-example" tabindex="0">
-                                                        <a href="/TBsys/Dean/Choose?searchName=@search&&pageIndex=@i">@i</a>
+                                                        <a href="/TBsys/Dean/DeanIndex?searchName=@search&&pageIndex=@i">@i</a>
                                                     </li>
                                                 }
                                                 else
                                                 {
                                                     <li class="paginate_button" aria-controls="dataTables-example" tabindex="0">
-                                                        <a href="/TBsys/Dean/Choose?searchName=@search&&pageIndex=@i">@i</a>
+                                                        <a href="/TBsys/Dean/DeanIndex?searchName=@search&&pageIndex=@i">@i</a>
                                                     </li>
                                                 }
 
@@ -172,7 +150,7 @@
                                         }
 
                                         <li class="paginate_button next" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next">
-                                            <a href="/TBsys/Dean/Choose?searchName=@search&&pageIndex=@(pageIndex+1 > maxPage ? maxPage : pageIndex+1)">Next</a>
+                                            <a href="/TBsys/Dean/DeanIndex?searchName=@search&&pageIndex=@(pageIndex+1 > maxPage ? maxPage : pageIndex+1)">Next</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -184,7 +162,7 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div id="erroInfo" class="alert alert-danger">
-                                    <strong>还没到审核教材时间！</strong>
+                                    <strong>还没到审核教材时间！请等待通知。</strong>
                                 </div>
                             </div>
                         </div>

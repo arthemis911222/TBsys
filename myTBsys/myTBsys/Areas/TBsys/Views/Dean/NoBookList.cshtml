@@ -1,18 +1,14 @@
 ﻿@using myTBsys.Models;
 @{
-    ViewBag.Title = "已订教材";
+    ViewBag.Title = "未填写列表";
     Layout = "~/Areas/TBsys/Views/Shared/_Layout.cshtml";
 
-    List<T_TB_StuYuding> list = ViewBag.list;
+    List<T_TB_TeachingTask> list = ViewBag.list;
 
     int pageIndex = ViewBag.pageIndex;
     int pageSize = ViewBag.pageSize;
     int recordCount = ViewBag.recordCount;
     int maxPage = (int)Math.Ceiling(Convert.ToDecimal(recordCount) / Convert.ToDecimal(pageSize));
-
-    string search = ViewBag.search;
-
-    int flag = ViewBag.flag;
 }
 
 <div class="col-lg-12">
@@ -33,72 +29,32 @@
                                         序号
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 151px;">
+                                        教师
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 151px;">
                                         课程名
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 151px;">
-                                        课程性质
-                                    </th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 151px;">
-                                        教材名
-                                    </th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 151px;">
-                                        ISBN
-                                    </th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 151px;">
-                                        编者
-                                    </th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 136px;">
-                                        出版社
+                                        班级
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 136px;">状态</th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 136px;">操作</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @{
                                     int count = 0;
-                                    foreach (T_TB_StuYuding item in list)
+                                    foreach (T_TB_TeachingTask item in list)
                                     {
                                         count++;
                                         <tr class="gradeA odd" role="row">
                                             <td class="sorting_1">@count</td>
-                                            <td>@item.T_TB_TeachingTask.CourseName</td>
-                                            <td>@item.T_TB_TeachingTask.CourseType</td>
-                                            <td>@item.T_TB_Books.Name</td>
-                                            <td>@item.T_TB_Books.Id</td>
-                                            <td>@item.T_TB_Books.Author</td>
-                                            <td>@item.T_TB_Books.Publisher</td>
-
-                                            @{ 
-                                                if(item.State == 4)
-                                                {
-                                                    <td class="text-success text-center"><strong>预定成功</strong></td>
-                                                    <td></td>
-                                                }else if(flag == 0 && item.State == 2)
-                                                {
-                                                    <td class="text-info text-center"><strong>正在预定...</strong></td>
-                                                    <td></td>
-                                                }
-                                                else
-                                                {
-                                                    if (item.State == 0)
-                                                    {
-                                                        <td class="text-danger text-center"><strong>预定失败</strong></td>
-                                                    }
-                                                    else
-                                                    {
-                                                        <td class="text-center"><strong>未预定</strong></td>
-                                                    }
-                                                    <td class="center">
-                                                        <a class="btn btn-default" href="/TBsys/Student/Delete?Id=@item.Id">删除</a>
-                                                    </td>
-                                                }
-                                            }
-
+                                            <td>@item.T_SH_Teacher.Name</td>
+                                            <td>@item.CourseName</td>
+                                            <td>@item.T_SH_Class.Name</td>
+                                            <td class="text-danger"><strong>未填写教材</strong></td>
                                         </tr>
 
-                                    }
-
+                                     }
                                 }
 
                             </tbody>
@@ -115,7 +71,7 @@
                         <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">
                             <ul class="pagination">
                                 <li class="paginate_button previous" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous">
-                                    <a href="/TBsys/Teacher/GetChoose?searchName=@search&&pageIndex=@(pageIndex-1 <= 0 ? 1 : pageIndex-1)">Previous</a>
+                                    <a href="/TBsys/Dean/NoBookList?pageIndex=@(pageIndex-1 <= 0 ? 1 : pageIndex-1)">Previous</a>
                                 </li>
 
                                 @{
@@ -124,13 +80,13 @@
                                         if (pageIndex == i)
                                         {
                                             <li class="paginate_button active" aria-controls="dataTables-example" tabindex="0">
-                                                <a href="/TBsys/Teacher/GetChoose?searchName=@search&&pageIndex=@i">@i</a>
+                                                <a href="/TBsys/Dean/NoBookList?pageIndex=@i">@i</a>
                                             </li>
                                         }
                                         else
                                         {
                                             <li class="paginate_button" aria-controls="dataTables-example" tabindex="0">
-                                                <a href="/TBsys/Teacher/GetChoose?searchName=@search&&pageIndex=@i">@i</a>
+                                                <a href="/TBsys/Dean/NoBookList?pageIndex=@i">@i</a>
                                             </li>
                                         }
 
@@ -138,7 +94,7 @@
                                 }
 
                                 <li class="paginate_button next" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next">
-                                    <a href="/TBsys/Teacher/GetChoose?searchName=@search&&pageIndex=@(pageIndex+1 > maxPage ? maxPage : pageIndex+1)">Next</a>
+                                    <a href="/TBsys/Dean/NoBookList?pageIndex=@(pageIndex+1 > maxPage ? maxPage : pageIndex+1)">Next</a>
                                 </li>
                             </ul>
                         </div>
@@ -151,8 +107,4 @@
     </div>
     <!-- /.panel -->
 </div>
-
-@section javascrip{
-
-}
 

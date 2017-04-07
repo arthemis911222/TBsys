@@ -208,7 +208,11 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\TBsys.Context.cs" />
+    <Compile Include="Models\TBsys.Context1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TBsys.Context.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\TBsys.cs" />
     <Compile Include="Models\TBsys.Designer.cs">
       <DependentUpon>TBsys.cs</DependentUpon>
@@ -365,6 +369,8 @@
     <Content Include="bin\zh-Hans\System.Web.WebPages.resources.dll" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\jquery-migrate-1.2.1.js" />
+    <Content Include="Content\moment.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -380,6 +386,38 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>TBsys1.cs</LastGenOutput>
     </Content>
+    <Content Include="sbadmin\dist\css\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="sbadmin\dist\css\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="sbadmin\dist\css\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="sbadmin\dist\css\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="sbadmin\dist\css\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="sbadmin\dist\css\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="sbadmin\dist\css\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="sbadmin\dist\css\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="sbadmin\dist\css\images\ui-icons_222222_256x240.png" />
+    <Content Include="sbadmin\dist\css\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="sbadmin\dist\css\images\ui-icons_454545_256x240.png" />
+    <Content Include="sbadmin\dist\css\images\ui-icons_888888_256x240.png" />
+    <Content Include="sbadmin\dist\css\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="sbadmin\dist\css\jquery-ui.css" />
+    <Content Include="sbadmin\dist\css\sb-admin-2.css" />
+    <Content Include="sbadmin\dist\css\sb-admin-2.min.css" />
+    <Content Include="sbadmin\dist\js\jquery-ui-slide.min.js" />
+    <Content Include="sbadmin\dist\js\jquery-ui-timepicker-addon.js" />
+    <Content Include="sbadmin\dist\js\jquery-ui.js" />
+    <Content Include="sbadmin\dist\js\sb-admin-2.js" />
+    <Content Include="sbadmin\dist\js\sb-admin-2.min.js" />
+    <Content Include="sbadmin\js\sb-admin-2.js" />
+    <Content Include="sbadmin\vendor\bootstrap\css\bootstrap.css" />
+    <Content Include="sbadmin\vendor\bootstrap\css\bootstrap.min.css" />
+    <Content Include="sbadmin\vendor\bootstrap\js\bootstrap.js" />
+    <Content Include="sbadmin\vendor\bootstrap\js\bootstrap.min.js" />
+    <Content Include="sbadmin\vendor\jquery\jquery.js" />
+    <Content Include="sbadmin\vendor\jquery\jquery.min.js" />
+    <Content Include="sbadmin\vendor\metisMenu\metisMenu.css" />
+    <Content Include="sbadmin\vendor\metisMenu\metisMenu.js" />
+    <Content Include="sbadmin\vendor\metisMenu\metisMenu.min.css" />
+    <Content Include="sbadmin\vendor\metisMenu\metisMenu.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\TBsys\Views\web.config" />
@@ -507,6 +545,7 @@
       <DependentUpon>TBsys.edmx</DependentUpon>
     </Content>
     <Content Include="Areas\TBsys\Views\Shared\_TeachingOffice.cshtml" />
+    <Content Include="Areas\TBsys\Views\Dean\NoBookList.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
