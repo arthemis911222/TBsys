@@ -527,12 +527,6 @@
     <Content Include="Areas\TBsys\Views\Teacher\Choose.cshtml" />
     <Content Include="Areas\TBsys\Views\Teacher\GetLIst.cshtml" />
     <Content Include="Areas\TBsys\Views\Teacher\Index.cshtml" />
-    <Content Include="Areas\TBsys\Views\TeachingOffice\BookMessage.cshtml" />
-    <Content Include="Areas\TBsys\Views\TeachingOffice\DataIn.cshtml" />
-    <Content Include="Areas\TBsys\Views\TeachingOffice\Index.cshtml" />
-    <Content Include="Areas\TBsys\Views\TeachingOffice\PersonalInfo.cshtml" />
-    <Content Include="Areas\TBsys\Views\TeachingOffice\TeachingTask.cshtml" />
-    <Content Include="Areas\TBsys\Views\TeachingOffice\Time.cshtml" />
     <Content Include="bin\myTBsys.dll.config" />
     <Content Include="bin\roslyn\Microsoft.CSharp.Core.targets" />
     <Content Include="bin\roslyn\Microsoft.VisualBasic.Core.targets" />
@@ -544,8 +538,15 @@
     <Content Include="Models\TBsys.edmx.diagram">
       <DependentUpon>TBsys.edmx</DependentUpon>
     </Content>
-    <Content Include="Areas\TBsys\Views\Shared\_TeachingOffice.cshtml" />
     <Content Include="Areas\TBsys\Views\Dean\NoBookList.cshtml" />
+    <Content Include="Areas\TBsys\Views\TeachingOffice\BookMessage.cshtml" />
+    <Content Include="Areas\TBsys\Views\TeachingOffice\DataIn.cshtml" />
+    <Content Include="Areas\TBsys\Views\TeachingOffice\Edit.cshtml" />
+    <Content Include="Areas\TBsys\Views\TeachingOffice\Index.cshtml" />
+    <Content Include="Areas\TBsys\Views\TeachingOffice\PersonalInfo.cshtml" />
+    <Content Include="Areas\TBsys\Views\TeachingOffice\TeachingTask.cshtml" />
+    <Content Include="Areas\TBsys\Views\TeachingOffice\Time.cshtml" />
+    <Content Include="Areas\TBsys\Views\Shared\_TeachingOffice.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -597,6 +598,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\TBsys\Models\" />
     <Folder Include="Areas\TBsys\Views\Validate\" />
+    <Folder Include="bootstrap-datetimepicker-master\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

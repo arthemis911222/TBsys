@@ -12,7 +12,6 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>@ViewBag.Title</title>
-
     <!-- Bootstrap Core CSS -->
     <link href="/sbadmin/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <!-- MetisMenu CSS -->
@@ -27,15 +26,6 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/Content/moment.min.js"></script>
-    <script src="http://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
-    <script src="~/sbadmin/dist/js/jquery-ui.js"></script>
-    <script src="~/sbadmin/dist/js/jquery-ui-timepicker-addon.js"></script>
-    <link href="~/sbadmin/dist/css/jquery-ui.css" rel="stylesheet" />
-    <link href="http://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker-standalone.min.css" rel="stylesheet">
-    <link href="http://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
-
    <style>
        
       .ui-timepicker-div.ui-widget-header{ margin-bottom: 8px; } 
@@ -151,9 +141,13 @@
     <!-- Custom Theme JavaScript -->
     <script src="~/sbadmin/dist/js/sb-admin-2.js"></script>
     <!-- new -->
-    <script src="~/sbadmin/dist/js/jquery-ui.js"></script>
-    <script src="~/sbadmin/dist/js/jquery-ui-timepicker-addon.js"></script>
-    <script src="~/sbadmin/dist/js/jquery-ui-slide.min.js"></script>
+
+    <link href="~/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />  
+    <script src="~/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="~/bootstrap-datetimepicker-master/js/locales/bootstrap-datetimepicker.fr.js"></script>
+    <script src="~/moment-develop/min/moment-with-locales.min.js"></script>
+    <script src="~/bootstrap-datetimepicker-master/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+    <script src="~/moment-develop/locale/zh-cn.js"></script>
 </body>
 @RenderSection("javascript", false)
 </html>

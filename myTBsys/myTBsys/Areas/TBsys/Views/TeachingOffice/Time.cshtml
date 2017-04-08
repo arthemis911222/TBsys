@@ -4,7 +4,7 @@
     Layout = "~/Areas/TBsys/Views/Shared/_TeachingOffice.cshtml";
     List<T_QT_Other> lst = ViewBag.lst;
     int staticId = 1;
-
+    int result = (int)Session["result"];
 }
 
 <div class="panel panel-default">
@@ -21,22 +21,34 @@
                             {
                                 if (item.Id == staticId)
                                 {
-                                    string t1 = Convert.ToDateTime(item.BIStTime).ToString("yyyy-mm-dd hh:ii:ss");
-                                    string t2 = Convert.ToDateTime(item.BIEnTime).ToString("yyyy-mm-dd hh:ii:ss");
-
+                                    //类型转换
+                                    DateTime bIStTime = (DateTime)@item.BIStTime;
+                                    String biStTime = string.Format("{0:yyyy/MM/dd}", bIStTime);
+                                    DateTime bIEnTime = (DateTime)@item.BIEnTime;
+                                    String biEnTime = string.Format("{0:yyyy/MM/dd}", bIEnTime);
                                     <div class="form-group">
                                         <label for="exampleInputName2">起始时间：</label>
-                                        <input type="hidden" name="Id" value="@item.Id" />
-                                        <input id="datetimepicker" class="datetimepicker" name="BIStTime" value="@item.BIStTime"  data-date-format="yyyy-mm-dd hh:ii" />
+                                        <input type="hidden" id="Id" name="Id" value="@item.Id" />
+                                        <div class='input-group date' id='form_datetime'style="width:300px">
+                                            <input type='text' id="BIStTime" class="form-control" name="BIStTime"value="@biStTime"/>
+                                            <span class="input-group-addon" >
+                                                <span class="glyphicon glyphicon-time" ></span>
+                                            </span>
+                                        </div>  
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputEmail2">截止时间：</label>
-                                        <input size="16" type="text" value="2012-06-15 14:45" readonly class="form_datetime">
+                                        <div class='input-group date' id='form_datetime2' style="width:300px">
+                                            <input type='text' id="BIEnTime" class="form-control"name="BIEnTime" value="@biEnTime" />
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-time"></span>
+                                            </span>
+                                        </div> 
                                     </div>
                                 }
                             }
                         }                 
-                    <button type="submit" class="btn btn-default">提交</button>
+                    <button type="submit" class="btn btn-default" onclick="result1(this)" >提交</button>
                 </form>
             </li>
 
@@ -48,23 +60,35 @@
                         {
                             if (item.Id == staticId)
                             {
-                                string t1 = Convert.ToDateTime(item.CKStTime).ToString("yyyy-MM-ddThh:mm:ss");
-                                string t2 = Convert.ToDateTime(item.CKEnTime).ToString("yyyy-MM-ddThh:mm:ss");
-
-
+                                DateTime cKStTime = (DateTime)@item.CKStTime;                       //类型转换
+                                String ckStTime = string.Format("{0:yyyy/MM/dd}", cKStTime);
+                                DateTime cKEnTime = (DateTime)@item.CKEnTime;
+                                String ckEnTime = string.Format("{0:yyyy/MM/dd}", cKEnTime);
                                 <div class="form-group">
                                     <label for="exampleInputName2">起始时间：</label>
-                                    <input type="hidden" name="Id" value="@item.Id" />
-                                    <input type="datetime-local" name="CKStTime" value="@t1" />
+                                    <input type="hidden" id="Id" name="Id" value="@item.Id" />
+                                    <div class='input-group date' id='form_datetime3' style="width:300px">
+                                        <input type='text' id="CKStTime" class="form-control" name="CKStTime" value="@ckStTime" />
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-time"></span>
+                                        </span>
+                                    </div>  
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail2">截止时间：</label>
-                                    <input type="datetime-local" name="CKStTime" value="@t2" />
+                                    <div class='input-group date' id='form_datetime4' style="width:300px">
+                                        <input type='text'id="CKEnTime" class="form-control" name="CKEnTime" value="@ckEnTime" />
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-time"></span>
+                                        </span>
+                                    </div>  
                                 </div>
+                                }
                             }
-                    }
-                    }                    
-                    <button type="submit" class="btn btn-default">提交</button>
+                        }
+                        
+                                       
+                    <button type="submit" class="btn btn-default" onclick="result2(this)">提交</button>
                 </form>
             </li>
             
@@ -76,20 +100,36 @@
                         {
                             if (item.Id == staticId)
                             {
+                                //类型转换
+                                DateTime cBStTime = (DateTime)@item.CBStTime;
+                                String cbStTime = string.Format("{0:yyyy/MM/dd}", cBStTime);
+                                DateTime cBEnTime = (DateTime)@item.CBEnTime;
+                                String cbEnTime = string.Format("{0:yyyy/MM/dd}", cBEnTime);
                                 <div class="form-group">
                                     <label for="exampleInputName2">起始时间：</label>
-                                    <input type="hidden" name="Id" value="@item.Id" />
-                                    <input type="datetime-local" name="CBStTime" value="@item.CBStTime" />
+                                    <input type="hidden"id="Id" name="Id" value="@item.Id" />
+                                    <div class='input-group date' id='form_datetime5' style="width:300px">
+                                        <input type='text'id="CBStTime" class="form-control"name="CBStTime" value="@cbStTime" />
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-time"></span>
+                                        </span>
+                                    </div>  
                                 </div>
+
                                 <div class="form-group">
                                     <label for="exampleInputEmail2">截止时间：</label>
-                                    <input type="datetime-local" name="CBStTime" value="@item.CBEnTime" />
+                                    <div class='input-group date' id='form_datetime6' style="width:300px">
+                                        <input type='text' id="CBEnTime" class="form-control"name="CBEnTime" value="@cbEnTime" />
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-time"></span>
+                                        </span>
+                                    </div>  
                                 </div>
                             }
                         }
                     }
                     
-                    <button type="submit" class="btn btn-default">提交</button>
+                    <button type="submit" class="btn btn-default" onclick="result3(this)">提交</button>
                 </form>
                 
             </li>
@@ -99,10 +139,116 @@
 </div>
 
 @section javascript{
+
 <script>
-    $(".form_datetime").datepicker({ format: 'yyyy-mm-dd' });
-    $('#datetimepicker').datepicker();
-    
+    function  result1(obj) {
+        var blStTime = $("#BIStTime").val();
+        var blEnTime = $("#BIEnTime").val();
+
+        //类型转换
+        var a = [];
+        var b = [];
+        a = blStTime.split("/");
+        b = blEnTime.split("/");
+        var str1 = a.join("");
+        var str2 = b.join("");
+        var temp1 = parseInt(str1);
+        var temp2 = parseInt(str2);
+        if (temp2 >= temp1)
+            alert("修改成功！")
+        else {
+            alert("修改失败！请重新设置时间！")
+           // $("#BIStTime").reset("2017/01/01");
+           // $("#BIEnTime").reset("2017/07/01");
+           // $.post("/TBsys/TeachingOffice/editBITime",
+           //{
+           //    "Id": Id,
+           //    "BIStTime": BIStTime,
+           //    "BIEnTime": BIEnTime
+           //});            
+            
+        }
+    }
+    function result2(obj) {
+        var ckStTime = $("#CKStTime").val();
+        var ckEnTime = $("#CKEnTime").val();
+
+        //类型转换
+        var a = [];
+        var b = [];
+        a = ckStTime.split("/");
+        b = ckEnTime.split("/");
+        var str1 = a.join("");
+        var str2 = b.join("");
+        var temp1 = parseInt(str1);
+        var temp2 = parseInt(str2);
+        if (temp2 >= temp1)
+            alert("修改成功！")
+        else {
+            alert("修改失败！请重新设置时间！")
+        }
+    }
+    function result3(obj) {
+        var cbStTime = $("#CBStTime").val();
+        var cbEnTime = $("#CBEnTime").val();
+
+        //类型转换
+        var a = [];
+        var b = [];
+        a = cbStTime.split("/");
+        b = cbEnTime.split("/");
+        var str1 = a.join("");
+        var str2 = b.join("");
+        var temp1 = parseInt(str1);
+        var temp2 = parseInt(str2);
+        if (temp2 >= temp1)
+            alert("修改成功！")
+        else {
+            alert("修改失败！请重新设置时间！")
+        }
+    }
+    $('#form_datetime').datetimepicker({
+        minView: "month", //选择日期后，不会再跳转去选择时分秒 
+        language: 'zh-CN',
+        format: 'yyyy/mm/dd',
+        todayBtn: 1,
+        autoclose: 1,
+    });
+    $('#form_datetime2').datetimepicker({
+        minView: "month", //选择日期后，不会再跳转去选择时分秒 
+        language: 'zh-CN',
+        format: 'yyyy/mm/dd',
+        todayBtn: 1,
+        autoclose: 1,
+    });
+    $('#form_datetime3').datetimepicker({
+        minView: "month", //选择日期后，不会再跳转去选择时分秒 
+        language: 'zh-CN',
+        format: 'yyyy/mm/dd',
+        todayBtn: 1,
+        autoclose: 1,
+    });
+    $('#form_datetime4').datetimepicker({
+        minView: "month", //选择日期后，不会再跳转去选择时分秒 
+        language: 'zh-CN',
+        format: 'yyyy/mm/dd',
+        todayBtn: 1,
+        autoclose: 1,
+    });
+    $('#form_datetime5').datetimepicker({
+        minView: "month", //选择日期后，不会再跳转去选择时分秒 
+        language: 'zh-CN',
+        format: 'yyyy/mm/dd',
+        todayBtn: 1,
+        autoclose: 1,
+    });
+    $('#form_datetime6').datetimepicker({
+        minView: "month", //选择日期后，不会再跳转去选择时分秒 
+        language: 'zh-CN',
+        format: 'yyyy/mm/dd',
+        todayBtn: 1,
+        autoclose: 1,
+    });
 </script>
 }
 

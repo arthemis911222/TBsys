@@ -7,6 +7,10 @@
     List<T_TB_TeaYuding> lst2 = ViewBag.lst2;
     List<T_TB_StuYuding> lst3 = ViewBag.lst3;
     List<T_TB_StoreTable> lst4 = ViewBag.lst4;
+    int pageIndex = ViewBag.pageIndex;
+    int pageSize = ViewBag.pageSize;
+    int recordCount = ViewBag.recordCount;
+    int maxPage = (int)Math.Ceiling(Convert.ToDecimal(recordCount) / Convert.ToDecimal(pageSize));
 }
 
 <div class="row">
@@ -20,17 +24,17 @@
                 <div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
                     <div class="row">
                         <div class="col-sm-6">
-                            <div class="dataTables_length" id="dataTables-example_length"><label>Show <select name="dataTables-example_length" aria-controls="dataTables-example" class="form-control input-sm"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div>
+                            @*<div class="dataTables_length" id="dataTables-example_length"><label>Show <select name="dataTables-example_length" aria-controls="dataTables-example" class="form-control input-sm"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div>*@
                         </div>
 
 
                         <div class="col-sm-6">
-                            <form action="/admin/category/index">
+                            <form action="/TBsys/TeachingOffice/BookMessage">
                                 <div id="dataTables-example_filter" class="dataTables_filter">
                                     <label>
                                         Search:
                                         <input type="search" name="searchstring" class="form-control input-sm"
-                                               placeholder="" aria-controls="dataTables-example">
+                                               placeholder="请输入班级名称" aria-controls="dataTables-example">
                                     </label>
                                     <button type="submit" class="btn btn-default">查询</button>
                                 </div>
@@ -48,19 +52,19 @@
                                 <thead>
                                     <tr role="row">
 
-                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 81px;">序号</th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 72px;">课程名称</th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 72px;">教材名称</th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 72px;">书号</th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 72px;">编者</th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 72px;">单价</th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 72px;">审核情况</th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 72px;">出版社</th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 72px;">版次</th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 72px;">使用对象</th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 72px;">学生订数</th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 72px;">教师订数</th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 72px;">库存是否充足</th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 70px;"><a href="/TBsys/TeachingOffice/BookMessage?orderField=Id desc">序号</a></th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 75px;"><a href="/TBsys/TeachingOffice/BookMessage?orderField=CourseName">课程名称</a></th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 72px;"><a href="/TBsys/TeachingOffice/BookMessage?orderField=BookName">教材名称</a></th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 72px;"><a href="/TBsys/TeachingOffice/BookMessage?orderField=BookNum">书号</a></th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 72px;"><a href="/TBsys/TeachingOffice/BookMessage?orderField=Author">编者</a></th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 72px;"><a href="/TBsys/TeachingOffice/BookMessage?orderField=Price">单价</a></th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 75px;"><a href="/TBsys/TeachingOffice/BookMessage?orderField=Stare">审核情况</a></th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 72px;"><a href="/TBsys/TeachingOffice/BookMessage?orderField=Publisher">出版社</a></th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 72px;"><a href="/TBsys/TeachingOffice/BookMessage?orderField=Edition">版次</a></th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 75px;"><a href="/TBsys/TeachingOffice/BookMessage?orderField=ClassName">使用对象</a></th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 75px;">学生订数</th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 75px;">教师订数</th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 72px;"><a href="/TBsys/TeachingOffice/BookMessage?orderField=Store">库存是否充足</a></th>
                                         <th class="sorting_asc" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 66px;">操作</th>
                                 </thead>
                                 <tbody>
@@ -86,13 +90,17 @@
                                                 <td>@item.T_TB_Books.Author</td>
                                                 <td>@item.T_TB_Books.Price</td>
                                                 @{
-                                                    if (item.State == 0)
+                                                    if (item.State == 2)
                                                     {
-                                                        <td>审核通过</td>
+                                                        <td>未审核</td>
+                                                    }
+                                                    else if(item.State==4)
+                                                    {
+                                                        <td>审核成功</td>
                                                     }
                                                     else
                                                     {
-                                                        <td> </td>
+                                                        <td>审核失败</td>
                                                     }
                                                 }
                                                 
@@ -132,35 +140,31 @@
                                                     {
                                                         if (item.TeachingTaskId == item4.TaskId)
                                                         {
-                                                            
-                                                            if (item4.State == 0)
+                                                            int temp = item4.State;
+                                                            if (temp == 0)
+                                                            {
+                                                                <td style="color:red">库存不足</td>
+                                                            }
+                                                            else if (temp == 2)
                                                             {
                                                                 <td>未确认</td>
                                                             }
-                                                            if (item4.State == 1)
+                                                            else if (temp == 4)
                                                             {
                                                                 <td>库存充足</td>
                                                             }
-                                                            if (item4.State == 2)
+                                                            else
                                                             {
-                                                                <td>库存不足</td>
+                                                                <td>数据库错误</td>
                                                             }
-                                                            
-                                                        }
-                                                        else
-                                                        {
-                                                            <td>数据库获取错误</td>
                                                         }
                                                     }
 
                                                 }
-                                                <td>
-                                                    <a href="#" class="btn btn-primary btn-sm" role="button">修改</a>
+                                                <td>                                                   
+                                                    <a type="button" class="btn btn-primary btn-sm" href="/TBsys/TeachingOffice/Edit/@item.Id">修改</a>
                                                 </td>
-                                                @*<td>
-                                                        <a href="/admin/category/delete/@item.Id" class="btn btn-default  btn-sm">删除</a>
-                                                        <a href="/admin/category/edit/@item.Id" class="btn btn-default  btn-sm">编辑</a>
-                                                    </td>*@
+                                               
                                             </tr>
                                                     }
                                     }
@@ -168,7 +172,36 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div><div class="row"><div class="col-sm-6"><div class="dataTables_info" id="dataTables-example_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div></div><div class="col-sm-6"><div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate"><ul class="pagination"><li class="paginate_button previous disabled" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous"><a href="#">Previous</a></li><li class="paginate_button active" aria-controls="dataTables-example" tabindex="0"><a href="#">1</a></li><li class="paginate_button " aria-controls="dataTables-example" tabindex="0"><a href="#">2</a></li><li class="paginate_button " aria-controls="dataTables-example" tabindex="0"><a href="#">3</a></li><li class="paginate_button " aria-controls="dataTables-example" tabindex="0"><a href="#">4</a></li><li class="paginate_button " aria-controls="dataTables-example" tabindex="0"><a href="#">5</a></li><li class="paginate_button " aria-controls="dataTables-example" tabindex="0"><a href="#">6</a></li><li class="paginate_button next" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next"><a href="#">Next</a></li></ul></div></div></div>
+                    </div>
+                    <div class="row">
+                    <div class="col-sm-6">
+                        <div class="dataTables_info" id="dataTables-example_info" role="status" aria-live="polite">
+                        当前显示 @((pageIndex - 1) * pageSize + 1) to @((pageIndex) * pageSize) of @recordCount 记录
+                        </div></div>
+                    <div class="col-sm-6">
+                        <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">
+                        <ul class="pagination">
+                            <li class="paginate_button previous" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous">
+                                <a href="/TBsys/TeachingOffice/BookMessage?pageIndex=@((pageIndex-1)<=0?1:(pageIndex-1))">Previous</a>
+                            </li>
+                            @for (int i = 1; i <= maxPage; i++)
+                            {
+                                if (i == pageIndex)
+                                {
+                                    <li class="paginate_button active" aria-controls="dataTables-example" tabindex="0">
+                                        <a href="/TBsys/TeachingOffice/BookMessage?pageIndex=@i">@i</a>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li class="paginate_button " aria-controls="dataTables-example" tabindex="0">
+                                        <a href="/TBsys/TeachingOffice/BookMessage?pageIndex=@i">@i</a>
+                                    </li>
+                                }
+                            }
+                            <li class="paginate_button next" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next">
+                                <a href="/TBsys/TeachingOffice/BookMessage?pageIndex=@((pageIndex+1)>maxPage?maxPage:(pageIndex+1))">Next</a>
+                            </li></ul></div></div></div>
                 </div>
                 <!-- /.table-responsive -->
 
@@ -179,4 +212,6 @@
     </div>
     <!-- /.col-lg-12 -->
 </div>
+
+
 
