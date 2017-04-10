@@ -261,7 +261,7 @@
             var reason = pa.find('textarea').text();
             var state = pa.find('input').eq(6).val();
 
-            if (state == 4 || (@flag == 0 && state == 0))
+            if (@flag == 0 && state != 0 && state != 1)
                 $("#bSave").attr("disabled","disabled");
             else
                 $("#bSave").removeAttr("disabled");
