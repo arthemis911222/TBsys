@@ -17,8 +17,8 @@ namespace myTBsys.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public T_SH_Student()
         {
-            this.T_TB_StuYuding = new HashSet<T_TB_StuYuding>();
             this.T_TB_Fenfa = new HashSet<T_TB_Fenfa>();
+            this.T_TB_StuYuding = new HashSet<T_TB_StuYuding>();
         }
     
         public string Id { get; set; }
@@ -30,8 +30,8 @@ namespace myTBsys.Models
     
         public virtual T_SH_Class T_SH_Class { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<T_TB_StuYuding> T_TB_StuYuding { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<T_TB_Fenfa> T_TB_Fenfa { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<T_TB_StuYuding> T_TB_StuYuding { get; set; }
     }
 }

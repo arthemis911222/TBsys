@@ -18,5 +18,6 @@ namespace myTBsys.Models
         public string Password { get; set; }
         public int Identity { get; set; }
         public string Des { get; set; }
+        public string TelPhone { get; set; }
     }
 }
