@@ -12,7 +12,7 @@
         <EntityTypeShape EntityType="TBsysModel.T_SH_Major" Width="1.5" PointX="5.25" PointY="10.875" />
         <EntityTypeShape EntityType="TBsysModel.T_SH_Student" Width="1.5" PointX="9.75" PointY="21.875" />
         <EntityTypeShape EntityType="TBsysModel.T_SH_Teacher" Width="1.5" PointX="7.5" PointY="10.5" />
-        <EntityTypeShape EntityType="TBsysModel.T_SH_Workers" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="TBsysModel.T_SH_Workers" Width="1.5" PointX="3.25" PointY="0.75" />
         <EntityTypeShape EntityType="TBsysModel.T_TB_Books" Width="1.5" PointX="9.75" PointY="6.125" />
         <EntityTypeShape EntityType="TBsysModel.T_TB_Choose" Width="1.5" PointX="12" PointY="8.5" />
         <EntityTypeShape EntityType="TBsysModel.T_TB_Fenfa" Width="1.5" PointX="12" PointY="20" />
