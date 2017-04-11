@@ -90,6 +90,9 @@
                                 <li>
                                     <a href="/TBsys/Dean/DeanIndex" id="deaCK">审核教材列表</a>
                                 </li>
+                                <li>
+                                    <a href="/TBsys/Dean/NoBookList">未填写教材列表</a>
+                                </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
@@ -286,8 +289,8 @@
             function(data){
                 if(data.code  == 0)
                 {
+                    $("#pwdModal").modal('hide');
                     alert("密码修改成功！");
-                    $("#upModal").modal('hide');
                 }else if(data.code == 1)
                 {
                     alert("旧密码输入错误！");

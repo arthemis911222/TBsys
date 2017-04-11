@@ -18,6 +18,7 @@ namespace myTBsys.Models
         public T_SH_Class()
         {
             this.T_SH_Student = new HashSet<T_SH_Student>();
+            this.T_TB_Fenfa = new HashSet<T_TB_Fenfa>();
             this.T_TB_TeachingTask = new HashSet<T_TB_TeachingTask>();
             this.T_TB_StoreTable = new HashSet<T_TB_StoreTable>();
             this.T_TB_Fenfa = new HashSet<T_TB_Fenfa>();
@@ -30,6 +31,8 @@ namespace myTBsys.Models
         public virtual T_SH_Major T_SH_Major { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<T_SH_Student> T_SH_Student { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<T_TB_Fenfa> T_TB_Fenfa { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<T_TB_TeachingTask> T_TB_TeachingTask { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

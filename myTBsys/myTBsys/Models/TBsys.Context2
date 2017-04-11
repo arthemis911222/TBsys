@@ -35,10 +35,10 @@ namespace myTBsys.Models
         public virtual DbSet<T_SH_Workers> T_SH_Workers { get; set; }
         public virtual DbSet<T_TB_Books> T_TB_Books { get; set; }
         public virtual DbSet<T_TB_Choose> T_TB_Choose { get; set; }
-        public virtual DbSet<T_TB_Fenfa> T_TB_Fenfa { get; set; }
         public virtual DbSet<T_TB_StoreTable> T_TB_StoreTable { get; set; }
         public virtual DbSet<T_TB_StuYuding> T_TB_StuYuding { get; set; }
         public virtual DbSet<T_TB_TeachingTask> T_TB_TeachingTask { get; set; }
         public virtual DbSet<T_TB_TeaYuding> T_TB_TeaYuding { get; set; }
+        public virtual DbSet<T_TB_Fenfa> T_TB_Fenfa { get; set; }
     }
 }

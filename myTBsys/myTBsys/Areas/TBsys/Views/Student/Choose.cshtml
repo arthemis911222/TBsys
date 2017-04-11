@@ -23,20 +23,7 @@
         <!-- /.panel-heading -->
         <div class="panel-body">
             <div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="dataTables_length" id="dataTables-example_length">
-                            <label>
-                                Show <select name="dataTables-example_length" aria-controls="dataTables-example" class="form-control input-sm">
-                                    <option value="10">10</option>
-                                    <option value="25">25</option>
-                                    <option value="50">50</option>
-                                    <option value="100">100</option>
-                                </select> entries
-                            </label>
-                        </div>
-                    </div>
-                </div>
+                
                 @{
                     if (flag == 1)
                     {
@@ -47,10 +34,10 @@
                                         <tr role="row">
                                             <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 136px;">操作</th>
                                             <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 151px;">
-                                                <a href="~/TBsys/Teacher/Choose?orderField=class">课程名</a>
+                                                课程名
                                             </th>
                                             <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 151px;">
-                                                <a href="~/TBsys/Teacher/Choose?orderField=category">课程性质</a>
+                                                课程性质
                                             </th>
                                             <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 151px;">
                                                 教材名
@@ -137,7 +124,7 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div id="erroInfo" class="alert alert-danger">
-                                    <strong>还没到订购教材时间！</strong>
+                                    <strong>还没到订购教材时间！请等待通知。</strong>
                                 </div>
                             </div>
                         </div>

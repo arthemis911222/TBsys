@@ -53,17 +53,21 @@ namespace myTBsys.Areas.TBsys.Controllers
                 else if (teachers.First().Password == password)
                 {
                     Session["person"] = teachers.First();
+                    Session["name"] = teachers.First().Name;
+                    Session["Id"] = teachers.First().Id;
+
                     if (teachers.First().IsHead == 0)
                     {
                         Session["type"] = 2;
+                        return Json(new { code = 12, message = "登录成功" }, JsonRequestBehavior.AllowGet);
+
                     }
                     else
                     {
                         Session["type"] = 3;
+                        return Json(new { code = 13, message = "登录成功" }, JsonRequestBehavior.AllowGet);
+
                     }
-                    Session["name"] = teachers.First().Name;
-                    Session["Id"] = teachers.First().Id;
-                    return Json(new { code = 12, message = "登录成功" }, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {
@@ -84,19 +88,19 @@ namespace myTBsys.Areas.TBsys.Controllers
                     if (workers.First().Identity == 1)
                     {
                         Session["type"] = 4;
-                        return Json(new { code = 13, message = "登录成功" }, JsonRequestBehavior.AllowGet);
+                        return Json(new { code = 14, message = "登录成功" }, JsonRequestBehavior.AllowGet);
 
                     }
                     else if(workers.First().Identity == 2)
                     {
                         Session["type"] = 5;
-                        return Json(new { code = 14, message = "登录成功" }, JsonRequestBehavior.AllowGet);
+                        return Json(new { code = 15, message = "登录成功" }, JsonRequestBehavior.AllowGet);
 
                     }
                     else
                     {
                         Session["type"] = 6;
-                        return Json(new { code = 15, message = "登录成功" }, JsonRequestBehavior.AllowGet);
+                        return Json(new { code = 16, message = "登录成功" }, JsonRequestBehavior.AllowGet);
 
                     }
                 }
