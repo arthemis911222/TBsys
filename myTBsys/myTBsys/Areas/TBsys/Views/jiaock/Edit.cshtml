@@ -1,4 +1,5 @@
 ﻿@using myTBsys.Models;
+
 @{
     ViewBag.Title = "教科书分发";
     Layout = "~/Areas/TBsys/Views/Shared/_Layout.cshtml";
@@ -14,35 +15,49 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-lg-6">
-                        <form role="form" action="/TBsys/jiaowc/EditSave" method="post">
+                        <form role="form" action="/TBsys/jiaock/EditSave" method="post">
                             <div class="form-group">
                                 <label>教材编号</label>
                                 <input type="hidden" name="Id" value="@item.Id" />
-                                <input class="form-control" name="BookId" value="@item.BookId" />
+                                @*<input class="form-control" name="BookId" value="@item.BookId" />*@
+                                <p>@item.BookId</p>
                             </div>
                             <div class="form-group">
                                 <label>数量</label>
-                                <textarea class="form-control" rows="3" name="BookNum">@item.BookNum</textarea>
-                            </div>
-                            <div class="form-group">
-                                <label>需付</label>
-                                <textarea class="form-control" rows="3" name="ShouldPay">@item.ShouldPay</textarea>
+                                @*<textarea class="form-control" rows="3" name="BookNum">@item.BookNum</textarea>*@
+                                <p>@item.BookNum 本</p>
                             </div>
                             <div class="form-group">
                                 <label>实交</label>
-                                <textarea class="form-control" rows="3" name="RealPay">@item.RealPay</textarea>
-                            </div>
-                            <div class="form-group">
-                                <label>时间</label>
-                                <textarea class="form-control" rows="3" name="Time">@item.Time </textarea>
-                            </div>
-                            <div class="form-group">
-                                <label>领取人学号</label>
-                                <textarea class="form-control" rows="3" name="StuId">@item.StuId</textarea>
+                                @*<textarea class="form-control" rows="3" name="RealPay">@item.RealPay</textarea>*@
+                                <p>@item.RealPay</p>
                             </div>
                             
-                            <button type="submit" class="btn btn-default">保存</button>
-                            <button type="reset" class="btn btn-default">清空</button>
+                            <div class="form-group">
+                                <label>领取人学号</label>
+                                <input class="form-control" rows="3" name="StuId" value="@item.StuId">
+                            </div>
+                            <div class="form-group">
+                                <label>状态：</label>
+                                @{
+                                    if (item.State == 4)
+                                    {
+                                        <div class="form-group">
+                                            <input type="radio" name="CState" value="否" />否
+                                            <input type="radio" name="CState" checked="checked" value="是" />是
+                                        </div>
+                                    }
+                                    if (item.State == 2)
+                                    {
+                                        <div class="form-group">
+                                            <input type="radio" name="CState" checked="checked" value="否" />否
+                                            <input type="radio" name="CState" value="是" />是
+                                        </div>
+                                    }
+                                }
+                            </div>
+                                <button type="submit" class="btn btn-default">保存</button>
+                                <button type="reset" class="btn btn-default">清空</button>
                         </form>
                     </div>
                     <!-- /.col-lg-6 (nested) -->

@@ -44,11 +44,31 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Users\asus\Desktop\实验室项目\excel类\Release\Net40\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="NPOI, Version=2.2.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Users\asus\Desktop\实验室项目\excel类\Release\Net40\NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OOXML, Version=2.2.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Users\asus\Desktop\实验室项目\excel类\Release\Net40\NPOI.OOXML.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXml4Net, Version=2.2.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Users\asus\Desktop\实验室项目\excel类\Release\Net40\NPOI.OpenXml4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXmlFormats, Version=2.2.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Users\asus\Desktop\实验室项目\excel类\Release\Net40\NPOI.OpenXmlFormats.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -291,6 +311,12 @@
     <Content Include="bin\Microsoft.Web.Infrastructure.dll" />
     <Content Include="bin\myTBsys.dll" />
     <Content Include="bin\myTBsys.pdb" />
+    <Content Include="bin\Net40\ICSharpCode.SharpZipLib.dll" />
+    <Content Include="bin\Net40\NPOI.dll" />
+    <Content Include="bin\Net40\NPOI.OOXML.dll" />
+    <Content Include="bin\Net40\NPOI.OpenXml4Net.dll" />
+    <Content Include="bin\Net40\NPOI.OpenXmlFormats.dll" />
+    <Content Include="bin\Net40\NPOI.XML" />
     <Content Include="bin\Newtonsoft.Json.dll" />
     <Content Include="bin\Newtonsoft.Json.xml" />
     <Content Include="bin\Owin.dll" />
@@ -481,6 +507,7 @@
       <DependentUpon>TBsys.edmx</DependentUpon>
     </Content>
     <Content Include="Areas\TBsys\Views\Shared\_TeachingOffice.cshtml" />
+    <Content Include="Areas\TBsys\Views\jiaock\TeaSearch.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -558,7 +585,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>57588</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

@@ -1,13 +1,12 @@
 ﻿@using myTBsys.Models;
 @{
-    ViewBag.Title = "教材查询";
+    ViewBag.Title = "教师订购查询";
     Layout = "~/Areas/TBsys/Views/Shared/_Layout.cshtml";
 
-    List<T_TB_StoreTable> lst = ViewBag.lst;
-
+    List<T_TB_TeaYuding> lst2 = ViewBag.lst2;
     List<T_QT_Other> lst4 = ViewBag.lst4;
     List<T_SH_Academy> lst8 = ViewBag.lst8;//学院查询
-    List<T_SH_Class> lst9 = ViewBag.lst9;//班级查询
+    List<T_SH_Department> lst10 = ViewBag.lst10;//部门查询
 
     int pageIndex = ViewBag.pageIndex;//获取当前页码
     int pageSize = ViewBag.pageSize;//获取每页数量
@@ -15,10 +14,8 @@
     int maxPage = (int)Math.Ceiling(Convert.ToDecimal(recordCount) / Convert.ToDecimal(pageSize));//取得最大页数
 
     string searchAC = ViewBag.searchAC;//查询学院
-    string searchClass = ViewBag.searchClass;//查询班级
+    string searchDEP = ViewBag.searchDEP;//查询部门
 }
-
-
 
 <div class="row">
     <div class="col-lg-12">
@@ -35,55 +32,56 @@
                                 <label>
                                     显示
                                     <select id="selectPageSize" onchange="window.location=this.value;" name="dataTables-example_length" aria-controls="dataTables-example" class="form-control input-sm">
-                                        <option value="/TBsys/jiaock/Search?pageSize=4&searchAC=@searchAC&searchClass=@searchClass">4</option>
-                                        <option value="/TBsys/jiaock/Search?pageSize=8&searchAC=@searchAC&searchClass=@searchClass">8</option>
-                                        <option value="/TBsys/jiaock/Search?pageSize=12&searchAC=@searchAC&searchClass=@searchClass">12</option>
-                                        <option value="/TBsys/jiaock/Search?pageSize=16&searchAC=@searchAC&searchClass=@searchClass">16</option>
+                                        <option value="/TBsys/jiaock/TeaSearch?pageSize=4&searchAC=@searchAC&searchDEP=@searchDEP">4</option>
+                                        <option value="/TBsys/jiaock/TeaSearch?pageSize=8&searchAC=@searchAC&searchDEP=@searchDEP">8</option>
+                                        <option value="/TBsys/jiaock/TeaSearch?pageSize=12&searchAC=@searchAC&searchDEP=@searchDEP">12</option>
+                                        <option value="/TBsys/jiaock/TeaSearch?pageSize=16&searchAC=@searchAC&searchDEP=@searchDEP">16</option>
                                     </select> 条记录
                                 </label>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             @*<form action="/TBsys/jiaock/Search">
-                                <div id="dataTables-example_filter" class="dataTables_filter">
-                                    <label>
-                                        班级查询:
-                                        <input type="search" name="searchstring" class="form-control input-sm" placeholder="" aria-controls="dataTables-example" value="@searchstring">
-                                    </label>
-                                    <button type="submit" class="btn btn-default">查询</button>
-                                </div>
-                            </form>*@
+                                    <div id="dataTables-example_filter" class="dataTables_filter">
+                                        <label>
+                                            班级查询:
+                                            <input type="search" name="searchstring" class="form-control input-sm" placeholder="" aria-controls="dataTables-example" value="@searchstring">
+                                        </label>
+                                        <button type="submit" class="btn btn-default">查询</button>
+                                    </div>
+                                </form>*@
                             <label>
                                 学院:
                                 <select id="selectAC" onchange="window.location=this.value;" name="dataTables-example_length" aria-controls="dataTables-example" class="form-control input-sm">
-                                    
-                                    <option value="/TBsys/jiaock/Search?pageSize=@pageSize">所有</option>
+
+                                    <option value="/TBsys/jiaock/TeaSearch?pageSize=@pageSize">所有</option>
                                     @{
                                         for (int i = 0; i < lst8.Count; i++)
                                         {
                                             //学院名返回
-                                            <option id="@lst8[i].Name" value="/TBsys/jiaock/Search?pageSize=@pageSize&searchAC=@lst8[i].Name">@lst8[i].Name</option>
+                                            <option id="@lst8[i].Name" value="/TBsys/jiaock/TeaSearch?pageSize=@pageSize&searchAC=@lst8[i].Name">@lst8[i].Name</option>
 
                                         }
                                     }
                                 </select>
-                                班级:
+                                部门:
                                 <select id="selectClass" onchange="window.location=this.value;" name="dataTables-example_length" aria-controls="dataTables-example" class="form-control input-sm">
-                                    
-                                    <option value="/TBsys/jiaock/Search??pageSize=@pageSize&searchAC=@searchAC">所有</option>
+
+                                    <option value="/TBsys/jiaock/TeaSearch??pageSize=@pageSize&searchAC=@searchAC">所有</option>
                                     @{
-                                        for (int j = 0; j < lst9.Count; j++)
+                                        for (int j = 0; j < lst10.Count; j++)
                                         {
-                                            if (@searchAC == lst9[j].T_SH_Major.T_SH_Department.T_SH_Academy.Name)
+                                            if (@searchAC == lst10[j].T_SH_Academy.Name)
                                             {
                                                 //班级名返回
-                                                <option id="@lst9[j].Name" value="/TBsys/jiaock/Search?pageSize=@pageSize&searchAC=@searchAC&searchClass=@lst9[j].Name">@lst9[j].Name</option>
+                                                <option id="@lst10[j].Name" value="/TBsys/jiaock/TeaSearch?pageSize=@pageSize&searchAC=@searchAC&searchDEP=@lst10[j].Name">@lst10[j].Name</option>
                                             }
                                         }
                                     }
                                 </select>
+
                             </label>
-                    </div>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
@@ -91,10 +89,10 @@
                                 <thead>
                                     <tr role="row">
                                         <th>
-                                            <a href="#">学院</a>
+                                            <a href="#">部门</a>
                                         </th>
                                         <th>
-                                            <a href="#">班级</a>
+                                            <a href="#">姓名</a>
                                         </th>
                                         <th>
                                             书名
@@ -103,34 +101,27 @@
                                             书号
                                         </th>
                                         <th>
-                                            数量
-                                        </th>
-                                        <th>
                                             单价
                                         </th>
-                                        <th>
-                                            总价
-                                        </th>
                                         @*<th>
-                                            操作
-                                        </th>*@
+                                                操作
+                                            </th>*@
                                 </thead>
                                 <tbody>
                                     @{
-                                        foreach (T_TB_StoreTable item in lst)
+                                        foreach (T_TB_TeaYuding item in lst2)
                                         {
                                             <tr class="gradeA odd" role="row">
-                                                <td>@item.T_SH_Class.T_SH_Major.T_SH_Department.T_SH_Academy.Name</td>
-                                                <td>@item.T_SH_Class.Name</td>  
+                                                <td>@item.T_SH_Teacher.T_SH_Department.Name</td>
+                                                <td>@item.T_SH_Teacher.Name</td>
                                                 <td>@item.T_TB_Books.Name</td>
                                                 <td>@item.BookId</td>
-                                                <td>@item.YudingNum</td>
                                                 <td>@decimal.Round(decimal.Parse(@item.T_TB_Books.Price.ToString()), 2)</td>
-                                                <td>@decimal.Round(decimal.Parse((@item.YudingNum * @item.T_TB_Books.Price * lst4[0].Discount).ToString()), 2)  </td>
+
                                                 @*<td>
-                                                    <a href="/TBsys/jiaowc/delete/@item.Id" class="btn btn-default">删除</a>
-                                                    <a href="/TBsys/jiaock/edit/@item.Id" class="btn btn-default">编辑</a>
-                                                </td>*@
+                                                        <a href="/TBsys/jiaowc/delete/@item.Id" class="btn btn-default">删除</a>
+                                                        <a href="/TBsys/jiaock/edit/@item.Id" class="btn btn-default">编辑</a>
+                                                    </td>*@
                                             </tr>
                                         }
                                     }
@@ -157,7 +148,7 @@
                             <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">
                                 <ul class="pagination">
                                     <li class="paginate_button previous" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous">
-                                        <a href="/TBsys/jiaock/Search?pageIndex=@((pageIndex - 1) <= 0 ? 1 : (pageIndex - 1))&searchAC=@searchAC&searchClass=@searchClass&pageSize=@pageSize">Previous</a>
+                                        <a href="/TBsys/jiaock/TeaSearch?pageIndex=@((pageIndex - 1) <= 0 ? 1 : (pageIndex - 1))&searchAC=@searchAC&searchDEP=@searchDEP&pageSize=@pageSize">Previous</a>
                                     </li>
 
                                     @for (int i = 1; i <= maxPage; i++)
@@ -165,19 +156,19 @@
                                         if (i == pageIndex)
                                         {
                                             <li class="paginate_button active" aria-controls="dataTables-example" tabindex="0">
-                                                <a href="/TBsys/jiaock/Search?pageIndex=@i)&searchAC=@searchAC&searchClass=@searchClass&pageSize=@pageSize">@i</a>
+                                                <a href="/TBsys/jiaock/TeaSearch?pageIndex=@i)&searchAC=@searchAC&searchClass=@searchDEP&searchDEP=@pageSize">@i</a>
                                             </li>
                                         }
                                         else
                                         {
                                             <li class="paginate_button " aria-controls="dataTables-example" tabindex="0">
-                                                <a href="/TBsys/jiaock/Search?pageIndex=@i&searchAC=@searchAC&searchClass=@searchClass&pageSize=@pageSize">@i</a>
+                                                <a href="/TBsys/jiaock/TeaSearch?pageIndex=@i&searchAC=@searchAC&searchClass=@searchDEP&searchDEP=@pageSize">@i</a>
                                             </li>
                                         }
                                     }
 
                                     <li class="paginate_button next" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next">
-                                        <a href="/TBsys/jiaock/Search?pageIndex=@((pageIndex + 1) > maxPage ? maxPage : (pageIndex + 1))&searchAC=@searchAC&searchClass=@searchClass&pageSize=@pageSize">Next</a>
+                                        <a href="/TBsys/jiaock/TeaSearch?pageIndex=@((pageIndex + 1) > maxPage ? maxPage : (pageIndex + 1))&searchDEP=@searchAC&searchClass=@searchDEP&pageSize=@pageSize">Next</a>
                                     </li>
                                 </ul>
                             </div>
@@ -200,6 +191,8 @@
         //alert("111");
         document.getElementById("selectPageSize")[(@pageSize/4)-1].selected=true;
         document.getElementById("@searchAC").selected=true;
-        document.getElementById("@searchClass").selected=true;
+        document.getElementById("@searchDEP").selected=true;
     }
 </script>
+
+
