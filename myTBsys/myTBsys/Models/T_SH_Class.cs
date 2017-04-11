@@ -21,7 +21,6 @@ namespace myTBsys.Models
             this.T_TB_Fenfa = new HashSet<T_TB_Fenfa>();
             this.T_TB_TeachingTask = new HashSet<T_TB_TeachingTask>();
             this.T_TB_StoreTable = new HashSet<T_TB_StoreTable>();
-            this.T_TB_Fenfa = new HashSet<T_TB_Fenfa>();
         }
     
         public int Id { get; set; }
@@ -37,7 +36,5 @@ namespace myTBsys.Models
         public virtual ICollection<T_TB_TeachingTask> T_TB_TeachingTask { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<T_TB_StoreTable> T_TB_StoreTable { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<T_TB_Fenfa> T_TB_Fenfa { get; set; }
     }
 }
